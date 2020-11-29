@@ -8,7 +8,8 @@ FILE_NAME = NONE
 
 # Creating functionality
 def newFile ():
-	global FILE_NAME = "Untitled"
+	global FILE_NAME
+	FILE_NAME = "Untitled"
 	text.delete("1.0", END)
 
 def saveFile ():
@@ -24,10 +25,11 @@ def saveFileAs ():
 	out.close()
 
 def openFile ():
+	global FILE_NAME
 	inp = askopenfile(mode="r")
 	if inp == NONE:
 		return
-	global FILE_NAME = inp.name
+	FILE_NAME = inp.name
 	data = inp.read()
 	text.delete("1.0", END)
 	text.insert("1.0", data)
