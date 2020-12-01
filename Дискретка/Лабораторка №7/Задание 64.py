@@ -8,42 +8,47 @@ FILE_NAME = NONE
 
 # Creating functionality
 # functions for "New File" menu button
-def newFileCheck():
+def newFile():
 	if text.get('1.0', END).rstrip() != "":
-		unsavedChanges()
+		unsavedChanges("newFile")
 	else:
-		newFile()
-
-def unsavedChanges():
-	global ucWindow
-	ucWindow = Toplevel(root, height=100, width=400)
-	ucWindow.title("Unsaved changes")
-	ucWindow.resizable(False, False)
-
-	label = Label(ucWindow, text="Do you want to save changes to "+FILE_NAME+" ?")
-	buttSaveas = Button(ucWindow, text="Save", width=10)
-	buttDontSave = Button(ucWindow, text="Don't save", width=10)
-	buttCancel = Button(ucWindow, text="Cancel", width=10)
-
-	buttSaveas['command'] = combinedFunc1
-	buttDontSave['command'] = combinedFunc2
-	buttCancel['command'] = ucWindow.destroy
-
-	label.pack()
-	buttSaveas.pack()
-	buttDontSave.pack()
-	buttCancel.pack()
-def combinedFunc1():
-	saveFileAs()
-	ucWindow.destroy()
-def combinedFunc2():
-	newFile()
-	ucWindow.destroy()
-
-def newFile ():
+		newFileHelper()
+def newFileHelper ():
 	global FILE_NAME
 	FILE_NAME = "Untitled"
 	text.delete("1.0", END)
+
+def unsavedChanges(callFrom):
+	global ucWindow
+	ucWindow = Toplevel(root, height=100, width=100)
+	ucWindow.title("Unsaved changes")
+	ucWindow.resizable(False, False)
+
+	UCW_label = Label(ucWindow, text="Do you want to save changes to "+FILE_NAME+" ?", width=40)
+	UCW_buttSaveas = Button(ucWindow, text="Save", width=10)
+	UCW_buttDontSave = Button(ucWindow, text="Don't save", width=10)
+	UCW_buttCancel = Button(ucWindow, text="Cancel", width=10)
+
+	UCW_buttSaveas['command'] = unsavedChangesHelper1
+	if callFrom=="newFile":
+		UCW_buttDontSave['command'] = unsavedChangesHelper2
+	elif callFrom == "onClosing":
+		UCW_buttDontSave['command'] = unsavedChangesHelper3
+	UCW_buttCancel['command'] = ucWindow.destroy
+
+	UCW_label.pack()
+	UCW_buttSaveas.pack()
+	UCW_buttDontSave.pack()
+	UCW_buttCancel.pack()
+def unsavedChangesHelper1():
+	ucWindow.destroy()
+	saveFileAs()
+def unsavedChangesHelper2():
+	ucWindow.destroy()
+	newFileHelper()
+def unsavedChangesHelper3():
+	ucWindow.destroy()
+	root.destroy()
 
 # function for "Save" menu button
 def saveFile ():
@@ -76,20 +81,70 @@ def info ():
 
 # function for "Find text" menu button
 def findText ():
-	#to be added
-	return
+	global FTW_entryText
+	FTW_entryText = StringVar()
+
+	ftWindow = Toplevel(root, height=100, width=400)
+	ftWindow.title("Find text")
+	ftWindow.resizable(False, False)
+
+	FTW_entry = Entry(ftWindow, textvariable=FTW_entryText, width=50)
+	FTW_button = Button(ftWindow, text="Find next", width=10, command=findTextHelper)
+
+	FTW_entry.pack()
+	FTW_button.pack()
+def findTextHelper():
+	text.tag_remove('found', '1.0', END)  
+	s = FTW_entryText.get()
+	if s:
+		idx = '1.0'
+		while True:
+			idx = text.search(s, idx, nocase=1,stopindex=END)
+			if not idx: break
+			lastidx = '%s+%dc' % (idx, len(s))
+			text.tag_add('found', idx, lastidx)
+			idx = lastidx
+		text.tag_config('found', background='yellow')
 
 # function for "Replace text" button
 def replaceText ():
-	#to be added
-	return
+	global RTW_entry1Text
+	global RTW_entry2Text
+	RTW_entry1Text = StringVar()
+	RTW_entry2Text = StringVar()
+
+	global rtWindow
+	rtWindow = Toplevel(root, height=100, width=400)
+	rtWindow.title("Replace text")
+	rtWindow.resizable(False, False)
+
+	global RTW_entry1
+	global RTW_entry2
+	RTW_entry1 = Entry(rtWindow, textvariable=RTW_entry1Text, width=50)
+	RTW_entry2 = Entry(rtWindow, textvariable=RTW_entry2Text, width=50)
+	button = Button(rtWindow, text="Replace", width=10, command=replaceTextHelper)
+
+	RTW_entry1.pack()
+	RTW_entry2.pack()
+	button.pack()
+def replaceTextHelper ():
+	replacedText = text.get('1.0', END).replace(RTW_entry1.get(), RTW_entry2.get())
+	text.delete('1.0', END)
+	text.insert('1.0', replacedText)
+
+# function checking do you have unsaved changes
+def onClosing ():
+	if text.get('1.0', END).rstrip() != "":
+		unsavedChanges("onClosing")
+	else:
+		root.destroy()
 
 # Customizing the main window
 # window properties
 root.title("Word++")
 root.geometry('500x400')
 # text widget
-text = Text(root, wrap = WORD)
+text = Text(root, wrap = WORD, height=2000, width=4000)
 # scrollbar widget
 scrollbar = Scrollbar(root, orient=VERTICAL, command=text.yview)
 text.configure(yscrollcommand=scrollbar.set)
@@ -100,27 +155,25 @@ menuEdit = Menu(menuBar)	# the "Edit" button
 menuBar.add_cascade(label="File", menu=menuFile)
 menuBar.add_cascade(label="Edit", menu=menuEdit)
 menuBar.add_cascade(label="Info", command=info)
-menuFile.add_command(label="New File", command=newFileCheck)
+menuFile.add_command(label="New File", command=newFile)
 menuFile.add_command(label="Open", command=openFile)
 menuFile.add_command(label="Save", command=saveFile)
 menuFile.add_command(label="Save as", command=saveFileAs)
-menuEdit.add_command(label="Find text")
-menuEdit.add_command(label="Replace text")
+menuEdit.add_command(label="Find text", command=findText)
+menuEdit.add_command(label="Replace text", command=replaceText)
 # Widget assignment
 root.config(menu=menuBar)
 scrollbar.pack(side="right", fill="y")
 text.pack()
 
+# Let's add some keybindings
+root.bind("<Control-o>", openFile)
+root.bind("<Control-s>", saveFile)
+root.bind("<Control-S>", saveFileAs)
+root.bind("<Control-f>", findText)
+root.bind("<Control-r>", replaceText)
+root.bind("<F1>", info)
+
 # Start of visuaization
+root.protocol("WM_DELETE_WINDOW", onClosing)
 root.mainloop()
-
-
-'''
-#############################################
-TODO
-1. Rework newFile function		DONE
-2. Add findText function
-3. Add replaceText function
-4. Ask for saving an unsaved file before quitting (?)
-#############################################
-'''
