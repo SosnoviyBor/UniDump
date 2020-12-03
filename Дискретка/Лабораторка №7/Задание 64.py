@@ -122,9 +122,13 @@ def replaceText ():
 	global RTW_entry2
 	RTW_entry1 = Entry(rtWindow, textvariable=RTW_entry1Text, width=50)
 	RTW_entry2 = Entry(rtWindow, textvariable=RTW_entry2Text, width=50)
+	label1 = Label(rtWindow, text="From:")
+	label2 = Label(rtWindow, text="To:")
 	button = Button(rtWindow, text="Replace", width=10, command=replaceTextHelper)
 
+	label1.pack()
 	RTW_entry1.pack()
+	label2.pack()
 	RTW_entry2.pack()
 	button.pack()
 def replaceTextHelper ():
