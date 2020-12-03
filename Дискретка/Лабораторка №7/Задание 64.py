@@ -164,7 +164,7 @@ def task20 ():
 	try:
 		n = int(text.get('1.0', END))
 	except:
-		text.insert('1.0', showerror("Wrong argument", "I demand integer"))
+		showerror("Wrong argument", "I demand integer")
 		return
 	text.delete('1.0', END)
 	for i in range(0, n+1):
@@ -199,9 +199,9 @@ scrollbar = Scrollbar(root, orient=VERTICAL, command=text.yview)
 text.configure(yscrollcommand=scrollbar.set)
 # menu widgets
 menuBar = Menu(root)		# all the main buttons
-menuFile = Menu(menuBar)	# the "File" button
-menuEdit = Menu(menuBar)	# the "Edit" button
-menuTasks = Menu(menuBar)
+menuFile = Menu(menuBar, tearoff=False)	# the "File" button
+menuEdit = Menu(menuBar, tearoff=False)	# the "Edit" button
+menuTasks = Menu(menuBar, tearoff=False)
 menuBar.add_cascade(label="File", menu=menuFile)
 menuBar.add_cascade(label="Edit", menu=menuEdit)
 menuBar.add_cascade(label="Info", command=info)
