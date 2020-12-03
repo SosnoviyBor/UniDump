@@ -143,6 +143,51 @@ def onClosing ():
 	else:
 		root.destroy()
 
+# Additional functions for lab work
+#comparing amount of letter A and B
+def task7 ():
+	amountOfA = 0
+	amountOfB = 0
+	for letter in text.get('1.0', END):
+		if letter == "a":
+			amountOfA += 1
+		elif letter == "b":
+			amountOfB += 1
+	if amountOfA > amountOfB:
+		result = "True"
+	else:
+		result = "False"
+	text.insert('1.0', result+"\n")
+
+#converting int to ternary number
+def task20 ():
+	try:
+		n = int(text.get('1.0', END))
+	except:
+		text.insert('1.0', showerror("Wrong argument", "I demand integer"))
+		return
+	text.delete('1.0', END)
+	for i in range(0, n+1):
+		text.insert('1.0', "Iteration #"+str(i)+": "+str(task20Helper(i))+"\n")
+def task20Helper (n):
+	if n == 0:
+		return '0'
+	nums = []
+	while n:
+		n, r = divmod(n, 3)
+		nums.append(str(r))
+	return ''.join(reversed(nums))
+
+#uppercasing all the A letters
+def task31():
+	outputText = ""
+	for letter in text.get('1.0', END):
+		if letter == "a":
+				letter = letter.upper()
+		outputText += letter
+	text.delete('1.0', END)
+	text.insert('1.0', outputText)
+
 # Customizing the main window
 # window properties
 root.title("Word++")
@@ -156,15 +201,20 @@ text.configure(yscrollcommand=scrollbar.set)
 menuBar = Menu(root)		# all the main buttons
 menuFile = Menu(menuBar)	# the "File" button
 menuEdit = Menu(menuBar)	# the "Edit" button
+menuTasks = Menu(menuBar)
 menuBar.add_cascade(label="File", menu=menuFile)
 menuBar.add_cascade(label="Edit", menu=menuEdit)
 menuBar.add_cascade(label="Info", command=info)
+menuBar.add_cascade(label="Tasks", menu=menuTasks)
 menuFile.add_command(label="New File", command=newFile)
 menuFile.add_command(label="Open", command=openFile)
 menuFile.add_command(label="Save", command=saveFile)
 menuFile.add_command(label="Save as", command=saveFileAs)
 menuEdit.add_command(label="Find text", command=findText)
 menuEdit.add_command(label="Replace text", command=replaceText)
+menuTasks.add_command(label="#7", command=task7)
+menuTasks.add_command(label="#20", command=task20)
+menuTasks.add_command(label="#31", command=task31)
 # Widget assignment
 root.config(menu=menuBar)
 scrollbar.pack(side="right", fill="y")
