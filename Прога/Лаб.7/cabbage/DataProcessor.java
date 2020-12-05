@@ -15,7 +15,7 @@ public class DataProcessor {
         algorithm.sort(list);
 	}
 	public void combiner(float[] list) {
-        System.out.println("\n Let`s sort our array with "+algorithm.toString());
+        System.out.println("\n Sorting with "+algorithm.toString()+" algorithm...");
         sort(list);
         print(list);
 	}
