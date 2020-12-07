@@ -10,6 +10,6 @@ class Task10 {
 		for (int i = 0; i < s.length(); i++) {
 			result += s.charAt(i);
 		}
-		return result.toUpperCase();
+		return s.toUpperCase();
 	}
 }

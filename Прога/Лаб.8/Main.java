@@ -4,6 +4,9 @@ class Main {
 	public static void main (String args[]) {
 		Rectangle r1 = new Rectangle(3,4);
 		System.out.println(r1.expandToSquare().toString());
+		Rectangle r2 = new Rectangle(4,4);
+		System.out.println(r2.toString());
+		System.out.println(r1.equals(r2));
 	}
 }
 
@@ -68,6 +71,20 @@ class Rectangle extends Shape {
 		return width;
 	}
 
+	public boolean equals(Rectangle o) {
+		if (o == this)
+			return true;		
+		if (!(o instanceof Rectangle))
+			return false;
+		
+		Rectangle other = (Rectangle) o;
+		
+		if (this.width == other.getWidth() && this.length == other.getLength())
+			return true;
+		else
+			return false;
+	}
+
 	Rectangle cutToSquare () {
 		double side;
 		if (width < length) {side = width;}
@@ -116,6 +133,20 @@ class Circle extends Shape {
 
 	double getRadius () {
 		return radius;
+	}
+
+	public boolean equals(Object o) {
+		if (o == this)
+			return true;		
+		if (!(o instanceof Circle))
+			return false;
+		
+		Circle other = (Circle) o;
+		
+		if (this.radius == other.getRadius())
+			return true;
+		else
+			return false;
 	}
 
 	Circle createOneMore (double newRadius) {
