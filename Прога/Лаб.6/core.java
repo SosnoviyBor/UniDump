@@ -3,18 +3,20 @@ import java.util.Random;
 class lab6 {
 	public static void main (String[] argv) {
 		float[] table = new float[10];
+		System.out.println("##### Initial array #####");
 		for(int i = 0; i < table.length; i++) {
 			table[i] = generator();
+			System.out.println(table[i]);
 		}
 
-		float[] bubbleSorted = bubbleSort(table);
-		float[] selectionSorted = selectionSort(table);
+		float[] bubbleSorted = bubbleSort(table.clone());
+		float[] selectionSorted = selectionSort(table.clone());
 
-		System.out.println("##### Bubble Sort #####");
+		System.out.println("\n##### Bubble Sort #####");
 		for (float i : bubbleSorted) {
 			System.out.println(i);
 		}
-		System.out.println("\n##### Selection Sort#####");
+		System.out.println("\n##### Selection Sort #####");
 		for (float i : selectionSorted) {
 			System.out.println(i);
 		}
@@ -29,6 +31,7 @@ class lab6 {
 
 	static float[] bubbleSort(float table[]) {
 		int n = table.length; 
+		
 		for (int i = 0; i < n-1; i++) {
 			for (int j = 0; j < n-i-1; j++) {
 				if (table[j] > table[j+1]) {
@@ -38,6 +41,7 @@ class lab6 {
 				}
 			}
 		}
+
 		return table;
 	}
 
@@ -55,6 +59,7 @@ class lab6 {
 			table[min_idx] = table[i]; 
 			table[i] = temp; 
 		}
+
 		return table;
 	}
 }
