@@ -18,6 +18,7 @@ class lab5 {
 		System.out.println(result);
 	}
 
+	// Проверка на то, является ли таблица матрицей
 	static boolean guard (int[][] matrix) {
 		int basicLength = matrix[0].length;
 		for (int i = 1; i < matrix.length; i++) {
@@ -28,7 +29,9 @@ class lab5 {
 		return true;
 	}
 
+	// Метод для нахождения наименьшего элемена в столбце с самой высокой суммой модулей элементов
 	static int minElementInLargestColumn(int[][] matrix) {
+		// Сначала считаем суммы модулей всех столбцов
 		int[] sumOfModules = new int [matrix[0].length];
 		int absVal = 0;
 		for (int i = 0; i < matrix[0].length; i++, absVal = 0) {
@@ -38,6 +41,7 @@ class lab5 {
 			sumOfModules[i] = absVal;
 		}
 
+		// Далее, сравниваем их и находим самый большой
 		int biggestVal = sumOfModules[0];
 		for (int currentVal : sumOfModules) {
 			if (currentVal > biggestVal) {
@@ -45,6 +49,7 @@ class lab5 {
 			}
 		}
 
+		// Далее создаем таблицу с индексами столбцов, которые имеют наибольшую сумму модулей (потому что вдруг у нас будет их несколько)
 		int[] goodIndexes = new int[sumOfModules.length];
 		int counter = 0;
 		for (int i = 0; i < sumOfModules.length; i++) {
@@ -53,6 +58,7 @@ class lab5 {
 			}
 		}
 
+		// Ну и собственно, ищем наименьший элемент среди тех столбцов, которые мы записали в прошлый раз
 		int minVal = matrix[0][goodIndexes[0]];
 		for (int i = 0; i < counter; i++) {
 			for ( int j = 0; j < matrix.length; j++) {
