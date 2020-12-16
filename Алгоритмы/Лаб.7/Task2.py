@@ -1,3 +1,5 @@
+import random
+
 def SelectionSort(itemsList):
 	n = len( itemsList )
 	for i in range( n - 1 ): 
@@ -28,7 +30,7 @@ def corruption (table, comission):
 			i = 0
 			j = len(newTable)
 			while True:
-				k = (i + j) / 2
+				k = int((i + j) / 2)
 				if newTable[k] == newAccountMoney:
 					newTable.insert(k, newAccountMoney)
 					break
@@ -41,3 +43,16 @@ def corruption (table, comission):
 					break
 
 	return newTable[0]
+
+accountAmount = int(input("Вкажіть кількість рахунків у банку: "))
+comissionSize = float(input("Вкажіть розмір комісії (від 0 до 1 десятковим дробом): "))
+
+table = [random.randint(0, 10000) for x in range(0, accountAmount)]
+
+initialBank = 0
+for i in table:
+	initialBank += i
+print("До: ", initialBank)
+
+afterComission = corruption(table, comissionSize)
+print("Після: ", afterComission)
