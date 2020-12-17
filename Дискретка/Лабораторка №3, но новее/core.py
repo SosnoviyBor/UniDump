@@ -1,4 +1,4 @@
-def have_const0():
+def hasConst0():
     n = 0
     for x in 0, 1:
         for y in 0, 1:
@@ -8,7 +8,7 @@ def have_const0():
                  n+=1
     return "Константу 0 не зберігає"
 
-def have_const1():
+def hasConst1():
     n = 0
     for x in 0, 1:
         for y in 0, 1:
@@ -18,7 +18,7 @@ def have_const1():
                 n += 1
     return "Константу 1 не зберігає"
 
-def is_selfdual():
+def isSelfdual():
     not_F = ""
     for i in range(len(F)):
         if(F[i] == "0"):
@@ -31,7 +31,7 @@ def is_selfdual():
     else:
         return "Несамодвоїста"
 
-def is_linear():
+def isLinear():
     global a0, a2, a3, a1, a12, a23, a13, a123
     for x in 0, 1:
         for y in 0, 1:
@@ -39,24 +39,24 @@ def is_linear():
                 if x == 0 and y == 0 and z == 0:
                     a0 = int(F[0])
                 if x == 0 and y == 0 and z == 1:
-                    a3 = linear_help(a0,1)
+                    a3 = linearHelp(a0,1)
                 if x == 0 and y == 1 and z == 0:
-                    a2 = linear_help(a0,2)
+                    a2 = linearHelp(a0,2)
                 if x == 0 and y == 1 and z == 1:
-                    a23 = linear_help(a0^a3^a2,3)
+                    a23 = linearHelp(a0^a3^a2,3)
                 if x == 1 and y == 0 and z == 0:
-                    a1 = linear_help(a0,4)
+                    a1 = linearHelp(a0,4)
                 if x == 1 and y == 0 and z == 1:
-                    a13 = linear_help(a0^a1^a3,5)
+                    a13 = linearHelp(a0^a1^a3,5)
                 if x == 1 and y == 1 and z == 0:
-                    a12 = linear_help(a0^a1^a2,6)
+                    a12 = linearHelp(a0^a1^a2,6)
                 if x == 1 and y == 1 and z == 1:
-                    a123 = linear_help(a0^a1^a2^a3^a12^a13^a23,7)
+                    a123 = linearHelp(a0^a1^a2^a3^a12^a13^a23,7)
     if a12 == 0 and a13 == 0 and a23 == 0 and a123 == 0:
         return "Лінійна"
     else:
         return "Нелінійна"
-def linear_help(a,n):
+def linearHelp(a,n):
     for i in 0, 1:
         ax = i
         if (int(F[n]) == a ^ ax):
@@ -110,15 +110,7 @@ def dknf():
                 n+=1
     return "ДКНФ: " + result
 
-F = input("Введіть вашу булеву функцію ")
-print("")
-if(len(F) != 8):
-    print("Неправильно введено функцію")
-    exit()
-for i in F:
-    if ( i != "0" and i != "1"):
-        print("Неправильно введено функцію")
-        exit()
+F =  "01111000"
 
 n = 0
 print("+ — — — + — +")
@@ -131,9 +123,9 @@ for x in 0,1:
             n+=1
 print("+ — — — + — +")
 
-print("1. " + have_const0())
-print("2. " + have_const1())
-print("3. " + is_selfdual())
-print("4. " + is_linear())
-print("5. " + ddnf())
-print("6. " + dknf())
+print(hasConst0())
+print(hasConst1())
+print(isSelfdual())
+print(isLinear())
+print(ddnf())
+print(dknf())

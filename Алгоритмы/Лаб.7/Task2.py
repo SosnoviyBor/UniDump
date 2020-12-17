@@ -45,7 +45,10 @@ def corruption (table, comission):
 	return newTable[0]
 
 accountAmount = int(input("Вкажіть кількість рахунків у банку: "))
-comissionSize = float(input("Вкажіть розмір комісії (від 0 до 1 десятковим дробом): "))
+comissionSize = float(input("Вкажіть розмір комісії (від 0 до 0.2 десятковим дробом): "))
+if comissionSize < 0 or comissionSize > 0.2:
+	print("Ви вказали неправильну кількість коміссії")
+	exit()
 
 table = [random.randint(0, 10000) for x in range(0, accountAmount)]
 

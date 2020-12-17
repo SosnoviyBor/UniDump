@@ -1,13 +1,11 @@
 import random
 
-
 def task1(arr):
     for i in range(len(arr)):
         for j in range(len(arr)):
             if arr[i][j] != arr[j][i]:
                 return "орієнтований" + '\n'
     return "неорієнтований" + '\n'
-
 
 def get_graph_list(matrix):
     res = []
@@ -17,7 +15,6 @@ def get_graph_list(matrix):
             if matrix[i][j] == 1:
                 res[i].append(j)
     return res
-
 
 def printCircuit(adj):
     print('Ейлерів шлях: ')
@@ -41,7 +38,6 @@ def printCircuit(adj):
     if circuit[0] == circuit[-1]:
         print("Також є Єйлерів цикл")
 
-
 def dijkstra(N, S, matrix):
     print('Граф: ', matrix)
     valid = [True] * N
@@ -60,7 +56,6 @@ def dijkstra(N, S, matrix):
         valid[ID_min_weight] = False
     return weight
 
-
 def get_graph_for_dijkstra(graph):
     res = []
     for i in range(len(graph)):
@@ -72,18 +67,13 @@ def get_graph_for_dijkstra(graph):
                 res[i].append(10000000)
     return res
 
-
-graph = [[0, 1, 0, 0, 1], [1, 1, 0, 1, 0], [1, 0, 1, 0, 1], [0, 1, 1, 1, 1], [1, 0, 0, 0, 1]]
-
 PRIORITY = {1: ['+', '-'], 2: ['*', '/']}
-
 
 def priority(value: str) -> int:
     for k, v in PRIORITY.items():
         if value in v:
             return k
     return -1
-
 
 def infix_to_postfix(expression):  # input expression
     OPERATORS = set(['+', '-', '*', '/', '(', ')', '^'])
@@ -109,9 +99,7 @@ def infix_to_postfix(expression):  # input expression
 
     return output
 
-
 OPERATORS = set(['*', '-', '+', '%', '/', '^'])  # set of operators allowed in expression
-
 
 def evaluate_postfix(expression):
     stack = []  # empty stack for storing numbers
@@ -157,6 +145,13 @@ def postfix_to_prefix(expression):  # input expression
     res1 += (''.join(list(reversed(tmp))))
     return res1
 
+graph = [
+	[1, 1, 1, 1, 1],
+	[0, 0, 1, 0, 0],
+	[0, 0, 1, 1, 1],
+	[0, 1, 1, 1, 0],
+	[0, 0, 1, 0, 0]]
+expression = '(8^2-4)/(2*8-6)'
 
 print(task1(graph))
 
@@ -164,7 +159,6 @@ printCircuit(get_graph_list(graph))
 
 print('Найкоротша відстань від першої до останньої вершини: ', dijkstra(5, 0, get_graph_for_dijkstra(graph))[-1], '\n')
 
-expression = '5^2+8/2*(7-4)'
 print('Вираз: ', expression)
 print('Зворотній польскький запис: ', infix_to_postfix(expression))
 print('Прямий польський запис: ', postfix_to_prefix(infix_to_postfix(expression)))
