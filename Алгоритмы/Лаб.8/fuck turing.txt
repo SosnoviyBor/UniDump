@@ -1,0 +1,327 @@
+;http://morphett.info/turing/
+
+;Replace _ with f - first, s - second
+
+0 * * l r1
+r1 * q r r0
+
+r0 _ f r 1
+r0 * * r *
+
+1 _ s l 2
+1 * * r 1
+
+2 f * l find_max_number1
+2 * * l 2
+
+;Find max number
+
+find_max_number1 1 i r find_max_number2
+find_max_number1 0 o r find_max_number2
+find_max_number1 _ * r number1_is_over
+find_max_number1 * * l find_max_number1
+
+find_max_number2 1 i l find_max_number1
+find_max_number2 0 o l find_max_number1
+find_max_number2 s * * number2_is_over
+find_max_number2 * * r find_max_number2
+
+; "a" mean that 2 number is bigger, "b" - 1 number is bigger
+number1_is_over s a l check_if_length_is_similar
+number1_is_over a * l check_if_length_is_similar
+number1_is_over * * r number1_is_over
+number2_is_over _ * l type_b
+number2_is_over * * r number2_is_over
+type_b * b * refresh_numbers
+
+check_if_length_is_similar 1 * r move_to_the_end0
+check_if_length_is_similar 0 * r move_to_the_end0
+check_if_length_is_similar f * r length_is_similar
+check_if_length_is_similar * * l *
+
+move_to_the_end0 a * l refresh_numbers
+move_to_the_end0 b * l refresh_numbers
+move_to_the_end0 * * r *
+
+length_is_similar * * * move_to_the_start
+move_to_the_start _ * r compare_by_numbers
+move_to_the_start * * l *
+
+compare_by_numbers i 1 r compare_by_numbers1
+compare_by_numbers o 0 r compare_by_numbers0
+compare_by_numbers * * r *
+
+compare_by_numbers1 f * r compare_by_numbers12
+compare_by_numbers1 * * r *
+
+compare_by_numbers0 f * r compare_by_numbers02
+compare_by_numbers0 * * r compare_by_numbers02
+
+compare_by_numbers12 i 1 * move_to_the_start
+compare_by_numbers02 o 0 * move_to_the_start
+
+compare_by_numbers12 f * r *
+compare_by_numbers02 f * r *
+
+compare_by_numbers12 o 0 * number2_is_over
+compare_by_numbers02 i 1 * number1_is_over
+
+compare_by_numbers12 * * r *
+compare_by_numbers02 * * r *
+
+refresh_numbers i 1 l *
+refresh_numbers o 0 l *
+refresh_numbers _ * r move_to_end
+refresh_numbers * * l *
+
+move_to_end a * * put_a_1
+move_to_end b * * move_to_blank
+move_to_end * * r *
+
+put_a_1 * a r put_a_2
+put_a_2 * a r put_a_3
+put_a_3 * a r put_a_4
+put_a_4 * a r put_a_5
+put_a_5 * a r put_a_6
+put_a_6 * a r put_a_7
+put_a_7 * a r put_a_8
+put_a_8 * a r put_a_9
+put_a_9 * a r put_a_10
+put_a_10 * a r put_a_11
+put_a_11 * a r put_a_12
+put_a_12 * a r put_a_13
+put_a_13 * a r put_a_14
+put_a_14 * a r put_a_15
+put_a_15 * a r put_a_16
+put_a_16 * a r put_a_17
+put_a_17 * a r put_a_18
+put_a_18 * a r put_a_19
+put_a_19 * a * move_to_f
+
+move_to_f f * r push_number_to_right
+move_to_f * * l move_to_f
+
+push_number_to_right 1 i r push_1_to_right
+push_number_to_right 0 o r push_0_to_right
+push_number_to_right a * * push_number_to_right_second
+push_number_to_right b * * push_number_to_right_second
+push_number_to_right_second a * * add_letter_at_the_end
+push_number_to_right_second b * * add_letter_at_the_end
+push_number_to_right_second * * * move_to_start1
+push_number_to_right f * * add_letter_at_the_end
+push_number_to_right * * r *
+
+push_1_to_right _ j * move_left_to_letter
+push_0_to_right _ c * move_left_to_letter
+push_1_to_right * * r *
+push_0_to_right * * r *
+
+move_left_to_letter a * * move_to_f
+move_left_to_letter b * * move_to_blank
+move_left_to_letter * * l *
+
+move_to_blank _ * r push_number_to_right
+move_to_blank * * l *
+
+move_to_start1 _ * * push_number_to_right
+move_to_start1 * * l *
+
+add_letter_at_the_end _ x * push_another_number
+add_letter_at_the_end * * r add_letter_at_the_end
+
+push_another_number _ * r push_another_number1
+push_another_number * * l *
+
+push_another_number1 1 i r push_another_number11
+push_another_number1 0 o r push_another_number10
+push_another_number1 _ * * refresh_before_operation
+push_another_number1 * * r *
+
+push_another_number10 _ c * push_another_number
+push_another_number11 _ j * push_another_number
+push_another_number10 * * r push_another_number10
+push_another_number11 * * r push_another_number11
+
+refresh_before_operation q * * move_to_x
+refresh_before_operation j 1 l *
+refresh_before_operation c 0 l *
+refresh_before_operation * * l *
+
+refresh_before_operation1 * _ l refresh_before_operation2
+refresh_before_operation2 * _ l move_to_x
+
+move_to_x a * r move_to_x_for_a
+move_to_x b * r move_to_x_for_b
+move_to_x * * r *
+
+move_to_x_for_b x _ r q1
+move_to_x_for_b * * r *
+
+move_to_x_for_a x _ l refresh_before_multiplication
+move_to_x_for_a * * r *
+
+q0 _ _ r q1
+q0 * * r q0
+q1 _ _ l q2
+q1 * * r q1
+q2 0 _ l 3x
+q2 1 _ l 3y
+q2 _ _ l 7
+3x _ _ l 4x
+3x * * l 3x
+3y _ _ l 4y
+3y * * l 3y
+4x 0 x r q0
+4x 1 y r q0
+4x _ x r q0
+4x * * l 4x    ; skip the x/y's
+4y 0 1 * 5
+4y 1 0 l 4y
+4y _ 1 * 5
+4y * * l 4y    ; skip the x/y's
+5 x x l 6
+5 y y l 6
+5 _ _ l 6
+5 * * r 5
+6 0 x r q0
+6 1 y r q0
+
+refresh_before_multiplication a _ l *
+refresh_before_multiplication i * r refresh_before_multiplication1
+refresh_before_multiplication o * r refresh_before_multiplication1
+refresh_before_multiplication * * l *
+
+refresh_before_multiplication1 _ * r *
+refresh_before_multiplication1 * * * m0
+
+m0 * * l m1
+m1 _ _ l m2
+m2 _ 0 r m3
+m3 _ _ r 10
+
+; Find end of num1
+10 _ _ l 11
+10 x x l 11
+10 0 0 r 10
+10 1 1 r 10
+
+
+; If last digit of num1 is 0, multiply num2 by 2
+11 0 x r 20
+; If last digit of num1 is 1, add num2 to tally and then multiply num2 by 2
+11 1 x r 30
+
+
+; Multiply num2 by 2
+20 _ _ r 20
+20 x x r 20
+20 * * r 21
+21 _ 0 l 25 ; Multiplication by 2 done, return to end of num1
+21 * * r 21
+25 _ _ l 26
+25 * * l 25
+26 _ _ r 80 ; Finished multiplying. Clean up
+26 x x l 26
+26 0 0 * 11
+26 1 1 * 11
+
+; Add num2 to tally
+30 _ _ r 30
+30 x x r 30
+30 * * r 31
+31 _ _ l 32
+31 * * r 31
+32 0 o l 40 ; Add a zero
+32 1 i l 50 ; Add a one
+32 o o l 32
+32 i i l 32
+32 _ _ r 70 ; Finished adding
+
+; Adding a 0 to tally
+40 _ _ l 41
+40 * * l 40 ; Found end of num2
+41 _ _ l 41
+41 * * l 42 ; Found start of num1
+42 _ _ l 43 ; Found end of num1
+42 * * l 42
+43 o o l 43
+43 i i l 43
+43 0 o r 44
+43 1 i r 44
+43 _ o r 44
+44 _ _ r 45 ; Found end of tally
+44 * * r 44
+45 _ _ r 45
+45 * * r 46 ; Found start of num1
+46 _ _ r 47 ; Found end of num1
+46 * * r 46
+47 _ _ r 47
+47 * * r 48
+48 _ _ l 32 ; Found end of num2
+48 * * r 48
+
+; Adding a 1 to tally
+50 _ _ l 51 ; Found end of num2
+50 * * l 50 
+51 _ _ l 51
+51 * * l 52 ; Found start of num1
+52 _ _ l 53 ; Found end of num1
+52 * * l 52
+53 o o l 53
+53 i i l 53
+53 _ i r 55
+53 0 i r 55 ; return to num2
+53 1 o l 54
+54 0 1 r 55
+54 1 0 l 54
+54 _ 1 r 55
+55 _ _ r 56 ; Found end of tally
+55 * * r 55
+56 _ _ r 56
+56 * * r 57 ; Found start of num1
+57 _ _ r 58 ; Found end of num1
+57 * * r 57
+58 _ _ r 58
+58 * * r 59
+59 _ _ l 32 ; Found end of num2
+59 * * r 59
+
+; Finished adding, clean up
+70 i 1 r 70
+70 o 0 r 70
+70 _ _ l 71
+71 _ _ l 72 ; Found end of num2
+71 * * l 71
+72 _ _ l 72
+72 * * l 73 ; Found start of num1
+73 _ _ l 74
+73 * * l 73
+74 o 0 l 74
+74 i 1 l 74
+74 * * r 75 ; Finished cleaning up tally
+75 _ _ r 76
+75 * * r 75
+76 _ _ r 20 ; Multiply num2 by 2
+76 * * r 76
+
+; Finished multiplying, clean up
+80 x _ r 80
+80 _ _ r 81
+81 _ _ l 82
+81 * _ r 81
+82 _ _ l 82
+82 * * * refresh_end1
+
+7 x 0 l 7
+7 y 1 l 7
+7 b _ r refresh_end1
+7 a _ r refresh_end1
+7 * * l 7
+
+refresh_end1 i 1 l *
+refresh_end1 o 0 l *
+refresh_end1 f _ l *
+refresh_end1 a _ l *
+refresh_end1 b _ l *
+refresh_end1 q _ r halt
+refresh_end1 * * l *
