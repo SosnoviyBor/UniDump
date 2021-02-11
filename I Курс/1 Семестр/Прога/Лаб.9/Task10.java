@@ -6,10 +6,6 @@ class Task10 {
 	}
 
 	static String stringScreamer(String s) {
-		String result = "";
-		for (int i = 0; i < s.length(); i++) {
-			result += s.charAt(i);
-		}
 		return s.toUpperCase();
 	}
 }
