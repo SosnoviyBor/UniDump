@@ -1,17 +1,17 @@
 import java.util.Objects;
 
 public class Student implements Information {
-    private final String name; // ім’я, прізвище
-    private final String markBookIndex; // номер залікової книжки
-    private double GPA; //середній бал
+    private final String name;
+    private final String markBookIndex;
+    private double GPA;
     private final Faculty faculty;
 
     public Student(String name, String markBookIndex, double GPA,Faculty faculty) throws MaxStudentsException {
         if (GPA<0) {
-            throw new IllegalArgumentException("Средняя оценка не может быть меньше 0");
+            throw new IllegalArgumentException("??????? ?????? ?? ????? ???? ?????? 0");
         }
         if ( faculty == null ) {
-            throw new NullPointerException("Нельзя добавить студента в несуществующий факультет.");
+            throw new NullPointerException("You can't add student to a non-existent faculty");
         }
         this.name = name;
         this.markBookIndex = markBookIndex;
@@ -35,7 +35,7 @@ public class Student implements Information {
 
     public void setGPA(double GPA) {
         if (GPA<0) {
-            throw new IllegalArgumentException("Средняя оценка не может быть меньше 0");
+            throw new IllegalArgumentException("??????? ?????? ?? ????? ???? ?????? 0");
         }
         this.GPA = GPA;
     }
@@ -47,13 +47,12 @@ public class Student implements Information {
     @Override
     public void getInformation() {
         System.out.println(
-                "Вся информация о студенте:" +
-                        "\nФИО: " +this.name +
-                        "\nИнститут: " + faculty.getInstitute().getName() +
-                        "\nФакультет: " + faculty.getName() +
-                        "\nНомер студенческого: " + this.markBookIndex +
-                        "\nСредний бал: " + this.GPA
-
+                "??? ?????????? ? ???????:" +
+                        "\n???: " +this.name +
+                        "\n????????: " + faculty.getInstitute().getName() +
+                        "\n?????????: " + faculty.getName() +
+                        "\n????? ?????????????: " + this.markBookIndex +
+                        "\n??????? ???: " + this.GPA
         );
     }
 

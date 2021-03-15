@@ -39,7 +39,7 @@ public class Institute implements Information{
     public String mostStudents() {
         Faculty answer = null;
         Iterator<Faculty> iterator = faculties.iterator();
-        String nullAnswer = "В инстритуте нету факультетов или количество студентов в факультетах равно 0";
+        String nullAnswer = "? ????????? ???? ??????????? ??? ?????????? ????????? ? ??????????? ????? 0";
         int tempStudents = 0;
         while (iterator.hasNext()){
             Faculty tempFaculty = iterator.next();
@@ -48,7 +48,7 @@ public class Institute implements Information{
                 answer = tempFaculty;
             }
         }
-        return answer == null? nullAnswer : "Это факультет: " + answer.getName();
+        return answer == null? nullAnswer : "??? ?????????: " + answer.getName();
     }
 
 
@@ -79,22 +79,22 @@ public class Institute implements Information{
         for (Faculty faculty: faculties) {
             for (Student student: faculty.getStudents()){
                 if (student.getMarkBookIndex().equals(markBookIndex)) {
-                    System.out.println("Студент по запросу: "+markBookIndex+" найден. Вот информация:");
+                    System.out.println("??????? ?? ???????: "+markBookIndex+" ??????. ??? ??????????:");
                     student.getInformation();
                     return;
                 }
             }
         }
-        System.out.println("Студент по запросу:" +markBookIndex+ " не найден.");
+        System.out.println("??????? ?? ???????: "+markBookIndex+" ?? ??????");
     }
 
     @Override
     public void getInformation() {
         System.out.println(
-                "Вся информация о Институте:" +
-                        "\nНазвание: " + name +
-                        "\nФакультеты: " +getStringOfFaculties() +
-                        "\nКоличество учеников: " +countStudents()
+                "??? ?????????? ?? ?????????:" +
+                        "\n????????: " + name +
+                        "\n??????????: " +getStringOfFaculties() +
+                        "\n?????????? ????????: " +countStudents()
         );
     }
     private String getStringOfFaculties() {

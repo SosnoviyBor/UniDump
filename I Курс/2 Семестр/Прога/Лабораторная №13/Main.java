@@ -1,8 +1,7 @@
 import java.lang.reflect.Field;
 
-public class  Main {
-    public static void main(String[] args) {
-
+public class Main {
+    public static void main (String[] args) {
         try {
         Institute kpi = new Institute("KPI");
         Faculty FICT = new Faculty("FICT",kpi);
@@ -12,7 +11,6 @@ public class  Main {
         Student borya = new Student("Sosnoviy Bor","AC77777777",95.6,FICT);
         Student goncharov = new Student("Goncharov Anton","AE333333",75.3,IPSA);
         Student ivanov = new Student("Ivanov Ivan","AE666666",95,IPSA);
-
         }
         catch (MaxStudentsException e) {
             System.out.println(e.getMessage());
@@ -23,9 +21,5 @@ public class  Main {
         catch (NullPointerException e) {
             System.out.println( e.getMessage() );
         }
-        //System.out.println(kpi.showBestStudents());
-        //System.out.println(kpi.countStudents());
-        //System.out.println(kpi.mostStudents());
-        //    kpi.findStudent("AE333333");
     }
 }

@@ -13,7 +13,7 @@ public class Faculty implements Information {
 
     public Faculty(String name, Institute institute, HashSet<Student> students) {
         if (institute == null) {
-            throw new NullPointerException("Нельзя создать факультет, без института");
+            throw new NullPointerException("?????? ??????? ????????? ??? ?????????");
         }
         this.name = name;
         this.institute = institute;
@@ -28,9 +28,9 @@ public class Faculty implements Information {
     }
 
     public void add(Student student) throws MaxStudentsException {
-        if (students.size() > MaxStudentForFaculty-1) { // .size начинаем считать от 0, а не от 1
-            throw new MaxStudentsException("Нельзя добавить еще студентов, на факультете уже нету мест." +
-                    " Максимум:" + MaxStudentForFaculty);
+        if (students.size() > MaxStudentForFaculty-1) {
+            throw new MaxStudentsException("?????? ???????? ??? ?????????, ?? ?????????? ??? ???? ????." +
+                    " ????????: " + MaxStudentForFaculty);
         }
         students.add(student);
     }
@@ -58,9 +58,9 @@ public class Faculty implements Information {
     @Override
     public void getInformation() {
         System.out.println(
-                "Вся информация о факультете:" +
-                        "\nНазвание: " + name +
-                        "\nКоличество учеников: " + countStudents()
+                "??? ?????????? ? ??????????:" +
+                        "\n????????: " + name +
+                        "\n?????????? ?????????: " + countStudents()
         );
     }
 
