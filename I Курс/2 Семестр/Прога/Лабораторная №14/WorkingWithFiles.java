@@ -3,34 +3,38 @@ import java.sql.SQLOutput;
 
 public class WorkingWithFiles {
     public String firstLongestString(String filename) {
+		// Проверка валидности входного аргумента
+		filenameValidator(filename);
         File file = new File(filename);
-        String longestWord = "";
+        String longestLine = "";
         try (BufferedReader reader = new BufferedReader(new FileReader(file),200)){
-            StringBuilder currentWord = new StringBuilder();
+            StringBuilder currentLine = new StringBuilder();
             int c;
             while ( (c = reader.read() ) != -1 ) {
-                if ( (char) c == ' ' ) {
-                  if (currentWord.length() > longestWord.length()) {
-                      longestWord = currentWord.toString();
+                if ( (char) c == '\r' ) {
+                  if (currentLine.length() > longestLine.length()) {
+					longestLine = currentLine.toString();
                   }
-                  currentWord.delete(0,currentWord.length());
+                	currentLine.delete(0,currentLine.length());
+					reader.read();	// Фиктивное дочитывание строки (символ 0А)
                 }
                 else {
-                    currentWord.append( (char) c );
+                    currentLine.append( (char) c );
                 }
             }
-            // Проверка самого последнего слова, так как после него может и не стоять пробел
-            if (currentWord.length() > longestWord.length()) {
-                longestWord = currentWord.toString();
+            // Проверка самой последней строки, так как после нее может и не стоять перевод строки (символ 0D)
+            if (currentLine.length() > longestLine.length()) {
+                longestLine = currentLine.toString();
             }
         } catch (FileNotFoundException e) {
             System.out.println("Не удалось открыть файл");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return longestWord;
+        return longestLine;
     }
     public byte checkSum(String filename){
+		filenameValidator(filename);
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filename))){
             byte answer = (byte) bufferedReader.read();
             byte nextByte;
@@ -45,6 +49,17 @@ public class WorkingWithFiles {
         }
         return -1;
     }
+	private void filenameValidator(String filename) throws IllegalArgumentException {
+		if (filename.charAt(0) == ' ') { throw new IllegalArgumentException("Filename can't start with space"); }
 
+		String[] nameParts = filename.split("\\.");
+		if (nameParts[nameParts.length-1].charAt(0) == ' ') { throw new IllegalArgumentException("File extention can't start with space"); }
+		
+		if (filename.contains("\\") || filename.contains("/") || filename.contains(":") ||
+			filename.contains("*") || filename.contains("?") || filename.contains("\"") ||
+			filename.contains("<") || filename.contains(">") || filename.contains("|") ) {
+			throw new IllegalArgumentException("Filename can't have special characters");
+		}
+	}
 
 }
