@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Oplaba15:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Oplaba15</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="Oplaba15-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Oplaba15:war exploded" />
+    </root>
+  </artifact>
+</component>
