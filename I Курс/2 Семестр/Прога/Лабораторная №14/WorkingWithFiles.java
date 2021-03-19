@@ -50,6 +50,8 @@ public class WorkingWithFiles {
         return -1;
     }
 	private void filenameValidator(String filename) throws IllegalArgumentException {
+		if (filename == null) { throw new NullPointerException("Filename can't be null"); }
+
 		if (filename.charAt(0) == ' ') { throw new IllegalArgumentException("Filename can't start with space"); }
 
 		String[] nameParts = filename.split("\\.");
