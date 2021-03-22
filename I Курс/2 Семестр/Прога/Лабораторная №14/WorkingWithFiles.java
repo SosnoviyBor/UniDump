@@ -11,10 +11,10 @@ public class WorkingWithFiles {
             StringBuilder currentLine = new StringBuilder();
             int c;
             while ( (c = reader.read() ) != -1 ) {
-                if ( (char) c == '\r' ) {
-                  if (currentLine.length() > longestLine.length()) {
-					longestLine = currentLine.toString();
-                  }
+                if ( (char) c == '\r') {
+                    if (currentLine.length() > longestLine.length()) {
+						longestLine = currentLine.toString();
+                    }
                 	currentLine.delete(0,currentLine.length());
 					reader.read();	// Фиктивное дочитывание строки (символ 0А)
                 }
