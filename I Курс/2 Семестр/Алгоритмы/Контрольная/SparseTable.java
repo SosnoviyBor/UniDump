@@ -107,8 +107,8 @@ public class SparseTable{
 
 	public void sort () {
 		// Bubble sort lets goooo
-		// Time difficulty = O(n^2)
-		// Space difficulty = O(1)
+		// Time difficulty = O(k^2)
+		// Space difficulty = O(k)
 		int n = compactTable.length;
 		for (int i = 0; i < n-1; i++) {
 			for (int j = 0; j < n-i-1; j++) {
