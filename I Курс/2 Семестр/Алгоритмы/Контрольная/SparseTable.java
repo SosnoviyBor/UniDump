@@ -3,7 +3,12 @@ public class SparseTable{
 	private int size = 0;
 	private int distance = 0;
 	
+	// n is initTable length
+	// k is compactTable length
+
 	public SparseTable(int[] initTable){
+		// Time difficulty = O(n)
+		// Space difficulty = O(k)
 		for (int i = 0; i < initTable.length-1; i++) {
 			if (initTable[i] != 0 || i == initTable.length-1) {
 				size++;
@@ -25,6 +30,8 @@ public class SparseTable{
 	}
 
 	public int get(int index) throws IndexOutOfBoundsException {
+		// Time difficulty = O(k)
+		// Space difficulty = O(1)
 		int currentIndex = 0;
 		for (int i = 0; i < compactTable[0].length-1; i++) {
 			currentIndex += compactTable[1][i];
@@ -38,6 +45,8 @@ public class SparseTable{
 	}
 
 	public void set(int value, int distance) {
+		// Time difficulty = O(k)
+		// Space difficulty = O(k)
 		int length = 0;
 		for (int i = 0; i < compactTable[0].length; i++) {
 			length += compactTable[1][i];
@@ -56,6 +65,8 @@ public class SparseTable{
 	}
 
 	public void insert(int value, int distance) throws IndexOutOfBoundsException {
+		// Time difficulty = O(k^2)
+		// Space difficulty = O(k)
 		int length = 0;
 		for (int i = 0; i < compactTable[0].length; i++) {
 			length += compactTable[1][i];
@@ -96,6 +107,8 @@ public class SparseTable{
 
 	public void sort () {
 		// Bubble sort lets goooo
+		// Time difficulty = O(n^2)
+		// Space difficulty = O(1)
 		int n = compactTable.length;
 		for (int i = 0; i < n-1; i++) {
 			for (int j = 0; j < n-i-1; j++) {
