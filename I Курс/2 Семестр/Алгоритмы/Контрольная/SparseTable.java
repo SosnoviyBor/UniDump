@@ -14,7 +14,7 @@ public class SparseTable{
 				size++;
 			}
 		}
-		compactTable = new int[2][size];
+		compactTable = new int[2][size+1];
 		int k = 0;
 		for (int i = 0; i < initTable.length-1; i++, distance++) {
 			if (initTable[i] != 0) {
@@ -29,15 +29,15 @@ public class SparseTable{
 		}
 	}
 
-	public int get(int index) throws IndexOutOfBoundsException {
+	public int get(int distance) throws IndexOutOfBoundsException {
 		// Time difficulty = O(k)
 		// Space difficulty = O(1)
-		int currentIndex = 0;
-		for (int i = 0; i < compactTable[0].length-1; i++) {
-			currentIndex += compactTable[1][i];
-			if (currentIndex == index) {
+		int length = 0;
+		for (int i = 0; i < compactTable[0].length; i++) {
+			length += compactTable[1][i];
+			if (length == distance) {
 				return compactTable[0][i];
-			} else if (currentIndex > index) {
+			} else if (length > distance) {
 				return 0;
 			}
 		}
@@ -45,7 +45,7 @@ public class SparseTable{
 	}
 
 	public void set(int value, int distance) {
-		// Time difficulty = O(k)
+		// Time difficulty = O(k^2)
 		// Space difficulty = O(k)
 		int length = 0;
 		for (int i = 0; i < compactTable[0].length; i++) {
@@ -90,9 +90,9 @@ public class SparseTable{
 					if (j == distance) {
 						int[][] tmpTable = new int[2][compactTable[0].length];
 						System.arraycopy(compactTable[0], 0, tmpTable[0], 0, i-1);
-						System.arraycopy(compactTable[0], i+1, tmpTable[0], i+1, compactTable[0].length-i);
+						System.arraycopy(compactTable[0], i+1, tmpTable[0], i+1, i+1);
 						System.arraycopy(compactTable[1], 0, tmpTable[1], 0, i-1);
-						System.arraycopy(compactTable[1], i+1, tmpTable[1], i+1, compactTable[0].length-i);
+						System.arraycopy(compactTable[1], i+1, tmpTable[1], i+1, i+1);
 						tmpTable[0][i] = value;
 						tmpTable[1][i] = distanceToPrevValue;
 						tmpTable[1][i+1] -= distanceToPrevValue;
