@@ -4,10 +4,10 @@ file = open("arr_stack contents.txt", "w")
 
 content = ""
 for i in range(0, 16):
-	content = content + "dw "
+	content = content + "db "
 	for j in range(0,15):
-		content = content + str(random.randint(0,65535)) + ", "
-	content = content + str(random.randint(0,65535)) + "\n"
+		content = content + str(random.randint(0,255)) + ", "
+	content = content + str(random.randint(0,255)) + "\n"
 # Отрезаем последний \n, чтобы файл был идеален-идеален
 content = content[:len(content)-2]
 
