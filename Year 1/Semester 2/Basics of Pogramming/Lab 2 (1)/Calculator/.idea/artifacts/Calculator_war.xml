@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Calculator:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Calculator</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="Calculator-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="Calculator:war exploded" />
+    </root>
+  </artifact>
+</component>
