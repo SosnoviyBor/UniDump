@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/dir1":{"guestpath":"/home/dir1","hostpath":"E:/Data/Homewerk/Year 1/Semester 2/Components/Lab 3/THE FOLDER","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"E:/Data/Homewerk/Year 1/Semester 2/Components/Lab 3","disabled":false,"__vagrantfile":true}}}
