@@ -1,5 +1,7 @@
 package com.example.Calculator;
 
+import javax.servlet.http.Cookie;
+
 public class Util {
     private Util(){
     }
@@ -42,4 +44,21 @@ public class Util {
         "<p>%s</p>\n" +
         "</body>\n" +
         "</html>";
+
+    public Cookie newCookieGen (String key, String value, int age) {
+        Cookie cookie = new Cookie(key, value);
+        cookie.setMaxAge(age);
+        return cookie;
+    }
+
+    public String initCookieValGet (Cookie[] cookies, String key) {
+        if(cookies !=null) {
+            for(Cookie c: cookies) {
+                if(key.equals(c.getName())) {
+                    return c.getValue();
+                }
+            }
+        }
+        return "";
+    }
 }

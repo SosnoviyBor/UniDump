@@ -12,7 +12,7 @@ public class Calculator {
         return instance;
     }
 
-    public double calculate (String a, String b, String c, String d, String formula) {
+    public double calculate (String a, String b, String c, String d, String formula) throws Exception {
         double newA = Double.parseDouble(a);
         double newB = Double.parseDouble(b);
         double newC = Double.parseDouble(c);
@@ -29,6 +29,8 @@ public class Calculator {
             case ("3"):
                 result = Math.pow(2 * Math.sin(newA) + Math.cos(Math.abs(newB * Math.sqrt(newC))), newD);
                 break;
+            case (""):
+                throw new Exception("Equation type has not been chosen");
         }
         return result;
     }

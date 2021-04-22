@@ -1,7 +1,8 @@
 package Logic;
 
 public class Calculator {
-    public static int calculate(int a,int b, int c, int d) {
-        return  a+b+c+d;
+    public static double calculate(int a, int b, int c, int d) {
+        return
+                (Math.pow(Math.E,a)+3*Math.log(c) )/Math.pow(b,c/2)*Math.abs(Math.atan(d));
     }
 }

@@ -46,15 +46,6 @@
     <input type="submit" value="Calculate">
 </form>
 <%
-
-//    int fromA = this.fromA;
-//    int fromB = this.fromB;
-//    int fromC = this.fromC;
-//    int fromD = this.fromD;
-//    int toA = this.toA;
-//    int toB = this.toB;
-//    int toC = this.toC;
-//    int toD = this.toD;
     int stepA = this.stepA;
     int stepB = this.stepB;
     int stepC = this.stepC;

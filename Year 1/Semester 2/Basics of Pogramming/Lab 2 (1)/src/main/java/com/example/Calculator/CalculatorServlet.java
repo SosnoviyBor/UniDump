@@ -13,6 +13,7 @@ public class CalculatorServlet extends HttpServlet {
         PrintWriter writer = response.getWriter();
         Calculator calculator = Calculator.getInstance();
         Util utils = Util.getInstance();
+        int defaultCookieAge = 2*24*60*60;
 
         String a = utils.unnulifier(request.getParameter("a_field"));
         String b = utils.unnulifier(request.getParameter("b_field"));
@@ -25,8 +26,13 @@ public class CalculatorServlet extends HttpServlet {
             double calculationResult = calculator.calculate(a,b,c,d,formula);
             result = "Result: "+calculationResult;
         } catch (Throwable e) {
-            result = "Something went wrong...";
+            result = "Something went wrong... " + e.getMessage();
         }
+
+        response.addCookie(utils.newCookieGen("a_val", a, defaultCookieAge));
+        response.addCookie(utils.newCookieGen("b_val", b, defaultCookieAge));
+        response.addCookie(utils.newCookieGen("c_val", c, defaultCookieAge));
+        response.addCookie(utils.newCookieGen("d_val", d, defaultCookieAge));
 
         writer.printf(utils.htmlCode, a, b, c, d, result);
     }
