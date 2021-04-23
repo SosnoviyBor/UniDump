@@ -7,7 +7,7 @@
 <body>
 <%!Util utils = Util.getInstance(); %>
 <h1 style="text-decoration: underline">Welcome to second lab work!</h1><br/>
-<form method="get" action="CalculatorServlet">
+<form method="post" action="CalculatorServlet">
     <input type="radio" id="formula_1" name="formula" value="1"> <img src="formula1.png" style="vertical-align:middle"><br><br>
     <input type="radio" id="formula_2" name="formula" value="2"> <img src="formula2.png" style="vertical-align:middle"><br><br>
     <input type="radio" id="formula_3" name="formula" value="3"> <img src="formula3.png" style="vertical-align:middle"><br><br>

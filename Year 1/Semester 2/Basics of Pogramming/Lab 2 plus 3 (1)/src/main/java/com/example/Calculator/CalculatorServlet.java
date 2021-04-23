@@ -10,6 +10,11 @@ import java.io.PrintWriter;
 public class CalculatorServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter writer = response.getWriter();
         Calculator calculator = Calculator.getInstance();
         Util utils = Util.getInstance();
@@ -35,10 +40,5 @@ public class CalculatorServlet extends HttpServlet {
         response.addCookie(utils.newCookieGen("d_val", d, defaultCookieAge));
 
         writer.printf(utils.htmlCode, a, b, c, d, result);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }
