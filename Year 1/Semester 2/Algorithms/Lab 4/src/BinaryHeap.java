@@ -1,7 +1,3 @@
-/**
- *  Java Program to Implement Binary Heap
- */
-
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
@@ -105,6 +101,7 @@ public class BinaryHeap {
         if (min < 0 || max < 0) {
             throw new ArrayStoreException("Heap can't store negative values");
         }
+
         while (heapSize != heap.length) {
             heap[heapSize++] = min + (int)(Math.random() * ((max - min) + 1));
             heapifyUp(heapSize - 1);
@@ -115,6 +112,7 @@ public class BinaryHeap {
         if (i < 0) {
             throw new ArrayStoreException("Heap can't store negative values");
         }
+
         while (heapSize != heap.length) {
             heap[heapSize++] = i++;
             heapifyUp(heapSize - 1);

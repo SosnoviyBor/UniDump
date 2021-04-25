@@ -33,7 +33,7 @@ public class BinaryHeapTest
 
             case 3:
                 try {
-                    System.out.println("Enter max and max values. Example: \"4 90\"");
+                    System.out.println("Enter min and max values. Example: \"4 90\"");
                     String kostyl = scan.nextLine();
                     bh.randomFill(scan.nextLine());
                 }
