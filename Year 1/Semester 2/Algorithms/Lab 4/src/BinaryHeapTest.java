@@ -10,6 +10,43 @@ public class BinaryHeapTest
         System.out.println("Enter size of Binary heap");
         BinaryHeap bh = new BinaryHeap(scan.nextInt() );
 
+        System.out.println("\nChoose filling method\n");
+        System.out.println("1. empty");
+        System.out.println("2. sorted");
+        System.out.println("3. random");
+
+        int choice1 = scan.nextInt();
+        switch (choice1) {
+            case 1:
+                System.out.println("Heap remains empty");
+                break;
+
+            case 2:
+                try {
+                    System.out.println("Enter first integer element");
+                    bh.sortedFill(scan.nextInt());
+                }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+
+            case 3:
+                try {
+                    System.out.println("Enter max and max values. Example: \"4 90\"");
+                    String kostyl = scan.nextLine();
+                    bh.randomFill(scan.nextLine());
+                }
+                catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+
+            default:
+                System.out.println("Wrong input. Heap remains empty");
+                break;
+        }
+
         char ch;
         do {
             System.out.println("\nBinary Heap Operations\n");
@@ -21,8 +58,8 @@ public class BinaryHeapTest
             System.out.println("6. check empty");
             System.out.println("7. clear");
 
-            int choice = scan.nextInt();
-            switch (choice) {
+            int choice2 = scan.nextInt();
+            switch (choice2) {
                 case 1 :
                     try {
                         System.out.println("Enter integer element to insert");
