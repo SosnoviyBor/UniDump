@@ -1,26 +1,24 @@
 package Servlets;
 
-import Logic.AdditionalFunc;
-import Logic.Faculty;
-import Logic.Institute;
+import Model.AdditionalFunc;
+import Model.Institute;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @WebServlet(name = "FacultyServlet", value = "/FacultyServlet")
 public class FacultyServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String institute = request.getParameter("institutes");
+        AdditionalFunc additionalFunc = AdditionalFunc.getInstance();
         if ("all".equals(institute)) {
-            request.setAttribute("faculties", AdditionalFunc.allFaculties());
+            request.setAttribute("faculties", additionalFunc.allFaculties());
         }
        else {
-            for (Institute inst: AdditionalFunc.institutes)
+            for (Institute inst: additionalFunc.getInstitutes())
              if (inst.getName().equals(institute)) {
                  request.setAttribute("faculties",inst.getFaculties());
              }

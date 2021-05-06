@@ -1,8 +1,8 @@
-package Logic;
+package Model;
 
 import java.util.ArrayList;
 
-public class Faculty implements Information {
+public class Faculty {
     private final String name;
     private final Institute institute;
     private ArrayList<Student> students = new ArrayList<>();
@@ -47,7 +47,6 @@ public class Faculty implements Information {
         return quantity;
     }
 
-    @Override
     public void getInformation() {
         System.out.println(
                 "Вся информация о факультете:" +

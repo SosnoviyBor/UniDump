@@ -15,9 +15,9 @@
 <a href="./index.jsp"> Return to Main</a>
     <h1>hello from students</h1>
     <c:forEach var="student" items="${requestScope.students}">
-        Институт: ${ student.name } <br>
-        номер залікової книжки: ${student.markBookIndex} <br>
-        середній бал ${student.GPA} <br>
+        Институт:   <c:out value="${ student.name }"/>  <br>
+        номер залікової книжки:  <c:out value="${student.markBookIndex}"/>  <br>
+        середній бал:  <c:out value=" ${student.GPA}"/> <br>
         <hr>
     </c:forEach>
 </body>

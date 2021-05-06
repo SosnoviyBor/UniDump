@@ -13,9 +13,10 @@
 </head>
 <body>
 <a href="./index.jsp"> Return to Main</a> <br>
+
 <c:forEach var="faculty" items="${requestScope.faculties}">
-    Faculty: ${ faculty.name } <br>
-    Кол-во студентов: ${faculty.countStudents()} <br>
+    Faculty: <c:out value="${ faculty.name }"/> <br>
+    Кол-во студентов:  <c:out value="${faculty.countStudents()}"/>  <br>
     <form action="StudentServlet"><button value="${faculty.name}" name="faculties">Просмотреть студентов этого факультета</button></form>
     <hr>
 </c:forEach>

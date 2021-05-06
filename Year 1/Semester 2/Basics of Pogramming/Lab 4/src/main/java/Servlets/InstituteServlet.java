@@ -1,6 +1,6 @@
 package Servlets;
 
-import Logic.AdditionalFunc;
+import Model.AdditionalFunc;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -11,8 +11,9 @@ import java.io.IOException;
 public class InstituteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            request.setAttribute("institutes", AdditionalFunc.institutes);
-            request.getRequestDispatcher("WEB-INF/jsp/Institues.jsp").forward(request,response);
+         AdditionalFunc additionalFunc = AdditionalFunc.getInstance();
+          request.setAttribute("institutes", additionalFunc.getInstitutes());
+          request.getRequestDispatcher("WEB-INF/jsp/Institues.jsp").forward(request,response);
     }
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

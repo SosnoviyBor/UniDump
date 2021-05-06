@@ -1,9 +1,9 @@
-package Logic;
+package Model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Institute implements Information{
+public class Institute {
     private ArrayList<Faculty> faculties = new ArrayList<>();
     private final String name;
 
@@ -95,7 +95,6 @@ public class Institute implements Information{
         System.out.println("Студент по запросу:" +markBookIndex+ " не найден.");
     }
 
-    @Override
     public void getInformation() {
         System.out.println(
                 "Вся информация о Институте:" +

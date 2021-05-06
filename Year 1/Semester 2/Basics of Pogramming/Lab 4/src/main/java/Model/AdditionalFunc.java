@@ -1,11 +1,23 @@
-package Logic;
+package Model;
 
 import java.util.ArrayList;
 
 public class AdditionalFunc {
-    public static ArrayList<Institute> institutes = new ArrayList<>();
+    ArrayList<Institute> institutes;
+    private static AdditionalFunc instance;
 
-    static {
+    private AdditionalFunc() {
+        init();
+    }
+    public static AdditionalFunc getInstance() {
+        if (instance ==null) {
+            instance=new AdditionalFunc();
+        }
+        return instance;
+    }
+
+    private void init() {
+        institutes = new ArrayList<>();
         Institute kpi = new Institute("KPI");
         Faculty FICT = new Faculty("FICT",kpi);
         Faculty IPSA = new Faculty("IPSA",kpi);
@@ -15,15 +27,21 @@ public class AdditionalFunc {
         Student goncharov = new Student("Goncharov Anton","AE333333",75.3,IPSA);
         Student ivanov = new Student("Ivanov Ivan","AE666666",95,IPSA);
         institutes.add(kpi);
-}
-    public static ArrayList<Faculty> allFaculties() {
+    }
+
+
+    public ArrayList<Institute> getInstitutes() {
+        return institutes;
+    }
+
+    public  ArrayList<Faculty> allFaculties() {
         ArrayList<Faculty> allFaculties = new ArrayList<>();
         for (Institute institute: institutes) {
             allFaculties.addAll(institute.getFaculties());
         }
         return allFaculties;
     }
-    public static ArrayList<Student> allStudents() {
+    public ArrayList<Student> allStudents() {
         ArrayList<Student> allStudents = new ArrayList<>();
         for (Faculty faculty: allFaculties()) {
             allStudents.addAll(faculty.getStudents());

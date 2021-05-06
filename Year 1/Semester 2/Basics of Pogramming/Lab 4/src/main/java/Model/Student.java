@@ -1,6 +1,6 @@
-package Logic;
+package Model;
 
-public class Student implements Information {
+public class Student {
     private final String name; // ім’я, прізвище
     private final String markBookIndex; // номер залікової книжки
     private double GPA; //середній бал
@@ -35,7 +35,6 @@ public class Student implements Information {
         return faculty;
     }
 
-    @Override
     public void getInformation() {
         System.out.println(
                 "Вся информация о студенте:" +

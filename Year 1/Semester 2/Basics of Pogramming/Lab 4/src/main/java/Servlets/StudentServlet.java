@@ -1,8 +1,7 @@
 package Servlets;
 
-import Logic.AdditionalFunc;
-import Logic.Faculty;
-import Logic.Institute;
+import Model.AdditionalFunc;
+import Model.Faculty;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -13,20 +12,21 @@ import java.io.IOException;
 public class StudentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        AdditionalFunc additionalFunc = AdditionalFunc.getInstance();
         String faculty = request.getParameter("faculties");
         System.out.println(faculty);
         if ("all".equals(faculty)) {
-            request.setAttribute("students", AdditionalFunc.allStudents());
+            request.setAttribute("students", additionalFunc.allStudents());
         }
         else {
-            for (Faculty faculty1: AdditionalFunc.allFaculties())
+            for (Faculty faculty1: additionalFunc.allFaculties())
                 if (faculty1.getName().equals(faculty)) {
                     request.setAttribute("students",faculty1.getStudents());
                 }
         }
         request.getRequestDispatcher("WEB-INF/jsp/Students.jsp").forward(request,response);
     }
-
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
