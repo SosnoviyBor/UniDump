@@ -4,20 +4,18 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet(name = "CalculatorServlet", value = "/CalculatorServlet")
 public class CalculatorServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        PrintWriter writer = response.getWriter();
-        Calculator calculator = Calculator.getInstance();
-        Util utils = Util.getInstance();
+        Calculator calculator = new Calculator();
+        Util utils = new Util();
         int defaultCookieAge = 2*24*60*60;
 
         String a = utils.unnulifier(request.getParameter("a_field"));
@@ -33,12 +31,14 @@ public class CalculatorServlet extends HttpServlet {
         } catch (Throwable e) {
             result = "Something went wrong... " + e.getMessage();
         }
+        request.setAttribute("result", result);
 
         response.addCookie(utils.newCookieGen("a_val", a, defaultCookieAge));
         response.addCookie(utils.newCookieGen("b_val", b, defaultCookieAge));
         response.addCookie(utils.newCookieGen("c_val", c, defaultCookieAge));
         response.addCookie(utils.newCookieGen("d_val", d, defaultCookieAge));
 
-        writer.printf(utils.htmlCode, a, b, c, d, result);
+        //.forward() throws ServletException, IOException
+        request.getRequestDispatcher("index.jsp").forward(request,response);
     }
 }

@@ -1,18 +1,8 @@
 package com.example.Calculator;
 
 public class Calculator {
-    private Calculator(){
-    }
 
-    private static Calculator instance;
-    public static Calculator getInstance() {
-        if (instance == null) {
-            instance = new Calculator();
-        }
-        return instance;
-    }
-
-    public double calculate (String a, String b, String c, String d, String formula) throws Exception {
+    public double calculate(String a, String b, String c, String d, String formula) throws IllegalStateException {
         double newA = Double.parseDouble(a);
         double newB = Double.parseDouble(b);
         double newC = Double.parseDouble(c);
@@ -29,8 +19,8 @@ public class Calculator {
             case ("3"):
                 result = Math.pow(2 * Math.sin(newA) + Math.cos(Math.abs(newB * Math.sqrt(newC))), newD);
                 break;
-            case (""):
-                throw new Exception("Equation type has not been chosen");
+            default:
+                throw new IllegalStateException("Equation type has not been chosen");
         }
         return result;
     }
