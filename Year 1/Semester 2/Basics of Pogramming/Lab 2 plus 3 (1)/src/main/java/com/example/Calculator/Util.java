@@ -18,7 +18,7 @@ public class Util {
         return cookie;
     }
 
-    public String initCookieValGet (Cookie[] cookies, String key) {
+    public String getCookieVal(Cookie[] cookies, String key) {
         if(cookies !=null) {
             for(Cookie c: cookies) {
                 if(key.equals(c.getName())) {

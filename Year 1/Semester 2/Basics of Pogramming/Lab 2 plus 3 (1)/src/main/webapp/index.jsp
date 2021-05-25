@@ -14,10 +14,10 @@
 
     <%Cookie[] cookies = request.getCookies();%>
 
-    <label>a: </label> <input type="text" id="a" name="a_field" value="<%=utils.initCookieValGet(cookies,"a_val")%>"> <br><br>
-    <label>b: </label> <input type="text" id="b" name="b_field" value="<%=utils.initCookieValGet(cookies,"b_val")%>"> <br><br>
-    <label>c: </label> <input type="text" id="c" name="c_field" value="<%=utils.initCookieValGet(cookies,"c_val")%>"> <br><br>
-    <label>d: </label> <input type="text" id="d" name="d_field" value="<%=utils.initCookieValGet(cookies,"d_val")%>"> <br><br>
+    <label>a: </label> <input type="text" id="a" name="a_field" value="<%=utils.getCookieVal(cookies,"a_val")%>"> <br><br>
+    <label>b: </label> <input type="text" id="b" name="b_field" value="<%=utils.getCookieVal(cookies,"b_val")%>"> <br><br>
+    <label>c: </label> <input type="text" id="c" name="c_field" value="<%=utils.getCookieVal(cookies,"c_val")%>"> <br><br>
+    <label>d: </label> <input type="text" id="d" name="d_field" value="<%=utils.getCookieVal(cookies,"d_val")%>"> <br><br>
     <input type="submit" value="Calculate">
 
     <p>${result}</p>
