@@ -6,6 +6,40 @@ public class OrientedGraph {
 
     public OrientedGraph() {
         adjVertices = new HashMap<>();
+
+        for (int i = 0; i <= 22; i++) {
+            this.addVertex(i);
+        }
+        this.addEdge(0, 2);
+        this.addEdge(0, 9);
+        this.addEdge(1, 2);
+        this.addEdge(1, 5);
+        this.addEdge(2, 5);
+        this.addEdge(2, 10);
+        this.addEdge(3, 1);
+        this.addEdge(3, 6);
+        this.addEdge(4, 3);
+        this.addEdge(4, 6);
+        this.addEdge(5, 4);
+        this.addEdge(7, 8);
+        this.addEdge(7, 10);
+        this.addEdge(7, 13);
+        this.addEdge(9, 11);
+        this.addEdge(9, 12);
+        this.addEdge(13, 14);
+        this.addEdge(15, 7);
+        this.addEdge(15, 11);
+        this.addEdge(16, 11);
+        this.addEdge(16, 15);
+        this.addEdge(17, 18);
+        this.addEdge(17, 22);
+        this.addEdge(18, 19);
+        this.addEdge(18, 21);
+        this.addEdge(18, 22);
+        this.addEdge(20, 19);
+        this.addEdge(20, 21);
+        this.addEdge(21, 19);
+        this.addEdge(21, 22);
     }
 
     Map<Vertex, List<Vertex>> adjVertices;
@@ -21,40 +55,6 @@ public class OrientedGraph {
 
     public Map<Vertex, List<Vertex>> getAdjVertices() {
         return adjVertices;
-    }
-
-    public void customGraphGen() {
-        for (int i = 0; i <= 20; i++) {
-            this.addVertex(i);
-        }
-        this.addEdge(0, 1);
-        this.addEdge(0, 2);
-        this.addEdge(1, 5);
-        this.addEdge(1, 6);
-        this.addEdge(1, 7);
-        this.addEdge(2, 3);
-        this.addEdge(2, 4);
-        this.addEdge(3, 4);
-        this.addEdge(3, 10);
-        this.addEdge(4, 11);
-        this.addEdge(5, 9);
-        this.addEdge(6, 8);
-        this.addEdge(6, 17);
-        this.addEdge(7, 17);
-        this.addEdge(8, 14);
-        this.addEdge(8, 15);
-        this.addEdge(9, 3);
-        this.addEdge(10, 13);
-        this.addEdge(11, 12);
-        this.addEdge(12, 20);
-        this.addEdge(13, 12);
-        this.addEdge(14, 13);
-        this.addEdge(16, 15);
-        this.addEdge(16, 18);
-        this.addEdge(17, 16);
-        this.addEdge(18, 19);
-        this.addEdge(19, 13);
-        this.addEdge(20, 19);
     }
 
     public void addVertex(int number) {
@@ -91,85 +91,22 @@ public class OrientedGraph {
         return adjustments;
     }
 
-    public void getBasic() {
-        System.out.println("Vertices count: " + getVertexCount());
-        System.out.println("Edges count: " + getEdgesCount());
-        System.out.println("Degree count: " + getDegreeCount());
+    public void getBasicInfo() {
+        System.out.println("Кількість вершин: " + getVertexAmount());
+        System.out.println("Кількість ребер: " + getEdgesAmount());
     }
 
-    public int getDegreeCount() {
-        return getEdgesCount() * 2;
-    }
-
-    public int getEdgesCount() {
+    public int getEdgesAmount() {
         final int[] sum = new int[]{0};
         adjVertices.forEach((key, value) -> sum[0] += value.size());
         return sum[0];
     }
 
-    public int getVertexCount() {
+    public int getVertexAmount() {
         return adjVertices.size();
     }
 
     public List<Vertex> getAdjVertices(int number) {
         return adjVertices.get(new Vertex(number));
-    }
-
-    public void testFullGraph(){
-        OrientedGraph orientedGraph = new OrientedGraph();
-        orientedGraph.customGraphGen();
-        orientedGraph.getBasic();
-
-        GraphTraversal.setNonOriented(orientedGraph);
-        Set<Integer> integers = new HashSet<>();
-
-        long ms = System.currentTimeMillis();
-        for (int i = 0; i < 1000; i++) {
-            integers = GraphTraversal.depthFirstTraversal(orientedGraph, 0);
-        }
-        ms = System.currentTimeMillis() - ms;
-        System.out.println("1000 depth-first search (" + orientedGraph.getEdgesCount() + " edges): " +
-                ms + " ms");
-        integers.forEach(e -> System.out.print(e + " "));
-
-        ms = System.currentTimeMillis();
-        for (int i = 0; i < 1000; i++) {
-            integers = GraphTraversal.breadthFirstTraversal(orientedGraph, 0);
-        }
-        ms = System.currentTimeMillis() - ms;
-        System.out.println("\n1000 breadth-first search (" + orientedGraph.getEdgesCount() + " edges): " +
-                ms + " ms");
-        integers.forEach(e -> System.out.print(e + " "));
-    }
-
-    public void testGraphWithLessEdges(){
-        OrientedGraph graph = new OrientedGraph();
-        graph.customGraphGen();
-
-        for (int i = 0; i < 7; i++) {
-            graph.removeVertex(i);
-        }
-        graph.getBasic();
-
-        GraphTraversal.setNonOriented(graph);
-        Set<Integer> integers = new HashSet<>();
-
-        long ms = System.currentTimeMillis();
-        for (int i = 0; i < 1000; i++) {
-            integers = GraphTraversal.depthFirstTraversal(graph, 7);
-        }
-        ms = System.currentTimeMillis() - ms;
-        System.out.println("1000 depth-first search (" + graph.getEdgesCount() + " edges): " +
-                ms + " ms");
-        integers.forEach(e -> System.out.print(e + " "));
-
-        ms = System.currentTimeMillis();
-        for (int i = 0; i < 1000; i++) {
-            integers = GraphTraversal.breadthFirstTraversal(graph, 7);
-        }
-        ms = System.currentTimeMillis() - ms;
-        System.out.println("\n1000 breadth-first search (" + graph.getEdgesCount() + " edges): " +
-                ms + " ms");
-        integers.forEach(e -> System.out.print(e + " "));
     }
 }

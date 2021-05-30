@@ -33,25 +33,4 @@ public class GraphTraversal {
 
         return visited;
     }
-
-    public static Set<Integer> breadthFirstTraversal(OrientedGraph graph, int root) {
-        if (graph.isOriented()) {
-            setNonOriented(graph);
-        }
-
-        Set<Integer> visited = new LinkedHashSet<>();
-        Queue<Integer> queue = new LinkedList<>();
-        queue.add(root);
-        visited.add(root);
-        while (!queue.isEmpty()) {
-            int vertex = queue.poll();
-            for (Vertex v : graph.getAdjVertices(vertex)) {
-                if (!visited.contains(v.number)) {
-                    visited.add(v.number);
-                    queue.add(v.number);
-                }
-            }
-        }
-        return visited;
-    }
 }
