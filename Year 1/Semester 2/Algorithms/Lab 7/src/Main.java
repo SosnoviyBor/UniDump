@@ -25,6 +25,9 @@ public class Main {
         String pattern = inputReader.readLine();
         inputReader.close();
 
+        long time = System.currentTimeMillis();
         new RabinKarp(text, pattern);
+        time = System.currentTimeMillis() - time;
+        System.out.println("This operation took " + time + "ms");
     }
 }
