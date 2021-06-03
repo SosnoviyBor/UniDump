@@ -60,7 +60,6 @@ public class RabinKarp {
     }
 
     private static long longRandomPrime() {
-        return BigInteger.probablePrime(31, new Random())
-                .longValue();
+        return BigInteger.probablePrime(31, new Random()).longValue();
     }
 }
