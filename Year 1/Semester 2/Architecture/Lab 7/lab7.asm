@@ -130,7 +130,7 @@ Start:
 		int 10h
 		; Виводим текст у консоль
 		mov ah, 09h
-		mov dx, offset ui
+		lea dx, [ui]
 		int 21h
 
 		pop dx

@@ -1,0 +1,212 @@
+Turbo Assembler	 Version 3.2	    03/17/21 23:42:18	    Page 1
+lab3_\LAB3.ASM
+
+
+
+      1				     ; -----------------------------------------
+      2				     ; ЛР №3
+      3				     ; -----------------------------------------
+      4				     ; Архітектура комп'ютера
+      5				     ; Завдання:
+      6				     ; ВУЗ: КНУУ	"КПІ"
+      7				     ; Факультет: ФІОТ
+      8				     ; Курс: 1
+      9				     ; Група: ІТ-03
+     10				     ; -----------------------------------------
+     11				     ; Автори: Букрєєв М.С.
+     12				     ;			     Король К.В.
+     13				     ;			     Федяй	Б.В.
+     14				     ; Дата: 17/03/2021
+     15				     ; -----------------------------------------
+     16
+     17				     ;					     І. Заголовок програми
+     18				     IDEAL
+     19	0000			     MODEL small
+     20	0000			     STACK 256
+     21				     ;					     ІІ. Макроси
+     22				     MACRO M_init	     ; Макрос для ініціалізації. Його		    +
+     23				     початок
+     24					     mov ax, @data   ; @data ідентифікатор, що створюються	    +
+     25				     директивою MODEL
+     26					     mov ds, ax		     ; Завантаження	початку сегменту	    +
+     27				     даних	в регістр DS
+     28					     mov es, ax		     ; Завантаження	початку сегменту	    +
+     29				     даних	в регістр ES
+     30					     ENDM M_init	     ; Кінець макросу
+     31	      =	32		     s_point equ 32
+     32	      =	255		     array_length equ 255
+     33				     ;					     ІІІ. Початок сегменту даних
+     34	0100			     DATASEG
+     35	0000  C9 CD CD CD CD CD	CD+  array2Db db 201d, 205d, 205d, 205d, 205d, 205d, 205d, 205d, 205d, 205d, 205d, 205d, 205d, 205d,+
+     36	      CD CD CD CD CD CD	CD+  205d, 187d
+     37	      CD BB
+     38	0010  BA 00 00 00 00 00	00+		      db 186d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d,    +
+     39	      00 00 00 00 00 00	00+  000d, 000d, 000d, 186d
+     40	      00 BA
+     41	0020  BA 00 00 00 00 00	00+		      db 186d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d,    +
+     42	      00 00 00 00 00 00	00+  000d, 000d, 000d, 186d
+     43	      00 BA
+     44	0030  BA 00 00 00 00 00	00+		      db 186d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d,    +
+     45	      00 00 00 00 00 00	00+  000d, 000d, 000d, 186d
+     46	      00 BA
+     47	0040  BA 00 00 00 00 00	00+		      db 186d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d,    +
+     48	      00 00 00 00 00 00	00+  000d, 000d, 000d, 186d
+     49	      00 BA
+     50	0050  BA 00 00 00 00 00	00+		      db 186d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d,    +
+     51	      00 00 00 00 00 00	00+  000d, 000d, 000d, 186d
+     52	      00 BA
+     53	0060  BA 00 00 00 00 00	00+		      db 186d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d,    +
+     54	      00 00 00 00 00 00	00+  000d, 000d, 000d, 186d
+     55	      00 BA
+     56	0070  BA 00 00 00 00 00	00+		      db 186d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d,    +
+     57	      00 00 00 00 00 00	00+  000d, 000d, 000d, 186d
+Turbo Assembler	 Version 3.2	    03/17/21 23:42:18	    Page 2
+lab3_\LAB3.ASM
+
+
+
+     58	      00 BA
+     59	0080  BA 00 00 00 00 00	00+		      db 186d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d,    +
+     60	      00 00 00 00 00 00	00+  000d, 000d, 000d, 186d
+     61	      00 BA
+     62	0090  BA 00 00 00 00 00	00+		      db 186d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d,    +
+     63	      00 00 00 00 00 00	00+  000d, 000d, 000d, 186d
+     64	      00 BA
+     65	00A0  BA 00 00 00 00 00	00+		      db 186d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d,    +
+     66	      00 00 00 00 00 00	00+  000d, 000d, 000d, 186d
+     67	      00 BA
+     68	00B0  BA 00 00 00 00 00	00+		      db 186d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d,    +
+     69	      00 00 00 00 00 00	00+  000d, 000d, 000d, 186d
+     70	      00 BA
+     71	00C0  BA 00 00 00 00 00	00+		      db 186d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d,    +
+     72	      00 00 00 00 00 00	00+  000d, 000d, 000d, 186d
+     73	      00 BA
+     74	00D0  BA 00 00 00 00 00	00+		      db 186d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d,    +
+     75	      00 00 00 00 00 00	00+  000d, 000d, 000d, 186d
+     76	      00 BA
+     77	00E0  BA 00 00 00 00 00	00+		      db 186d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d, 000d,    +
+     78	      00 00 00 00 00 00	00+  000d, 000d, 000d, 186d
+     79	      00 BA
+     80	00F0  C8 CD CD CD CD CD	CD+		      db 200d, 205d, 205d, 205d, 205d, 205d, 205d, 205d, 205d, 205d, 205d, 205d,    +
+     81	      CD CD CD CD CD CD	CD+  205d, 205d, 205d, 188d
+     82	      CD BC
+     83	0100  42 46 4B 4B 4D 42	     letters db	"BFKKMB"
+     84	0106  0000		     letters_offset dw 0
+     85	0108  0000		     letters_index dw 0
+     86	010A  0000		     array_index dw 0
+     87	010C  4E 6F 77 20 67 6F	20+  msg db "Now go and	take a look into dump",	10, 13,	"$"
+     88	      61 6E 64 20 74 61	6B+
+     89	      65 20 61 20 6C 6F	6F+
+     90	      6B 20 69 6E 74 6F	20+
+     91	      64 75 6D 70 0A 0D	24
+     92	012F  00		     exCode db 0
+     93				     ;					     IV. Початок	сегменту коду
+     94	0130			     CODESEG
+     95	0000			     Start:
+     96					     M_init  ; Виклик макросу для ініціалізації
+1    97	0000  B8 0000s			     mov ax, @data   ; @data ідентифікатор, що створюються	    +
+     98				     директивою MODEL
+1    99	0003  8E D8			     mov ds, ax		     ; Завантаження	початку сегменту	    +
+    100				     даних	в регістр DS
+1   101	0005  8E C0			     mov es, ax		     ; Завантаження	початку сегменту	    +
+    102				     даних	в регістр ES
+    103					     ; -----------------------------------------
+    104	0007  BB 0000			     mov bx, 0	     ; Вказує на конкретну літеру
+    105	000A  B1 20			     mov cl, s_point ; Вказує на зміщення літер по діагоналі
+    106
+    107	000C  BA 0100r			     mov dx, offset letters
+    108	000F  89 16 0106r		     mov [letters_offset], dx
+    109
+    110	0013  BA 0000r			     mov dx, offset array2Db
+    111	0016  83 C2 1F			     add dx, 15+16*1
+    112	0019  89 16 010Ar		     mov [array_index],	dx
+    113
+    114	001D				     FILLER:
+Turbo Assembler	 Version 3.2	    03/17/21 23:42:18	    Page 3
+lab3_\LAB3.ASM
+
+
+
+    115					     ; Дістаємо	потрібний нам символ із строки letters -->+
+    116				     AX
+    117	001D  8B 1E 0106r		     mov bx, [letters_offset]
+    118	0021  03 1E 0108r		     add bx, [letters_index]
+    119	0025  8A 27			     mov ah, [bx]
+    120					     ;
+    121	0027  FF 06 0108r		     inc [letters_index]
+    122	002B  83 3E 0108r 06		     cmp [letters_index], 6
+    123	0030  75 06			     jne NOT_END
+    124	0032  C7 06 0108r 0000		     mov [letters_index], 0
+    125	0038				     NOT_END:
+    126					     ; Записуємо отриманий символ у діагональ
+    127	0038  8B 1E 010Ar		     mov bx, [array_index]
+    128	003C  88 27			     mov [bx], ah
+    129					     ; Перехід до наступної строки (або вихід)
+    130	003E  83 C3 0F			     add bx, 15
+    131	0041  89 1E 010Ar		     mov [array_index],	bx
+    132	0045  81 FB 00FF		     cmp bx, array_length
+    133	0049  72 D2			     jc	FILLER
+    134					     ; -----------------------------------------
+    135	004B  BA 010Cr			     mov dx, offset msg
+    136	004E  B4 09			     mov ah, 09h
+    137	0050  CD 21			     int 21h
+    138	0052  B4 01			     mov ah, 01h	     ; Завантаження	числа 01h до регістру+
+    139				     AH
+    140	0054  CD 21			     int 21h		     ; Виклик преривання 21h (01h - команда  +
+    141				     очікування натискання будь-якої клавіші)
+    142					     ; -----------------------------------------
+    143	0056  B4 4C			     mov ah, 4ch		     ; Завантаження	числа 01h до	    +
+    144				     регістру AH
+    145	0058  A0 012Fr			     mov al, [exCode]	     ; Завантаження	значення exCode	до	    +
+    146				     регістру AL
+    147	005B  CD 21			     int 21h			     ; Виклик преривання 21h (AH = 4ch,	AL =+
+    148				     код виходу - команда виходу із програми)
+    149					     end Start
+Turbo Assembler	 Version 3.2	    03/17/21 23:42:18	    Page 4
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "03/17/21"
+??FILENAME			  Text	 "LAB3	  "
+??TIME				  Text	 "23:42:18"
+??VERSION			  Number 0314
+@32BIT				  Text	 0
+@CODE				  Text	 _TEXT
+@CODESIZE			  Text	 0
+@CPU				  Text	 0101H
+@CURSEG				  Text	 _TEXT
+@DATA				  Text	 DGROUP
+@DATASIZE			  Text	 0
+@FILENAME			  Text	 LAB3
+@INTERFACE			  Text	 00H
+@MODEL				  Text	 2
+@STACK				  Text	 DGROUP
+@WORDSIZE			  Text	 2
+ARRAY2DB			  Byte	 DGROUP:0000
+ARRAY_INDEX			  Word	 DGROUP:010A
+ARRAY_LENGTH			  Text	 255
+EXCODE				  Byte	 DGROUP:012F
+FILLER				  Near	 _TEXT:001D
+LETTERS				  Byte	 DGROUP:0100
+LETTERS_INDEX			  Word	 DGROUP:0108
+LETTERS_OFFSET			  Word	 DGROUP:0106
+MSG				  Byte	 DGROUP:010C
+NOT_END				  Near	 _TEXT:0038
+START				  Near	 _TEXT:0000
+S_POINT				  Text	 32
+
+Macro Name
+
+M_INIT
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+DGROUP				  Group
+  STACK				  16  0100 Para	  Stack	  STACK
+  _DATA				  16  0130 Word	  Public  DATA
+_TEXT				  16  005D Word	  Public  CODE
+

@@ -1,0 +1,1 @@
+qemu-system-i386 -cpu pentium -hda msdos.disk -hdb fat:rw:/home/boryaxta/Documents/TASM -fda DISK1.IMA -boot c -m 64
