@@ -6,3 +6,8 @@
 *.OBJ
 *.TR
 *.TD
+
+# Other
+*.doc
+*.docx
+*.pdf
