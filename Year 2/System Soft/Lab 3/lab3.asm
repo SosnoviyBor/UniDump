@@ -22,6 +22,15 @@ MACRO M_exit
 	ENDM M_exit
 
 ; ---------------------------------------------------------------------------------
+; Призначення: вихід із програми (із кодом FF)
+; ---------------------------------------------------------------------------------
+MACRO M_error_exit
+	mov ah, 4ch
+	mov al, 0FFh
+	int 21h
+	ENDM M_error_exit
+
+; ---------------------------------------------------------------------------------
 ; Призначення: запам'ятовування значень регістрів
 ; ---------------------------------------------------------------------------------
 MACRO M_push_all
@@ -67,10 +76,12 @@ x_str db 5, 0, 0, 0, 0, 0, 0
 a_str db 5, 0, 0, 0, 0, 0, 0
 b_str db 5, 0, 0, 0, 0, 0, 0
 
-err_msg db 10, 13, 10, 13, "Wrong input", 10, 13, "$"
-result_msg db 10, 13, "Result: ", "$"
+result_msg db 10, 13, 10, 13, "Result: ", "$"
 minus db "-", "$"
 result_str db 0, 0, 0, 0, 0
+
+overflow_err db 10, 13, 10, 13, "There is overflow in register!", 10, 13, "$"
+wrong_input_err db 10, 13, 10, 13, "Wrong input!", 10, 13, "$"
 
 ; 00h - black
 ; 10h - blue
@@ -220,12 +231,11 @@ Start:
 		; ...с 2-байтными регистрами в будущем
 		cmp ax, 255d
 		jna no_error
+		
 		; Ашипка и терминация
 		error:
-		mov ah, 09h
-		mov dx, offset err_msg
-		int 21h
-		M_exit
+		mov bx, 1
+		call error_manager
 
 		no_error:
 		mov ax, cx
@@ -271,6 +281,7 @@ Start:
 	; BP <- 0, если результат положительный; 1, если результат отрицательный
 	; ---------------------------------------------------------------------------------
 	proc calc_x_neg
+		push ax		; *Stack will remember x*
 		mul ax		; x^2
 		push ax		; *Stack will remember it*
 
@@ -286,6 +297,10 @@ Start:
 		X_NEG_a_neg:
 			pop cx		; Возвращаем х^2
 			mul cx		; -ax^2
+			jno X_NEG_a_neg_no_overflow
+			mov bx, 0ffffh
+			call error_manager
+			X_NEG_a_neg_no_overflow:
 			push ax		; *Stack will remember it*
 
 			; Парсим B стринг
@@ -298,29 +313,24 @@ Start:
 			jmp X_NEG_a_neg_b_pos
 
 			X_NEG_a_neg_b_neg:	; -ax^2 - bx
-				mov cx, ax
-
-				; Парсим X стринг
-				mov si, offset x_str+2
-				mov bh, [si-1]
-				call string2dec
+				mov cx, ax	; b
+				pop bx		; -ax^2
+				pop ax		; x
 
 				mul cx		; bx
-				pop ax		; -ax^2
-				add ax, cx	; -ax^2 - bx
+
+				add ax, bx	; -ax^2 - bx
+				neg ax
 				jmp X_NEG_res_neg
 
 			X_NEG_a_neg_b_pos:	; -ax^2 + bx
-				mov cx, ax
-
-				; Парсим X стринг
-				mov si, offset x_str+2
-				mov bh, [si-1]
-				call string2dec
+				mov cx, ax	; b
+				pop bx		; -ax^2
+				pop ax		; x
 
 				mul cx		; bx
-				pop ax		; -ax^2
-				sub cx, ax	; -ax^2 + bx
+
+				sub ax, bx	; -ax^2 + bx
 				mov ax, cx
 				jb X_NEG_res_neg
 				jmp X_NEG_res_pos
@@ -328,6 +338,10 @@ Start:
 		X_NEG_a_pos:
 			pop cx		; Возвращаем х^2
 			mul cx		; ax^2
+			jno X_NEG_a_pos_no_overflow
+			mov bx, 0ffffh
+			call error_manager
+			X_NEG_a_pos_no_overflow:
 			push ax		; *Stack will remember it*
 
 			; Парсим B стринг
@@ -340,30 +354,25 @@ Start:
 			jmp X_NEG_a_pos_b_pos
 
 			X_NEG_a_pos_b_neg:	; ax^2 - bx
-				mov cx, ax
+				mov cx, ax	; b
+				pop bx		; ax^2
+				pop ax		; x
 
-				; Парсим X стринг
-				mov si, offset x_str+2
-				mov bh, [si-1]
-				call string2dec
+				mul cx		; bx
 
-				mul cx		; -bx
-				pop ax		; ax^2
-				sub ax, cx	; ax^2 - bx
+				sub bx, ax	; ax^2 - bx
+				mov ax, bx
 				jb X_NEG_res_neg
 				jmp X_NEG_res_pos
 
 			X_NEG_a_pos_b_pos:	; ax^2 + bx
-				mov cx, ax
-
-				; Парсим X стринг
-				mov si, offset x_str+2
-				mov bh, [si-1]
-				call string2dec
+				mov cx, ax	; b
+				pop bx		; -ax^2
+				pop ax		; x
 
 				mul cx		; bx
-				pop ax		; ax^2
-				add ax, cx	; -ax^2 - bx
+
+				add ax, bx	; -ax^2 - bx
 				jmp X_NEG_res_pos
 
 		X_NEG_res_neg:
@@ -371,7 +380,7 @@ Start:
 			mov bp, 1
 			jmp X_NEG_end
 		X_NEG_res_pos:
-			mov bp, 1
+			mov bp, 0
 			jmp X_NEG_end
 
 		X_NEG_end:
@@ -467,11 +476,142 @@ Start:
 	endp calc_x_zero
 
 	; ---------------------------------------------------------------------------------
+	; Предназначение: подсчитывание переменных по формуле "ax^2 + b/x". Результат деления округляется!
+	; Ввыод: ---
+	; Вывод:
+	; АХ <- результат подсчета
+	; BP <- 0, если результат положительный; 1, если результат отрицательный
 	; ---------------------------------------------------------------------------------
 	proc calc_x_pos
+		push ax		; *Stack will remember x*
+		mul ax		; x^2
+		push ax		; *Stack will remember it*
 
+		; Парсим А стринг
+		mov si, offset a_str+2
+		mov bh, [si-1]
+		call string2dec
+
+		cmp bp, 1
+		je X_POS_a_neg
+		jmp X_POS_a_pos
+
+		X_POS_a_neg:
+			pop cx		; Возвращаем х^2
+			mul cx		; -ax^2
+			jno X_POS_a_neg_no_overflow
+			mov bx, 0ffffh
+			call error_manager
+			X_POS_a_neg_no_overflow:
+			push ax		; *Stack will remember it*
+
+			; Парсим B стринг
+			mov si, offset b_str+2
+			mov bh, [si-1]
+			call string2dec
+
+			cmp bp, 1
+			je X_POS_a_neg_b_neg
+			jmp X_POS_a_neg_b_pos
+
+			X_POS_a_neg_b_neg:	; -ax^2 - b/x
+				; AX <- b
+				pop bx		; -ax^2
+				pop cx		; x
+
+				call rdiv	; -b/x
+
+				add ax, bx	; -ax^2 - b/x
+				neg ax
+				jmp X_POS_result_neg
+
+			X_POS_a_neg_b_pos:	; -ax^2 + b/x
+				; AX <- b
+				pop bx		; -ax^2
+				pop cx		; x
+
+				call rdiv	; b/x
+
+				sub ax, bx	; -ax^2 + b/x
+				jb X_POS_result_neg
+				jmp X_POS_result_pos
+		
+		X_POS_a_pos:
+			pop cx		; Возвращаем х^2
+			mul cx		; ax^2
+			jno X_POS_a_pos_no_overflow
+			mov bx, 0ffffh
+			call error_manager
+			X_POS_a_pos_no_overflow:
+			push ax		; *Stack will remember it*
+
+			; Парсим B стринг
+			mov si, offset b_str+2
+			mov bh, [si-1]
+			call string2dec
+
+			cmp bp, 1
+			je X_POS_a_pos_b_neg
+			jmp X_POS_a_pos_b_pos
+
+			X_POS_a_pos_b_neg:	; ax^2 - b/x
+				; AX <- b
+				pop bx		; ax^2
+				pop cx		; x
+
+				call rdiv	; -b/x
+
+				sub bx, ax	; ax^2 b/x
+				mov ax, bx
+				jb X_POS_result_neg
+				jmp X_POS_result_pos
+
+			X_POS_a_pos_b_pos:	; ax^2 + b/x
+				; AX <- b
+				pop bx		; ax^2
+				pop cx		; x
+
+				call rdiv	; b/x
+
+				add ax, bx
+				jmp X_POS_result_pos
+		
+		X_POS_result_neg:
+			neg ax
+			mov bp, 1
+			jmp X_POS_end
+		X_POS_result_pos:
+			mov bp, 0
+			jmp X_POS_end
+
+		X_POS_end:
 		ret
 	endp calc_x_pos
+
+	; ---------------------------------------------------------------------------------
+	; Предназначение: деление с округлением
+	; Ввод:
+	; АХ <- число
+	; CX <- делитель
+	; Вывод:
+	; AX <- результат деления с округлением
+	; ---------------------------------------------------------------------------------
+	proc rdiv
+	push dx
+
+	div cx
+
+	cmp dx, 5
+	jnb do_round
+	jmp dont_round
+
+	do_round:
+	inc ax
+	dont_round:
+
+	pop dx
+		ret
+	endp rdiv
 
 	; ---------------------------------------------------------------------------------
 	; Предназначение: вывод числа на консоль с учетом его знака
@@ -515,52 +655,66 @@ Start:
 	; Вывод: ---
 	; ---------------------------------------------------------------------------------
 	proc number2string
-		mov si, offset result_msg	; Ссылка на начало стрина, в который будут писать результат
-		mov bl, 0					; 0 для проверки на последний разряд
-		; Парсим)
-		Num_parser:
-			; Смотрим, в каком разряде вы находимся
-			cmp ax, 1000d
-			ja four_digit
-			cmp ax, 100d
-			ja three_digit
-			cmp ax, 10d
-			ja two_digit
-			mov cx, 1d
-			mov bl, 1	; Вот мы и на последнем разряде!
-			jmp num_continue
+		push si
+		push bx
+		push cx
 
-			four_digit:
-			mov cx, 1000d
-			jmp num_continue
-			three_digit:
-			mov cx, 100d
-			jmp num_continue
-			two_digit:
-			mov cx, 10d
-			jmp num_continue
+		mov si, offset result_str	; Ссылка на начало стрина, в который будут писать результат
+		mov bx, 10d					; 0 для проверки на последний разряд
+		mov cx, 0
 
-			num_continue:
-			; Получаем нашу цифру, делением с остатком
-			; AX <- Делимое, потом результат деления с остатком
-			; CX <- Делитель
-			; DX <- Остаток
-			mov dx, 0
-			div cx
+		Splitter:
+			inc cx
+			cmp ax, bx
+			div bx		; Делим АХ на 10
+			push dx		; Остаток (последняя цифра числа) записывается в стек. Так мы сможем получать их в правильном порядке потом
+			xor dx, dx	; Сбрасываем остаток, потому что иначе div начинает выкобениваться
 			cmp ax, 0
-			
-			; Заносим цифру в стринг
-			add ax, 30h
-			mov [si], ax
-			; Повторить BL раз
-			mov ax, dx
+			jne Splitter
+		
+		Writer:
+			pop dx			; Достаем последний доступный десяток
+			add dx, 30h		; Делаем из числа символ цифры
+			mov [si], dx	; Заносим цифру в стринг
 			inc si
-			cmp bl, 1
-			jne Num_parser
+			dec cx
+			jnz Writer
 		; В конце дописываем доллар, чтобы прерывание для вывода знало, где кончается строка
 		mov [si], "$"
+		
+		pop cx
+		pop bx
+		pop si
 		ret
 	endp number2string
+
+	; ---------------------------------------------------------------------------------
+	; Предназначение: выбрасывание ошибки про оверфлоу одного из регистров
+	; Ввод:
+	; BX <- код ошибки менеджера
+	; Вывод: ---
+	; ---------------------------------------------------------------------------------
+	proc error_manager
+		mov ah, 09h
+		cmp bx, 0ffffh	; overflow error
+		je overflow_error
+		cmp bx, 1		; wrong input error
+		je wrong_input_error
+		jmp halt
+
+		overflow_error:
+			mov dx, offset overflow_err
+			int 21h
+			jmp halt
+		wrong_input_error:
+			mov dx, offset wrong_input_err
+			int 21h
+			jmp halt
+
+		halt:
+		M_error_exit
+		ret
+	endp error_manager
 
 
 	end Start

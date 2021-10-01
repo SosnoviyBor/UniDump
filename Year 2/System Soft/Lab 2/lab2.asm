@@ -244,46 +244,38 @@ endp trim_minus
 ; Вывод: ---
 ; ---------------------------------------------------------------------------------
 proc number2string
-	mov bl, 0	; 0 для проверки на последний разряд
-	; Парсим)
-	Num_parser:
-		; Смотрим, в каком разряде вы находимся
-		cmp ax, 100d
-		ja three_digit
-		cmp ax, 10d
-		ja two_digit
-		mov cx, 1d
-		mov bl, 1	; Вот мы и на последнем разряде!
-		jmp num_continue
+	push si
+	push bx
+	push cx
 
-		three_digit:
-		mov cx, 100d
-		jmp num_continue
-		two_digit:
-		mov cx, 10d
-		jmp num_continue
+	mov si, offset result_str	; Ссылка на начало стрина, в который будут писать результат
+	mov bx, 10d					; 0 для проверки на последний разряд
+	mov cx, 0
 
-		num_continue:
-		; Получаем нашу цифру, делением с остатком
-		; AX <- Делимое, потом результат деления с остатком
-		; CX <- Делитель
-		; DX <- Остаток
-		mov dx, 0
-		div cx
+	Splitter:
+		inc cx
+		cmp ax, bx
+		div bx		; Делим АХ на 10
+		push dx		; Остаток (последняя цифра числа) записывается в стек. Так мы сможем получать их в правильном порядке потом
+		xor dx, dx	; Сбрасываем остаток, потому что иначе div начинает выкобениваться
 		cmp ax, 0
+		jne Splitter
 		
-		; Заносим цифру в стринг
-		add ax, 30h
-		mov [si], ax
-		; Повторить BL раз
-		mov ax, dx
+	Writer:
+		pop dx			; Достаем последний доступный десяток
+		add dx, 30h		; Делаем из числа символ цифры
+		mov [si], dx	; Заносим цифру в стринг
 		inc si
-		cmp bl, 1
-		jne Num_parser
+		dec cx
+		jnz Writer
 	; В конце дописываем доллар, чтобы прерывание для вывода знало, где кончается строка
 	mov [si], "$"
+		
+	pop cx
+	pop bx
+	pop si
 	ret
-	endp number2string
+endp number2string
 
 
 	end Start
