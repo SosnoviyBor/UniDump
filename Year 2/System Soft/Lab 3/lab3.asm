@@ -83,16 +83,6 @@ result_str db 0, 0, 0, 0, 0
 overflow_err db 10, 13, 10, 13, "There is overflow in register!", 10, 13, "$"
 wrong_input_err db 10, 13, 10, 13, "Wrong input!", 10, 13, "$"
 
-; 00h - black
-; 10h - blue
-; 20h - green
-; 30h - light blue
-; 40h - red
-; 50h - purple
-; 60h - brown
-; 70h - grey
-COLOR_background equ 00h
-console_length equ 184Fh
 CODESEG
 Start:
 	M_init
@@ -178,7 +168,7 @@ Start:
 	; SI <- Адрес начала стринга
 	; Выход:
 	; AX <- результат, десятичное число
-	; BL <- 0, если число положительное; 1, если число отрицательное
+	; BP <- 0, если число положительное; 1, если число отрицательное
 	; ---------------------------------------------------------------------------------
 	proc string2dec
 		push cx
@@ -599,19 +589,19 @@ Start:
 	; AX <- результат деления с округлением
 	; ---------------------------------------------------------------------------------
 	proc rdiv
-	push dx
+		push dx
 
-	div cx
+		div cx
 
-	cmp dx, 5
-	jnb do_round
-	jmp dont_round
+		cmp dx, 5
+		jnb do_round
+		jmp dont_round
 
-	do_round:
-	inc ax
-	dont_round:
+		do_round:
+		inc ax
+		dont_round:
 
-	pop dx
+		pop dx
 		ret
 	endp rdiv
 
@@ -619,6 +609,7 @@ Start:
 	; Предназначение: вывод числа на консоль с учетом его знака
 	; Ввод:
 	; АХ <- число
+	; BP <- 0 if postive, 1 if negative
 	; Вывод: ---
 	; ---------------------------------------------------------------------------------
 	proc print_result

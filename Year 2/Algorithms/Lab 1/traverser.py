@@ -56,9 +56,6 @@ def BFS(puzzle, max_search_depth):
 
 				if neighbor.depth > max_search_depth:
 					raise Exception("Exceeded maximum search depth")
-
-		if len(queue) > max_frontier_size:
-			max_frontier_size = len(queue)
 	
 	raise Exception("Impossible input")
 
@@ -87,8 +84,6 @@ def Astar(puzzle, max_search_depth):
 	heap_entry[root.map] = entry
 
 	while heap:
-		iterations += 1
-
 		node = heappop(heap)
 		explored.add(node[2].map)
 
@@ -121,9 +116,6 @@ def Astar(puzzle, max_search_depth):
 				heap[int(hindex)] = entry
 				heap_entry[neighbor.map] = entry
 				heapify(heap)
-
-		if len(heap) > max_frontier_size:
-			max_frontier_size = len(heap)
 	
 	raise Exception("Impossible input")
 
@@ -164,7 +156,6 @@ def expand(node):
 
 
 def move(state, position):
-
 	new_state = state[:]
 	index = new_state.index(0)
 
@@ -196,7 +187,6 @@ def move(state, position):
 			return None
 
 	if position == 4:  # Right
-
 		if index not in range(board_side - 1, board_len, board_side):
 			temp = new_state[index + 1]
 			new_state[index + 1] = new_state[index]
