@@ -89,6 +89,7 @@ input_buffer db 5, 0, 0, 0, 0, 0, 0
 spacer db 10, 13, "Result: ", "$"
 minus db "-", "$"
 output_buffer db 0, 0, 0, 0, 0, 0
+result_str db 0, 0, 0
 
 CODESEG
 Start:
@@ -122,7 +123,7 @@ Start:
 	M_calculate
 	; Парсинг десятичного числа в стринг
 	mov si, offset output_buffer
-	call number2string
+	call dec2string
 
 	; Вывод этого стринга и отступа перед ним
 	mov ah, 09h
@@ -243,24 +244,22 @@ endp trim_minus
 ; SI <- Ссылка на начало стринга
 ; Вывод: ---
 ; ---------------------------------------------------------------------------------
-proc number2string
-	push si
+proc dec2string
 	push bx
 	push cx
 
-	mov si, offset result_str	; Ссылка на начало стрина, в который будут писать результат
-	mov bx, 10d					; 0 для проверки на последний разряд
+	mov bx, 10d		; 0 для проверки на последний разряд
 	mov cx, 0
-
 	Splitter:
 		inc cx
 		cmp ax, bx
+		xor dx, dx	; Сбрасываем регистр DX, потому что иначе div начинает выкобениваться
 		div bx		; Делим АХ на 10
 		push dx		; Остаток (последняя цифра числа) записывается в стек. Так мы сможем получать их в правильном порядке потом
-		xor dx, dx	; Сбрасываем остаток, потому что иначе div начинает выкобениваться
+		xor dx, dx	; Сбрасываем регистр DX, потому что иначе div начинает выкобениваться
 		cmp ax, 0
 		jne Splitter
-		
+	
 	Writer:
 		pop dx			; Достаем последний доступный десяток
 		add dx, 30h		; Делаем из числа символ цифры
@@ -268,14 +267,12 @@ proc number2string
 		inc si
 		dec cx
 		jnz Writer
-	; В конце дописываем доллар, чтобы прерывание для вывода знало, где кончается строка
+	
 	mov [si], "$"
-		
 	pop cx
 	pop bx
-	pop si
 	ret
-endp number2string
+endp dec2string
 
 
 	end Start
