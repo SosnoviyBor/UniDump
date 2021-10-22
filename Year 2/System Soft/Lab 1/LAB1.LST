@@ -1,0 +1,130 @@
+Turbo Assembler	 Version 4.1	    10/22/21 19:36:13	    Page 1
+LAB1.ASM
+
+
+
+      1				     IDEAL
+      2	0000			     MODEL small
+      3	0000			     STACK 256
+      4
+      5				     ; ==================================== Макроси ====================================
+      6				     ; ---------------------------------------------------------------------------------
+      7				     ; Призначення: ініціалізація програми
+      8				     ; ---------------------------------------------------------------------------------
+      9				     MACRO M_init	     ; Макрос для ініціалізації. Його		    +
+     10				     початок
+     11					     mov ax, @data   ; @data ідентифікатор, що створюються	    +
+     12				     директивою MODEL
+     13					     mov ds, ax		     ; Завантаження	початку сегменту	    +
+     14				     даних	в регістр DS
+     15					     mov es, ax		     ; Завантаження	початку сегменту	    +
+     16				     даних	в регістр ES
+     17					     ENDM M_init	     ; Кінець макросу
+     18
+     19				     ; ---------------------------------------------------------------------------------
+     20				     ; Призначення: вихід із програми	(із кодом 0)
+     21				     ; ---------------------------------------------------------------------------------
+     22				     MACRO M_exit
+     23					     mov ah, 4ch
+     24					     mov al, 0
+     25					     int 21h
+     26					     ENDM M_exit
+     27
+     28	0100			     DATASEG
+     29	0000  44 6F 6E 65 21 0A	0D+  msg db "Done!", 10, 13, "$"
+     30	      24
+     31	0008  00 00 00 00 00 00	00+  spacer db 0, 0, 0,	0, 0, 0, 0, 0
+     32	      00
+     33	0010  0031 0032	0033 0034    arr dw "1", "2", "3", "4"
+     34	0018  0000 0000	0000 0000    dest dw 0,	0, 0, 0
+     35	      =	8		     arr_len equ 8
+     36
+     37	0020			     CODESEG
+     38	0000			     Start:
+     39					     M_init
+1    40	0000  B8 0000s			     mov ax, @data   ; @data ідентифікатор, що створюються	    +
+     41				     директивою MODEL
+1    42	0003  8E D8			     mov ds, ax		     ; Завантаження	початку сегменту	    +
+     43				     даних	в регістр DS
+1    44	0005  8E C0			     mov es, ax		     ; Завантаження	початку сегменту	    +
+     45				     даних	в регістр ES
+     46	0007  BE 0016r			     mov si, offset arr	+ arr_len - 2	     ; Указатель на последний   +
+     47				     элемент изначального списка
+     48	000A  BB 0018r			     mov bx, offset dest			     ; Указатель на начало +
+     49				     нового списка
+     50	000D  B1 08			     mov cl, arr_len					     ; Просто длинна    +
+     51				     нашего массива
+     52
+     53	000F				     Writer:
+     54						     ; Переписывание слова из первого списка во  +
+     55				     второй
+     56	000F  8B 14				     mov dx, [si]
+     57	0011  89 17				     mov [bx], dx
+Turbo Assembler	 Version 4.1	    10/22/21 19:36:13	    Page 2
+LAB1.ASM
+
+
+
+     58
+     59	0013  43				     inc bx
+     60	0014  43				     inc bx
+     61	0015  4E				     dec si
+     62	0016  4E				     dec si
+     63	0017  FE C9				     dec cl
+     64	0019  FE C9				     dec cl
+     65						     ;if (CL !=	0) do jump
+     66	001B  75 F2				     jnz Writer
+     67
+     68					     ; Оповещение об успешном выполнении задания
+     69	001D  BA 0000r			     mov dx, offset msg
+     70	0020  B4 09			     mov ah, 09h
+     71	0022  CD 21			     int 21h
+     72					     M_exit
+1    73	0024  B4 4C			     mov ah, 4ch
+1    74	0026  B0 00			     mov al, 0
+1    75	0028  CD 21			     int 21h
+     76					     end Start
+Turbo Assembler	 Version 4.1	    10/22/21 19:36:13	    Page 3
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "10/22/21"
+??FILENAME			  Text	 "LAB1	  "
+??TIME				  Text	 "19:36:13"
+??VERSION			  Number 040A
+@32BIT				  Text	 0
+@CODE				  Text	 _TEXT
+@CODESIZE			  Text	 0
+@CPU				  Text	 0101H
+@CURSEG				  Text	 _TEXT
+@DATA				  Text	 DGROUP
+@DATASIZE			  Text	 0
+@FILENAME			  Text	 LAB1
+@INTERFACE			  Text	 000H
+@MODEL				  Text	 2
+@STACK				  Text	 DGROUP
+@WORDSIZE			  Text	 2
+ARR				  Word	 DGROUP:0010
+ARR_LEN				  Text	 8
+DEST				  Word	 DGROUP:0018
+MSG				  Byte	 DGROUP:0000
+SPACER				  Byte	 DGROUP:0008
+START				  Near	 _TEXT:0000
+WRITER				  Near	 _TEXT:000F
+
+Macro Name
+
+M_EXIT
+M_INIT
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+DGROUP				  Group
+  STACK				  16  0100 Para	  Stack	  STACK
+  _DATA				  16  0020 Word	  Public  DATA
+_TEXT				  16  002A Word	  Public  CODE
+
