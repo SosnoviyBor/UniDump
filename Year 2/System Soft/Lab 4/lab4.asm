@@ -147,11 +147,11 @@ opt5_msg db "You chose seach for coordinates of the element in 2d array. Good ch
 		 db "Expected input: 001,027,100,147 etc.", 10, 13
 		 db 10, 13
 		 db "Your input:", 10, 13, "$"
-opt5_row0_msg db "Row 0:", 10, 13, "$"
-opt5_row1_msg db "Row 1:", 10, 13, "$"
-opt5_row2_msg db "Row 2:", 10, 13, "$"
-opt5_row3_msg db "Row 3:", 10, 13, "$"
-opt5_lost_num db "Number to find:", 10, 13, "$"
+opt5_row0_msg db "Row 0: ", "$"
+opt5_row1_msg db "Row 1: ", "$"
+opt5_row2_msg db "Row 2: ", "$"
+opt5_row3_msg db "Row 3: ", "$"
+opt5_lost_num db "Number to find: ", "$"
 
 inp_arr db 101, 0
 		db 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -476,6 +476,7 @@ Start:
 		int 21h
 		M_crlf
 
+		M_crlf
 		mov dx, offset opt5_lost_num
 		M_print
 		mov ah, 0ah

@@ -9,6 +9,8 @@ lines = [	# Type anything you want
 "174,208,189,250"
 ]
 
+print('C - 1d array\nX - 2d array')
+
 while True:
 	try:
 		if keyboard.is_pressed('x'):
@@ -27,7 +29,7 @@ while True:
 			for i in lines:
 				keyboard.write(i, exact=False, delay=0.05)
 				keyboard.write(",", exact=False, delay=0.05)
-			#keyboard.send("enter")
+			keyboard.send("enter")
 			print("Done!")
 			break
 	except:
