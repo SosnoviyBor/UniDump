@@ -1,7 +1,6 @@
 import keyboard	# pip3 install keyboard
 import random
 import time
-startKey = 'x'			# key which starts whole script
 
 lines = [	# Type anything you want
 "004,109,207,103",
