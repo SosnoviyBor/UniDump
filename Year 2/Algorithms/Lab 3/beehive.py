@@ -17,15 +17,15 @@ class beehive():
 		pass
 
 	def paint(self):
-		coloredVertices = self.__greedyPaint()
+		coloredVertices = self.__greedyPaint()	# Первичная, грубая, разрисовка графа
 		processedVertices = set()
 		availableBees = self.workerBeesCount
 
-		while len(processedVertices) != len(self.graph):
+		while len(processedVertices) != len(self.graph):	# Находимся в цикле, пока не обойдем весь граф
 			toProcess = []
 			
 			i = 0
-			while i < self.scoutBeesCount:
+			while i < self.scoutBeesCount:	# Разведчики составляют пути для рабочих (случайным способом)
 				if len(processedVertices) == len(self.graph):
 					break
 
@@ -36,20 +36,20 @@ class beehive():
 			
 			toProcess.sort(key=self.__getDegree, reverse=True)
 
-			for vertex in toProcess:
+			for vertex in toProcess:	# Проходимся по всем вершинам, что нам разведали разведчики пока у нас не закончатся либо пчелы, либо соседи
 				neighbours = self.__getNeighbours(vertex)
 
 				processVertices = min(availableBees, len(neighbours))
 				i = 0
 
-				for neighbour in neighbours:
+				for neighbour in neighbours: # Красим, пока у нас либо не кончатся работяги, либо соседи
 					if processVertices == i:
 						break
 				
 					colorCount = self.__countColors(coloredVertices)
-					if self.__trySwappingColors(vertex, neighbour, coloredVertices):
+					if self.__trySwappingColors(vertex, neighbour, coloredVertices):	# Пытаемся поменять местами две вершины в надежде, что это поможет оптимизировать закраску
 						j = 1
-						while j <= len(colorCount):
+						while j <= len(colorCount): # Красим обе вершины в максимально оптимальный цвет
 							if (self.__isColorValid(j, vertex, coloredVertices)
 									and colorCount[coloredVertices[vertex] - 1]) < colorCount[j - 1]:
 								coloredVertices[vertex] = j
