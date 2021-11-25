@@ -1,12 +1,30 @@
 import beehive
 import generator
 
-workerBees = 60
-scoutBees = 5
+workerBees = 8
+scoutBees = 1
 vertices = 300
 maxConnections = 50
 
-adjMatrix = generator.generate(vertices, maxConnections)
+#adjMatrix = generator.generate(vertices, maxConnections)
+
+adjMatrix = [
+	[0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+	[1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
+	[0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0], 
+	[0, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0], 
+	[0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0], 
+	[1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0], 
+	[0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0], 
+	[0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0], 
+	[0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0], 
+	[0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1], 
+	[0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0], 
+	[0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0], 
+	[0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0], 
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1], 
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0]
+]
 
 beehive = beehive.beehive(adjMatrix, workerBees, scoutBees)
 coloredVertices = beehive.paint()
