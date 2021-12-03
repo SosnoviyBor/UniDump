@@ -1,68 +1,68 @@
 #one {
-	grid-area: one;
-	background-color: cadetblue;
-	display: flex;
-	justify-content: right;
-	align-items: center;
+    grid-area: one;
+    background-color: cadetblue;
+    display: flex;
+    justify-content: right;
+    align-items: center;
 	padding: 2%;
 }
 
 #two {
-	grid-area: two;
-	background-color: coral;
+    grid-area: two;
+    background-color: coral;
 	vertical-align: middle;
 	padding: 2%;
 }
 
 #three {
-	grid-area: tri;
-	background-color: chartreuse;
-	display: flex;
-	justify-content: right;
-	align-items: center;
+    grid-area: tri;
+    background-color: chartreuse;
+    display: flex;
+    justify-content: right;
+    align-items: center;
 	padding: 2%;
 }
 
 #four {
-	grid-area: for;
-	background-color: white;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    grid-area: for;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 	padding: 2%;
 
 	display: grid;
-	grid-template-rows: 200px 1fr;
-	grid-template-areas:
-	"a"
-	"b";
-	width: auto;
-	height: auto;
+    grid-template-rows: 200px 1fr;
+    grid-template-areas:
+      "a"
+	  "b";
+      width: auto;
+      height: auto;
 }
 
 #five {
-	grid-area: fiv;
-	background-color: coral;
-	display: flex;
-	justify-content: left;
-	align-items: center;
+    grid-area: fiv;
+    background-color: coral;
+    display: flex;
+    justify-content: left;
+    align-items: center;
 	padding: 2%;
 }
 
 #six {
-	grid-area: six;
-	background-color: cadetblue;
-	display: flex;
-	justify-content: left;
-	align-items: center;
+    grid-area: six;
+    background-color: cadetblue;
+    display: flex;
+    justify-content: left;
+    align-items: center;
 	padding: 2%;
 }
 
 #x {
-	background-color: white;
+    background-color: white;
 	text-align: center;
-	margin-left: 5%;
-	margin-right: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 #x_header {
@@ -74,10 +74,10 @@
 }
 
 #y {
-	background-color: white;
-	text-align: center;
-	margin-right: 5%;
-	margin-left: 75%;
+    background-color: white;
+    text-align: center;
+    margin-right: 5%;
+    margin-left: 75%;
 }
 
 #y_header {
@@ -89,16 +89,16 @@
 }
 
 .wrapper {
-	display: grid;
-	grid-template-columns: 1fr 2fr 1fr;
-	grid-template-rows: 250px 0.3fr 2.3fr 250px;
-	grid-template-areas:
-	"one one one"
-	"two tri tri"
-	"two for fiv"
-	"six six six";
-	width: auto;
-	height: auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 250px 0.3fr 2.3fr 250px;
+    grid-template-areas:
+      "one one one"
+      "two tri tri"
+      "two for fiv"
+      "six six six";
+      width: auto;
+      height: auto;
 }
 
 /*#######################################################################################################
@@ -305,13 +305,13 @@ ol, li {
 
 /* Заголовок слайда */
 .s_text {
-	position: absolute;
-	color: #fff;
-	font-size: 35px;
-	/* Выравнивание текста по горизонтали и по вертикали*/
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	/* Тень*/
-	text-shadow: 1px 1px 1px #000, 0 0 1em #000;
+    position: absolute;
+    color: #fff;
+    font-size: 35px;
+    /* Выравнивание текста по горизонтали и по вертикали*/
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    /* Тень*/
+    text-shadow: 1px 1px 1px #000, 0 0 1em #000;
 }
