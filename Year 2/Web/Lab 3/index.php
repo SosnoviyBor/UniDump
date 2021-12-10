@@ -111,17 +111,27 @@
 				<a href="#c1_slide3" class="c_prev"></a>
 				<a href="#c1_slide2" class="c_next"></a>
 			</li>
-			<li id="c2_slide2" tabindex="0" class="c_slide">
+			<li id="c1_slide2" tabindex="0" class="c_slide">
 				<a class="s_text">some text 2</a>
 				<div class="c_snapper"></div>
-				<a href="#c2_slide1" class="c_prev"></a>
-				<a href="#c2_slide3" class="c_next"></a>
+				<a href="#c1_slide1" class="c_prev"></a>
+				<a href="#c1_slide3" class="c_next"></a>
 			</li>
 			<li id="c3_slide3" tabindex="0" class="c_slide">
 				<a class="s_text">some text 3</a>
 				<div class="c_snapper"></div>
-				<a href="#c3_slide2" class="c_prev"></a>
-				<a href="#c3_slide1" class="c_next"></a>
+				<a href="#c1_slide2" class="c_prev"></a>
+				<a href="#c1_slide1" class="c_next"></a>
+			</li>
+		</ol>
+	</section>
+	<section class="carousel" aria-label="Gallery">
+		<ol class="c_viewport">
+			<li id="c2_slide1" tabindex="0" class="c_slide">
+				<a class="s_text">some text 1</a>
+				<div class="c_snapper"></div>
+				<a href="#c2_slide1" class="c_prev"></a>
+				<a href="#c2_slide1" class="c_next"></a>
 			</li>
 		</ol>
 	</section>
