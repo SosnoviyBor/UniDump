@@ -260,6 +260,7 @@ function reloadButtonFunc() {
 		var canvas = document.getElementById("anim")
 		var ctx = canvas.getContext("2d")
 		ctx.clearRect(0, 0, canvas.width, canvas.height)
+		ctx.fillRect(canvas.width/2-rectSideLen/2, canvas.height/2-rectSideLen/2, rectSideLen, rectSideLen)
 		document.getElementById("textBox").innerHTML = msgReload
 		var current = new Date()
 		storage.setItem(`${storage.length}`, `${msgReload} at ${current.toLocaleString()}`)
