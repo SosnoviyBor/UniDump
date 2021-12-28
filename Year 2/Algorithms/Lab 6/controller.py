@@ -230,11 +230,17 @@ class GameController:
 		self.can_get_new_card = True
 		self.can_through_only_by_rank = False
 
-	def _ai_decide_which_move_to_make(self):
-		"""
-			The function, that decides which move Agent is going to make.
-		"""
+	"""
+	#########################################################################################
+	#########################################################################################
+	#########################################################################################
+	#########################################################################################
+	#########################################################################################
+	#########################################################################################
+	#########################################################################################
+	"""
 
+	def _ai_decide_which_move_to_make(self):
 		ai_has_any_moves = len(self._ai_get_all_possible_moves())  # checking if there are any moves Agent can make
 
 		if self.can_get_new_card and not ai_has_any_moves:
@@ -256,13 +262,7 @@ class GameController:
 			self._make_a_move(best_card_to_move)
 			self.current_move_by = AGENT
 
-	def _ai_value_the_move(self, move_card: Card) -> int:
-		"""
-			This function calculates the value of the move.
-		
-			move_card is object of Card from self.deck.agent_cards.
-		"""
-		
+	def _ai_value_the_move(self, move_card: Card) -> int:		
 		if len(self.deck.user_cards) == 1:  # if user have only 1 card, the game is almost over, and we got to play aggressive in order not to lose 
 			return self._ai_value_the_move_in_danger_situation(move_card)  # so in danger situation, the value of moves that makes our opponent get cards are higher
 
@@ -274,36 +274,24 @@ class GameController:
 
 		if self._ai_count_cards_with_specific_suit(suit) == 1 and self._ai_count_cards_with_specific_rank(rank) == 1:
 			move_points -= 70  # decreasing our points if we don't have the suit we are going to through
-
 		return move_points
 	
 	def _ai_get_all_possible_moves(self):
 		moves = []
 		for card in self.deck.agent_cards:
 			if self.can_make_move(card):
-				if card.rank != Rank.six or self._ai_can_cover_six(card.suit):  # if we have a Six, but we have nothing to "cover" it, we won't through this Six
-					moves.append(card)
-
+				moves.append(card)
 		return moves
 
 	def _ai_value_the_move_in_danger_situation(self, move_card: Card):
-		"""
-			This method counts the points of the move in danger situation, when Agent on the edge of losing.
-
-			In such situation, we have to make moves that makes our opponent take cards.
-		"""
-
 		suit, rank = move_card.suit, move_card.rank
 		move_points = CARDS_POINTS_BY_RANK[rank]
 
-		if rank == Rank.seven:
-			move_points += 250 * self._ai_count_cards_with_specific_rank(Rank.seven)
+		if rank == Rank.four:
+			move_points += 250
 
-		if rank == Rank.eight:
-			move_points += 120 * self._ai_count_cards_with_specific_rank(Rank.eight)
-
-		if rank == Rank.queen and suit == Suit.spades:
-			move_points += 350
+		if rank == Rank.two:
+			move_points += 120 * self._ai_count_cards_with_specific_rank(Rank.two)
 
 		if self._ai_count_cards_with_specific_suit(suit) == 1 and self._ai_count_cards_with_specific_rank(rank) == 1:
 			move_points -= 70
@@ -315,7 +303,6 @@ class GameController:
 		for card in self.deck.agent_cards:
 			if card.rank == rank:
 				result += 1
-
 		return result
 
 	def _ai_count_cards_with_specific_suit(self, suit):
@@ -323,7 +310,6 @@ class GameController:
 		for card in self.deck.agent_cards:
 			if card.suit == suit:
 				result += 1
-
 		return result
 
 	def _ai_finishes_his_move(self):
@@ -356,33 +342,8 @@ class GameController:
 			else:
 				self._ai_finishes_his_move()
 
-	def _ai_can_cover_six(self, six_suit, check_another_sixs=True):
-		if self._ai_count_cards_with_specific_suit(six_suit) > 1:
-			return True
-
-		if self._ai_count_cards_with_specific_rank(Rank.six) > 1 and check_another_sixs:
-			another_six = []
-			for card in self.deck.agent_cards:
-				if card.rank == Rank.six and card.suit != six_suit:
-					another_six.append(card)
-
-			return any([self._ai_can_cover_six(another_six.suit, check_another_sixs=False) for another_six in another_six])
-
-	def _ai_find_best_sequence_to_cover_six(self, six_suit):
-		max_sequence = self._ai_find_max_rank_sequence(six_suit)
-
-		for card in self.deck.agent_cards:
-			if card.rank == Rank.six and card.suit != six_suit:
-				new_best_sequence = self._ai_find_max_rank_sequence(card.suit)
-				if len(new_best_sequence) + 1 > len(max_sequence):
-					max_sequence = [card]
-					max_sequence.extend(new_best_sequence)
-
-		return max_sequence
-
 	def _ai_find_max_rank_sequence(self, suit):
 		max_sequence = []
-
 		for card in self.deck.agent_cards:
 			if card.suit == suit and card.rank != Rank.six:
 				if self._ai_count_cards_with_specific_rank(card.rank) > len(max_sequence):
@@ -391,7 +352,6 @@ class GameController:
 					for another_card in self.deck.agent_cards:
 						if another_card.rank == card.rank and another_card.suit != card.suit:
 							max_sequence.append(another_card)
-
 		return max_sequence
 
 	def _draw_game_over(self, winner):
