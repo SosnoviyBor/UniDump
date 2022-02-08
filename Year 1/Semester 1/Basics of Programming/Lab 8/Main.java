@@ -3,10 +3,11 @@ import java.lang.Math;
 class Main {
 	public static void main (String args[]) {
 		Rectangle r1 = new Rectangle(3,4);
+		System.out.println(r1);
 		System.out.println(r1.expandToSquare().toString());
-		Rectangle r2 = new Rectangle(4,4);
-		System.out.println(r2.toString());
-		System.out.println(r1.equals(r2));
+		//Rectangle r2 = new Rectangle(4,4);
+		//System.out.println(r2.toString());
+		//System.out.println(r1.equals(r2));
 	}
 }
 
