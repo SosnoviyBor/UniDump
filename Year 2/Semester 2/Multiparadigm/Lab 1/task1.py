@@ -3,6 +3,8 @@ from goto import with_goto  # pip install goto-statement
 # 53 -> return code.replace(co_code=codestring)
 # 175 -> return _make_code(code, buf.tobytes())
 
+FILENAME = "task1input.txt"
+
 @with_goto	# enables usage of "goto" and "label" operators
 def main():
 	ignoredWords = ["the","for","a","in"]
@@ -12,7 +14,7 @@ def main():
 
 	# read whole file in single string
 	# usage of functions here is inevitable
-	with open("task1input.txt", "r") as file:
+	with open(FILENAME, "r") as file:
 		content = file.read()
 	# add an a special symbol to the end of our content
 	content += "$"
