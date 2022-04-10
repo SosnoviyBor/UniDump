@@ -2,6 +2,10 @@
 	grid-column: 1 / span 3;
 }
 
+#logDiv {
+	text-align: center;
+}
+
 #calc {
 	display: grid;
 	grid-template-columns: 33%;
