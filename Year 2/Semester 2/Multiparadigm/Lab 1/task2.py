@@ -98,7 +98,8 @@ def main():
 	if result[i][1] > maxWords or result[i][0] == "":
 		wordsInResult -= 1
 		del result[i]
-	i+=1
+	else:
+		i += 1
 	if i >= wordsInResult:
 		goto .wThrowerEnd
 	goto .wThrower
