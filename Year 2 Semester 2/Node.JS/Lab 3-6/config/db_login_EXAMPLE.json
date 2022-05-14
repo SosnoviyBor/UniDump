@@ -1,0 +1,6 @@
+{
+  "_comment": "Rename this file to 'db_login.json' for correct work of this project",
+  "host": "hostname",
+  "user": "username",
+  "password": "password"
+}

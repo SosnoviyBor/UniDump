@@ -11,3 +11,6 @@
 *.doc
 *.docx
 *.pdf
+
+# Specific configs
+db_login.json

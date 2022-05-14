@@ -1,0 +1,195 @@
+/* luckiest-guy-regular - latin */
+@font-face {
+    font-family: 'Luckiest Guy';
+    font-style: normal;
+    font-weight: 400;
+    src: url('fonts/luckiest-guy-v17-latin-regular.eot'); /* IE9 Compat Modes */
+    src: local(''),
+    url('fonts/luckiest-guy-v17-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/luckiest-guy-v17-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('fonts/luckiest-guy-v17-latin-regular.woff') format('woff'), /* Modern Browsers */
+    url('fonts/luckiest-guy-v17-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('fonts/luckiest-guy-v17-latin-regular.svg#LuckiestGuy') format('svg'); /* Legacy iOS */
+}
+@import url('https://fonts.googleapis.com/css2?family=Galindo&display=swap');
+/*
+font-family: 'Galindo', cursive;
+ */
+
+html {
+    box-sizing: border-box;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+.wrapper {
+    height: 100%;
+    width: 80%;
+    margin: 0 auto;
+}
+
+body {
+    height: 100%;
+    overflow: auto;
+    font-family: 'Galindo', cursive;
+    background-color: #b3d4fc;
+}
+/*
+Header
+ */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(180deg,#c0c0c0 16.29%,rgba(0,6,43,.04) 100.69%);
+}
+/*
+Main
+ */
+
+main {
+    background-size: cover;
+}
+.book {
+    background-color: white;
+    height: 30vw;
+    width: 100%;
+    border-radius: 2vw;
+    margin-top: 2vw;
+    display: flex;
+    flex-direction: column;
+    padding: 4%;
+}
+footer{
+    height: 5vh;
+    padding-top: 3vw;
+    padding-bottom: 3vw;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.book-title-author {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column
+}
+.book-author {
+    font-size: 18px;
+    color: gray;
+}
+.book-title {
+    font-size: 36px;
+}
+.book-description {
+    display: flex;
+    margin-top: 0.8vw ;
+    height: 100%;
+    padding-bottom: 2vw;
+}
+.book-text {
+    margin-left: 0.8vw
+}
+
+.book-image {
+
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+.book-image {
+    width: -webkit-fill-available;
+    height: 100%;
+    display: flex;
+    justify-content: center
+}
+.cross-close {
+    position: absolute;
+    right: 15% ;
+    width: 2.5vw;
+    height: 2.5vw;
+}
+.menu {
+    border-radius: 2vw;
+    height: 150px;
+    display: flex;
+    margin-top: 4vw;
+    justify-content: space-between;
+}
+.inp-text {
+    display: flex;
+    justify-content: space-between;
+}
+#helpful-b {
+    display: flex;
+    justify-content: flex-end;
+}
+.admin-login-button {
+    width: 50%;
+}
+.admin-panel {
+    height: 30vw;
+    background-color: white;
+    margin-top: 4vw;
+    border-radius: 2vw;
+    padding: 4%;
+    width: 100%;
+}
+.admin-enter-field {
+    display: inline-flex;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    border: 2px solid grey;
+    border-radius: 5px;
+    font-size: 1em;
+    padding: .5em;
+    width: 80%;
+}
+.admin-enter-field :focus {
+    width: 200px;
+    min-width: 200px;
+    transition: all 1s ease;
+}
+
+
+.panel-name{
+    display: flex;
+    justify-content: center;
+    font-size: 2vw;
+}
+.panel-field {
+    margin-top: 0.5vw;
+}
+
+.menu-element{
+    border-radius: 2vw;
+    display: flex;
+    background-color: white;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3vw;
+}
+.search-element {
+    margin: 3px;
+}
+#search-button {
+    margin-left: 50%;
+}
+#search-text {
+    margin-left: 5%;
+}
+#text {
+    position: absolute;
+    font-family: 'Changa One';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 64px;
+    line-height: 68px;
+    /* identical to box height */
+    color: #FEFDFD;
+}

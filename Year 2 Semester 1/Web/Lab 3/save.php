@@ -1,5 +1,6 @@
 <?php
-$mysqli = new mysqli("localhost","boryaxta","GTC##00i","web3");
+include "config.php";
+$mysqli = new mysqli($data[0], $data[1], $data[2], $data[3]);
 
 if ($mysqli -> connect_errno) {
 	echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
