@@ -121,7 +121,7 @@ def manhattanHeuristic(position, problem, info={}):
     xy2 = problem.goal
     return abs(xy1[0] - xy2[0]) + abs(xy1[1] - xy2[1])
 
-def aStarSearch(problem, heuristic=manhattanHeuristic):
+def aStarSearch(problem, heuristic=nullHeuristic):
     
     path = Path([problem.getStartState()],[],0)
 
@@ -152,8 +152,13 @@ def aStarSearch(problem, heuristic=manhattanHeuristic):
                     queue.push(newPath, newCosts + heuristic(nextLocation, problem))
 
     return []
+    
+def greedHeuristic(position, problem, info={}):
+    xy1 = position
+    xy2 = problem.goal
+    return ((xy1[0] - xy2[0]) ** 2 + (xy1[1] - xy2[1]) ** 2) ** 0.5
 
-def greedSearch(problem, heuristic=nullHeuristic):
+def greedSearch(problem, heuristic=greedHeuristic):
     
     path = Path([problem.getStartState()],[],0)
 
@@ -187,6 +192,6 @@ def greedSearch(problem, heuristic=nullHeuristic):
 
 
 # Abbreviations
-astar = aStarSearch
 lee = leeSearch
+astar = aStarSearch
 greed = greedSearch
