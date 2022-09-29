@@ -103,7 +103,7 @@ def leeSearch(problem):
                     newLocations.append(nextLocation)
                     newDirections = curPath.directions[:]
                     newDirections.append(nextDirection)
-                    newCosts = curPath.cost + nextCost
+                    newCosts = curPath.cost + 1
                     newPath = Path(newLocations, newDirections, newCosts)
                     queue.push(newPath, newCosts + 1)
 
