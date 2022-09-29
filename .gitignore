@@ -1,6 +1,11 @@
 # Java
 *.class
 
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
 # Assembly
 *.MAP
 *.OBJ
