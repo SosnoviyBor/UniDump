@@ -38,18 +38,11 @@ else:
 
 # Task 3
 print("\n# Завдання 3")
-if np.mean(df["CrimeRate"]) < np.mean(df["CrimeRate10"]):
-    alt = "less"
-else:
-    alt = "greater"
-result = stats.ttest_rel(df["CrimeRate"], df["CrimeRate10"], alternative=alt)
+result = stats.ttest_rel(df["CrimeRate"], df["CrimeRate10"], alternative="greater")
 if result.pvalue > 0.05:
     print("За останні 10 років частота злочинів практично не змінилась")
 else:
-    if alt == "less":
-        print("За останні 10 років частота злочинів зменшилась")
-    else:
-        print("За останні 10 років частота злочинів зросла")
+    print("За останні 10 років частота злочинів зросла")
 
 # Task 4
 print("\n# Завдання 4")
