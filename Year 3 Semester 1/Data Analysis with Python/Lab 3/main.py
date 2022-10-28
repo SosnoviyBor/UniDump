@@ -9,7 +9,7 @@ df = pd.read_csv("Crime.csv")
 # Виділення однієї колонки
 task1_a = df["CrimeRate"]
 print("\n # Завдання 1\n")
-c.fancyPrint("Задання назв індексів: \n" + str(task1_a.head()), [c.Colors.fg.green])
+c.fancyPrint("Виділення однієї колонки: \n" + str(task1_a.head()), [c.Colors.fg.green])
 c.fancyPrint("Тип даних: " + str(type(task1_a)), [c.Colors.fg.green], end="\n\n")
 # Підмасив
 task1_b = task1_a[:10]
