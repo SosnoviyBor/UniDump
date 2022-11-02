@@ -30,23 +30,27 @@ while True:
 
         case "1c":
             # 1C - середню вагу пінгвінів кожного виду з розподілом за статтю
-            a3 = df.groupby("sex")["body_mass_g"].mean().to_frame().reset_index()
+            a3 = df.groupby(["species","sex"])["body_mass_g"].mean().to_frame().reset_index()
             a3.rename(columns={"body_mass_g":"mean_body_mass_g"}, inplace=True)
-            sns.barplot(x = a3["sex"], y = a3["mean_body_mass_g"]).set(title="Середня вага пінгвіна за статтю")
+            sns.barplot(x = a3["species"], y = a3["mean_body_mass_g"], hue=a3["sex"]).set(title="Середня вага пінгвіна за видом та статтю")
             plt.tight_layout()
             plt.show()
 
 
         case "2":
             # 2 - Гістограма глибини дзьобу
-            sns.histplot(data=df, x="culmen_depth_mm", hue="species")
+            fig, (ax1, ax2) = plt.subplots(2, 1)
+            sns.histplot(data=df, x="culmen_depth_mm", hue="species", ax=ax1).set(title="Глибина дзьоба за видом")
+            sns.histplot(data=df, x="culmen_depth_mm", ax=ax2).set(title="Глибина усіх дзьобів")
             plt.tight_layout()
             plt.show()
 
 
         case "3":
             # 3 - Діаграма розмаху довжини ласт
-            sns.boxplot(data=df, x="flipper_length_mm", y="species")
+            fig, (ax1, ax2) = plt.subplots(2, 1)
+            sns.boxplot(data=df, x="flipper_length_mm", y="species", ax=ax1).set(title="Довжина ласт за видом")
+            sns.boxplot(data=df, x="flipper_length_mm", ax=ax2).set(title="Довжина усіх ласт")
             plt.tight_layout()
             plt.show()
 
