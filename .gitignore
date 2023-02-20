@@ -19,3 +19,4 @@ __pycache__/
 
 # Specific configs
 db_login.json
+secrets.*
