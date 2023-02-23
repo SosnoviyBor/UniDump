@@ -24,7 +24,31 @@
         $table = $params["table"];
         $row_id = $params["id"];
 
-        echo "table = $table<br>item id = $row_id";
+        echo "Редагування рядку в таблиці '$table'<br>";
+
+        $sql = "SELECT * FROM $table WHERE id=$row_id";
+        $data = mysqli_fetch_row(mysqli_query($conn, $sql));
+        $sql = "SELECT COLUMN_NAME
+                FROM INFORMATION_SCHEMA.COLUMNS
+                WHERE TABLE_SCHEMA = 'backend_labs' AND TABLE_NAME = '$table'";
+        $columns = mysqli_fetch_all(mysqli_query($conn, $sql));
+        
+        $fk = null;
+        foreach (range(0,sizeof($data)-1) as $i) {
+            $k = $columns[$i][0];
+            $v = $data[$i];
+            if (!preg_match("/_id/i", $k)) {
+                echo "<br>$k = $v";
+            } else {
+                $fk = $v;
+            };
+        };
+        
+        if ($fk != null) {
+            $sql = "SELECT val FROM statuses WHERE id=$fk";
+            $status = mysqli_fetch_row(mysqli_query($conn, $sql))[0];
+            echo "<br><br>status = $status";
+        };
         ?>
     </div>
 

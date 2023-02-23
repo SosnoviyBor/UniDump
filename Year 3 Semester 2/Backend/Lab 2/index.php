@@ -52,8 +52,15 @@
             foreach ($data as $row) {
                 echo '<tr>';
                 // Print individual values
+                $i = 0;
                 foreach($row as $val) {
-                    echo "<td class='centered'>$val</td>";
+                    $i++;
+                    if ($table === "statuses" && $i === 2) {
+                        echo "<td class='centered'><a href='filter.php?id=$row[id]&status=$val'>$val</a></td>";
+                        $i = 0;
+                    } else {
+                        echo "<td class='centered'>$val</td>";
+                    }
                 };
                 echo "
                     <td class='edit-link centered'>
