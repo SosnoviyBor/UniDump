@@ -15,7 +15,6 @@
     ?>
 
     <div id="wrapper">
-        <a href="index.php"><b>На головну</b></a>
 
         <?php
         // Read URI params
@@ -25,7 +24,7 @@
         $mode = $params["mode"];
         $table = $params["table"];
         $row_id = $params["id"];
-        $html = "";
+        $html = "<a href='table.php?table=$table'><b>Повернутись до таблиці '$table'</b></a>";
 
         // Check if modes (hyperlink sources) are supported
         $supported_modes = ["new","edit"];
@@ -81,22 +80,21 @@
             }
 
             // Generate input fields
-            $form = $form . "<label for='$column'>$column:</label><br>";
             if ($column === "id") {
                 // If column is id
-                $form = $form . "<input type='$inp_type'
-                    id='$column' name='$column' required readonly $val><br>";
+                $form = $form . "<input type='$inp_type' id='$column' name='$column' readonly hidden $val><br>";
             } else if (!preg_match("/_id/i", $column)) {
                 // If common column
-                $form = $form . "<input type='$inp_type'
-                    id='$column' name='$column' required $val $max_len><br>";
+                $form = $form . "<label for='$column'>$column:</label><br>
+                                <input type='$inp_type' id='$column' name='$column' required $val $max_len><br>";
             } else {
                 // If column is FK
                 // Get other table's data
                 $sql = "SELECT * FROM statuses";
                 $statuses = mysqli_fetch_all(mysqli_query($conn, $sql));
 
-                $form = $form . "<select id='statuses' name='status_id'>";
+                $form = $form . "<label for='$column'>$column:</label><br>
+                                <select id='statuses' name='status_id'>";
                 // Generate options for the dropdown
                 foreach ($statuses as $s) {
                     $id = $s[0];
