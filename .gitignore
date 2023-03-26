@@ -11,6 +11,9 @@ venv/
 # JS
 node_modules/
 
+# Java
+out/
+
 # Assembly
 *.MAP
 *.OBJ
