@@ -1,0 +1,18 @@
+{
+    "kyiv": {
+        "en": "Kyiv",
+        "ua": "Київ"
+    },
+    "sumy": {
+        "en": "Sumy",
+        "ua": "Суми"
+    },
+    "zhytomyr": {
+        "en": "Zhytomyr",
+        "ua": "Житомир"
+    },
+    "poltava": {
+        "en": "Poltava",
+        "ua": "Полтава"
+    }
+}
