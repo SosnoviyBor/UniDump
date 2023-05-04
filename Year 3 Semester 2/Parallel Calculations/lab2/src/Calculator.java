@@ -25,7 +25,7 @@ public class Calculator {
                 }
             }
         }
-//        nanoseconds to milliseconds
+    //        nanoseconds to milliseconds
         final long resultTime = (System.nanoTime() - startTime) / 1000000;
 
         return new Result(resultMatrix, resultTime);
@@ -74,14 +74,14 @@ public class Calculator {
         } finally {
             executorService.shutdown();
         }
-//        nanoseconds to milliseconds
+    //        nanoseconds to milliseconds
         final long resultTime = (System.nanoTime() - startTime) / 1000000;
 
         return new Result(result, resultTime, thread_amount);
     }
 
 
-    
+
     private static int findBlockSize(int matrixSize) {
         for (int i = Math.min(10, matrixSize - 1); i > 1; i--) {
             if (matrixSize % i == 0) {
