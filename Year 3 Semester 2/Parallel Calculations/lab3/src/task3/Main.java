@@ -31,17 +31,18 @@ public class Main {
                 thread.start();
                 threads.add(thread);
             }
-//            wait for them all to add this week's grades
-            for (Thread thread : threads) {
-                thread.join();
-            }
         }
 
+//        wait for them all to add grades
+        for (Thread thread : threads) {
+            thread.join();
+        }
 //        print each student's results at the end of all weeks
         for (Map.Entry<Student, List<Integer>> journalEntry : journal.getGrades().entrySet()) {
-            final String name = journalEntry.getKey().getName();
+            final Student student = journalEntry.getKey();
             final List<Integer> grades = journalEntry.getValue();
-            System.out.println(name + " received " + grades.size() +" grades: " + grades);
+            System.out.println(student.getName() + " " + student.getGroup() +
+                    " received " + grades.size() +" grades: " + grades);
         }
     }
 }

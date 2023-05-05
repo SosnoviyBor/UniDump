@@ -14,10 +14,11 @@ public class Journal {
                         student -> new ArrayList<>()));
     }
 
-    public synchronized void addGradeForStudent(Student student, Integer grade) {
-        final List<Integer> studentsGrades = grades.get(student);
-        if (studentsGrades == null) throw new IllegalArgumentException("Unknown student: " + student.getName());
-        else studentsGrades.add(grade);
+    public void addGradeForStudent(Student student, Integer grade) {
+        synchronized (student) {
+            if (getGrades().get(student) == null) throw new IllegalArgumentException("Unknown student: " + student.getName());
+            else getGrades().get(student).add(grade);
+        }
     }
 
     public Map<Student, List<Integer>> getGrades() {
