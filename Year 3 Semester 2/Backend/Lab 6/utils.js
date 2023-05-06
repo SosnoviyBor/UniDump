@@ -7,3 +7,7 @@ function allBodyKeysExist(expectedKeys, body, res) {
     }
     return true
 }
+
+module.exports = {
+    allBodyKeysExist
+}

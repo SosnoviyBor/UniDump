@@ -14,18 +14,23 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
-							"key": "from",
-							"value": "you",
+							"key": "status_id",
+							"value": "1",
 							"type": "default"
 						},
 						{
-							"key": "to",
-							"value": "me",
+							"key": "adress",
+							"value": "somewhere",
 							"type": "default"
 						},
 						{
-							"key": "content",
-							"value": "hi!!!!!",
+							"key": "rooms",
+							"value": "5",
+							"type": "default"
+						},
+						{
+							"key": "cost_hrn",
+							"value": "20000",
 							"type": "default"
 						}
 					],
@@ -53,7 +58,7 @@
 			"response": []
 		},
 		{
-			"name": "Select",
+			"name": "Select all",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -75,6 +80,34 @@
 			"response": []
 		},
 		{
+			"name": "Select by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:3000/get?id=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Update",
 			"request": {
 				"method": "PUT",
@@ -88,18 +121,23 @@
 							"type": "default"
 						},
 						{
-							"key": "from",
+							"key": "status_id",
 							"value": "someone",
 							"type": "default"
 						},
 						{
-							"key": "to",
+							"key": "address",
 							"value": "elsewhere",
 							"type": "default"
 						},
 						{
-							"key": "content",
+							"key": "rooms",
 							"value": "bye bye!",
+							"type": "default"
+						},
+						{
+							"key": "cost_hrn",
+							"value": "",
 							"type": "default"
 						}
 					]
@@ -122,7 +160,7 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "Delete",
 			"request": {
 				"method": "DELETE",
 				"header": [],
