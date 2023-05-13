@@ -48,10 +48,11 @@ public class Tester {
             final double std = analyser.getStd(FJWordSizes);
             assert std > 0;
             System.out.println(String.format(
+                    "Speedup: x%f \n" +
                     "Average word size: %f \n" +
                     "Dispersion: %f \n" +
                     "Std: %f",
-                    average, dispersion, std));
+                    SeqEstimatedTime / FJEstimatedTime, average, dispersion, std));
         }
         System.out.println("------------------------------------------------");
     }

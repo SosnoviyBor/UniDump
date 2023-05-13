@@ -10,7 +10,7 @@ import java.util.concurrent.ForkJoinPool;
 
 class Tester {
     public static void main(String[] args) {
-        File[] filePaths = new File("./src/data/task3").listFiles();
+        File[] filePaths = new File("./src/task3/data").listFiles();
         assert filePaths != null;
         ForkJoinPool forkJoinPool = new ForkJoinPool();
 

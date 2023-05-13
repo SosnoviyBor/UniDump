@@ -1,16 +1,20 @@
 package task4;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Files;
 
 class Tester {
-    public static void main(String[] args) throws FileNotFoundException {
-        final String filePath = "./src/data/";
+    public static void main(String[] args) throws IOException {
+        File[] files = new File("./src/data").listFiles();
+        assert files != null;
         final String[] keywords = {"internet", "devices", "applications"};
-        final String text = new Scanner(new File(filePath + "iot.txt")).useDelimiter("\\Z").next();
 
-        assert KeywordMatcher.matchesKeywords(keywords, text);
-        System.out.println("Success!");
+        for (File file : files) {
+            final String text = Files.readString(file.toPath());
+            if (KeywordMatcher.matchesKeywords(keywords, text)) {
+                System.out.println("Found matches in file: " + file.getPath());
+            }
+        }
     }
 }
