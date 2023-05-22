@@ -28,3 +28,4 @@ out/
 # Specific configs
 db_login.json
 secrets.*
+~*.tmp
