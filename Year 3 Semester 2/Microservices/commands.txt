@@ -1,0 +1,65 @@
+### Minikube garbage ###
+minikube start --vm-driver=docker
+minikube dashboard
+minikube tunnel
+
+
+### Kill all deployments and services ###
+.\kubectl.exe delete deployment db1-deployment
+.\kubectl.exe delete service db1-service
+.\kubectl.exe delete deployment db2-deployment
+.\kubectl.exe delete service db2-service
+.\kubectl.exe delete deployment bot-deployment
+.\kubectl.exe delete service bot-service
+
+
+### Rebuild images for Minikube ###
+docker build -t bot-image .\services\bot_service\
+docker build -t db1-image .\services\db1_service\
+docker build -t db2-image .\services\db2_service\
+minikube.exe image load bot-image
+minikube.exe image load db1-image
+minikube.exe image load db2-image
+
+
+### Launch all deployments and services ###
+.\kubectl.exe apply -f .\k8s\db1_service\
+.\kubectl.exe apply -f .\k8s\db2_service\
+.\kubectl.exe apply -f .\k8s\bot_service\
+.\kubectl.exe apply -f .\k8s\postgres\
+
+
+### Push migration to Docker Hub ###
+docker build -t migration-image ./services/db2_service/migrations
+docker images
+docker tag ID sosnoviybor/microsevices-migration
+docker push sosnoviybor/microsevices-migration
+
+
+
+### Helm garbage ###
+helm uninstall local
+helm dep build .\helm\v1\
+helm install local .\helm\v1\
+
+
+--- ### MAC COMMANDS ### ---
+
+### Kill all deployments and services ###
+.\kubectl.exe delete deployment db1-deployment
+.\kubectl.exe delete service db1-service
+.\kubectl.exe delete deployment db2-deployment
+.\kubectl.exe delete service db2-service
+.\kubectl.exe delete deployment bot-deployment
+.\kubectl.exe delete service bot-service
+
+### Rebuild images for Minikube ###
+docker build -t bot-image ./services/bot_service/
+docker build -t db1-image ./services/db1_service/
+docker build -t db2-image ./services/db2_service/
+minikube image load bot-image
+
+### Launch all deployments and services ###
+kubectl apply -f ./k8s/db1_service/
+kubectl apply -f ./k8s/db2_service/
+kubectl apply -f ./k8s/bot_service/

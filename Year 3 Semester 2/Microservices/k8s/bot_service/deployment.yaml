@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bot-deployment
+  labels:
+    app: bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bot
+  template:
+    metadata:
+     labels:
+       app: bot
+    spec:
+      containers:
+        - name: bot
+          # image: bot-image
+          image: sosnoviybor/microsevices-bot
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80

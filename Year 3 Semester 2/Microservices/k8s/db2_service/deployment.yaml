@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db2-deployment
+  labels:
+    app: db2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db2
+  template:
+    metadata:
+     labels:
+       app: db2
+    spec:
+      initContainers:
+        - name: run-migrations
+          image: sosnoviybor/microsevices-migration
+          command: [
+            "migrate", "-path", "/migrations", "-database", "$(POSTGRESQL_URL)", "goto", "$(VERSION)"
+          ]
+          # if happens error "dirty database", do next:
+          #   change "goto" to "force" in command
+          #   switch to any next version
+          #   launch
+          #   revert to "goto"
+          #   launch again. Now itll work
+          env:
+            - name: POSTGRESQL_URL
+              value: "postgres://demo:demo@postgres:5432/flowers?sslmode=disable"
+            - name: VERSION
+              value: "000001"
+      containers:
+        - name: db2
+          # image: db2-image
+          image: sosnoviybor/microsevices-db2
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: db2-config
+            - secretRef:
+                name: db2-secret
