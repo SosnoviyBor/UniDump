@@ -72,6 +72,8 @@ public class AsyncMultiplication {
                 requestList[i - 1] = request;
             }
 
+//            asdasdasds
+
             Request.Waitall(requestList);
 
             final long finish = System.nanoTime();
