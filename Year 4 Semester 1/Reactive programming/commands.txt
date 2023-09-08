@@ -1,0 +1,10 @@
+-- init project --
+*create package.json*
+npm install
+*create src/app/*
+
+-- deploy to firebase --
+ng build --aot
+firebase init
+*set folder to dist/projectname*
+firebase deploy

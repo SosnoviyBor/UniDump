@@ -10,6 +10,8 @@ venv/
 
 # JS
 node_modules/
+.angular/
+dist/
 
 # Java
 out/
@@ -24,6 +26,7 @@ out/
 *.doc
 *.docx
 *.pdf
+*.log
 
 # Specific configs
 db_login.json
