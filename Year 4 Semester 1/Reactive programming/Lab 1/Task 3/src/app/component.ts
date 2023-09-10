@@ -18,7 +18,8 @@ import { Component } from '@angular/core';
 
     <p>Кількість кліків {{count}}</p>
     <button (click)="increase()">Click</button>
-
+    <p>Кількість кліків {{count}}</p>
+    <button on-click="increase()">Click</button>
     <p>Кількість кліків {{count_2}}</p>
     <button (click)="increase_2($event)">Click</button>
     
