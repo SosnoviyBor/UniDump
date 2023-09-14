@@ -2,37 +2,26 @@ from matplotlib import pyplot
 
 import generators
 
+INTERVALS = 15
 GENERATED_AMOUNT = 10_000
 # first
-LAMBDA = 10
+A1 = 0.5
 # second
 A2 = 1
 SIGMA = 1
 # third
-A3 = 5**13
-C3 = 2**31
-Z0 = 5
-nums = []
+A3 = pow(5, 13)
+C3 = pow(2, 31)
 
-while True:
-    inp = 3
-    match inp:
-        case 1:
-            generated, perfect = generators.first(GENERATED_AMOUNT, LAMBDA)
-            pyplot.hist(generated, 200, alpha=0.5, label='generated')
-            break
-        case 2:
-            generated, perfect = generators.second(GENERATED_AMOUNT, A2, SIGMA)
-            pyplot.hist(generated, 200, alpha=0.5, label='generated')
-            pyplot.hist(perfect, 200, alpha=0.5, label='perfect')
-            break
-        case 3:
-            generated, perfect = generators.third(GENERATED_AMOUNT, A3, C3, Z0)
-            pyplot.hist(generated, 200, alpha=0.5, label='generated')
-            pyplot.hist(perfect, 200, alpha=0.5, label='perfect')
-            break
-        case _:
-            pass
+GENERATOR = 2
 
-pyplot.legend(loc='upper right')
-pyplot.show()
+def main():
+    match GENERATOR:
+        case 1: dist = generators.first.First(GENERATED_AMOUNT, INTERVALS, A1)
+        case 2: dist = generators.second.Second(GENERATED_AMOUNT, INTERVALS, A2, SIGMA)
+        case 3: dist = generators.third.Third(GENERATED_AMOUNT, INTERVALS, A3, C3)
+        case _: return
+    dist.validate()
+
+if __name__ == "__main__":
+    main()
