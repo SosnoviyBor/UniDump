@@ -1,19 +1,17 @@
-from matplotlib import pyplot
-
 import generators
 
 INTERVALS = 15
 GENERATED_AMOUNT = 10_000
 # first
-A1 = 0.5
+A1 = 5
 # second
 A2 = 1
-SIGMA = 1
+SIGMA = 10
 # third
-A3 = pow(5, 13)
-C3 = pow(2, 31)
+A3 = pow(5, 10)
+C3 = pow(2, 26)
 
-GENERATOR = 2
+GENERATOR = 3
 
 def main():
     match GENERATOR:

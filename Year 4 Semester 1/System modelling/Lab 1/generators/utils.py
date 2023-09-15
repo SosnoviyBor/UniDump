@@ -8,7 +8,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 
-def gen_intervals(dist, intervals):
+def count_entries(dist, intervals):
     interval_size = (dist.max() - dist.min()) / intervals
     entries_list = []
     limit_left = dist.min()
@@ -24,7 +24,7 @@ def gen_intervals(dist, intervals):
     return entries_list
 
 
-def gen_interval_list(entries, intervals):
+def get_limit_list(entries, intervals):
     return [[entries[i][0][0], entries[i][0][1]]
             for i in range(intervals)]
 
@@ -47,25 +47,3 @@ def plot_histogram(intervals, arr):
     df = pd.DataFrame(arr, columns=['Value'])
     sns.histplot(df, bins=intervals, x="Value", kde=True)
     plt.show()
-
-
-def get_stats(generator):
-    observed_list = [i[1] for i in generator.entries]
-    observed_chi_2, expected_chi_2 = observed_expected_chi2(
-        generator.perfect_dist, observed_list, generator.intervals, generator.amount)
-    
-    is_dist_legit = observed_chi_2 < expected_chi_2
-    legit_dist_msg = "✔️  Generated distribution follows its distribution law" if is_dist_legit else "❌  Generated distribution DOES NOT follow its distribution law"
-    
-    print(
-        f"{pd.DataFrame(generator.entries)}\n" +
-        "----------------------------------------------\n" +
-        f"Average: {generator.average}\n" +
-        f"Dispersion: {generator.dispersion}\n" +
-        f"Observed chi2: {observed_chi_2}\n" +
-        f"Expected chi2: {expected_chi_2}\n" +
-        "----------------------------------------------\n" +
-        legit_dist_msg + "\n"
-    )
-    
-    plot_histogram(generator.intervals, generator.generated_dist)
