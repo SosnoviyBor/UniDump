@@ -22,7 +22,7 @@ import { Component } from '@angular/core';
     //     :host {
     //         font-family: Verdana;
     //         color: #555;
-    //     }`]
+    //     }`],
     styleUrls: [
         './component.css'
     ]

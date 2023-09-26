@@ -4,7 +4,7 @@ npm install
 *create src/app/*
 
 -- deploy to firebase --
-ng build --aot
+ng build
 firebase init
 *set folder to dist/projectname*
 firebase deploy

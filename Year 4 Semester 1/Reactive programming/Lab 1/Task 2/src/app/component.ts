@@ -52,10 +52,19 @@ class Item {
                 </tr>
             </tbody>
         </table>
-    </div>`
+    </div>
+    
+    <p>{{tmp(2, 3)}}</p>
+    <p>val = {{val}}</p>
+    <p>2+3 = {{2+3}}</p>`
 })
 
 export class AppComponent {
+    val: number = 0
+    tmp(a: number, b: number): void {
+        this.val = a + b
+    }
+
     text: string = "";
     price: number = 0;
     items: Item[] =
