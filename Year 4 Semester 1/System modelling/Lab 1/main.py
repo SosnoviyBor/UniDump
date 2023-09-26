@@ -11,7 +11,7 @@ SIGMA = 10
 A3 = pow(5, 10)
 C3 = pow(2, 26)
 
-GENERATOR = 3
+GENERATOR = 1
 
 def main():
     match GENERATOR:
