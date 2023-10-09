@@ -10,7 +10,7 @@ class Project:
         elif self.loc < 75_000: self.p_type = ProjectType.SemiDetached
         else: self.p_type = ProjectType.Embedded
         
-        self.effort = self.p_type.AB * pow(self.loc, self.p_type.BB)
+        self.effort = self.p_type.AB * pow(self.loc / 1000, self.p_type.BB)
         self.cost = self.effort * salary
         self.schedule = self.p_type.CB * pow(self.effort, self.p_type.DB)
     
