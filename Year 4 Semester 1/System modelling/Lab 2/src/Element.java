@@ -4,7 +4,7 @@ import java.util.PriorityQueue;
 
 public class Element {
     private String name;
-    private PriorityQueue<Double> tnext;
+    private final PriorityQueue<Double> tnext;
     private double delayMean, delayDev;
     private String distribution;
     private int quantity;

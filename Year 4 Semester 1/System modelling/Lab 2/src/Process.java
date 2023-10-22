@@ -31,10 +31,10 @@ public class Process extends Element {
     @Override
     public void outAct() {
         super.outAct();
-        super.setState(0);
+        super.setState(super.getState() - 1);
         if (getQueue() > 0) {
             setQueue(getQueue() - 1);
-            super.setState(1);
+            super.setState(super.getState() + 1);
             super.putTnext(super.getTcurr() + super.getDelay());
         }
 //        practically the same as in Create
