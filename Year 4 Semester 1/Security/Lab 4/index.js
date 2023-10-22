@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
     const token = req.get('Authorization');
 
-    console.log(token);
+    // console.log(token);
     if (token) {
         return res.json({
             token: token,
