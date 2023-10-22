@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'my-app',
+    selector: 'my-app-1',
     // template: `
     //     <label>Введіть ім’я:</label>
     //     <input [(ngModel)]="name" placeholder="name">
