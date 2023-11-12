@@ -7,11 +7,12 @@ import java.util.Random;
 public class SimModel {
     public static void main(String[] args) {
         final int TASK = 2;
-        final boolean DO_OUTPUT = true;
+        final boolean DO_OUTPUT = false;
+        final double TIME = 10_000.0;
 
         System.out.println("---------- Task #" + TASK + " ----------");
 
-        for (int n = 100; n < 101; n += 100) {
+        for (int n = 100; n < 1001; n += 100) {
             Element.refreshNextId();
             Create c = new Create(10, 1);
             c.setName("Create");
@@ -48,11 +49,6 @@ public class SimModel {
                 }
             }
 
-//            for (int i = 1; i < list.size(); i++) {
-//                list.get(i).inAct();
-//            }
-
-            double TIME = 10_000.0;
             Model model = new Model(list, DO_OUTPUT);
             System.out.println(">>>    Loop #" + n / 100 + "     <<<");
             long startTime = System.currentTimeMillis();
