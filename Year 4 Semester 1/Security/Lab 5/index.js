@@ -74,12 +74,11 @@ app.post("/api/login", async (req, res) => {
 app.get("/logout", function (req, res) {
     // console.log(req);
 
-    res
-        .cookie("token", "", {
-            expires: 0,
-            httpOnly: true,
-        })
-        .send();
+    res.cookie("token", "", {expires: new Date.now(), httpOnly:true})
+    // res.cookie("token", "", {expires: 0})
+    // res.clearCookie("token")
+    
+    res.send();
 });
 
 app.get("/api/public", function (req, res) {
