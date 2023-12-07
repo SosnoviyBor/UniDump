@@ -1,10 +1,7 @@
-// app/services/app-counter.service.ts
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class AppCounterService {
+@Injectable()
+export class LocalCounterService {
   counter: number = 0;
 
   increment() {

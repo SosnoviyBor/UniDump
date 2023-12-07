@@ -1,4 +1,3 @@
-// app/services/local-counter.service.ts
 import { Injectable } from '@angular/core';
 
 @Injectable()
