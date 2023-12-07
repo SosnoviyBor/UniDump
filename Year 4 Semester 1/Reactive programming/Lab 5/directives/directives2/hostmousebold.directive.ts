@@ -17,7 +17,6 @@ export class HostmouseboldDirective {
     this.setFontWeight('normal');
   }
   private setFontWeight(val: string) {
-    16;
     this.renderer.setStyle(this.element.nativeElement, 'font-weight', val);
   }
 }
