@@ -16,6 +16,7 @@ public class TestPetriNetsPaint {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        System.out.println("Testo");
 
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager

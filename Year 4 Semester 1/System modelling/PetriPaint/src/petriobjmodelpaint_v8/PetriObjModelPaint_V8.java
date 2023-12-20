@@ -12,11 +12,12 @@ import graphpresentation.PetriNetsFrame;
  * @author Inna
  */
 public class PetriObjModelPaint_V8 {
-
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
                     .getInstalledLookAndFeels()) {
