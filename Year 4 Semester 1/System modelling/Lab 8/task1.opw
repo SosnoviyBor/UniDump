@@ -1,0 +1,34 @@
+[RESOURCES]
+[VARIABLES]
+Decide 2.NumberOut False
+Decide 3.NumberOut False
+Decide 4.NumberOut False
+Decide 5.NumberOut False
+to c2.NumberOut
+to c4.NumberOut
+to c4.NumberIn
+to c3.NumberOut
+to c2.NumberIn
+Create 1.NumberOut
+Dispose 1.NumberOut
+to c5.NumberIn
+Descide 1.NumberOut True
+to c1.NumberIn
+to c5.NumberOut
+to c1.NumberOut
+Descide 1.NumberOut False
+c1.NumberOut
+c2.NumberOut
+c5.NumberOut
+c4.NumberOut
+c3.NumberOut
+c1.NumberIn
+c2.NumberIn
+c5.NumberIn
+c4.NumberIn
+c3.NumberIn
+to c3.NumberIn
+Decide 2.NumberOut True
+Decide 3.NumberOut True
+Decide 4.NumberOut True
+Decide 5.NumberOut True

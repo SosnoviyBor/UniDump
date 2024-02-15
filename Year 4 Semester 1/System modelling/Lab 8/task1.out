@@ -1,0 +1,45 @@
+SIMAN Run Controller.
+
+1.3101714 Hours>
+                                      ARENA Simulation Results
+                                              Boryaxta
+
+                                  Summary for Replication 1 of 1
+
+Project: Unnamed Project                                             Run execution date :12/21/2023
+Analyst: Boryaxta                                                    Model revision date:12/21/2023
+
+Replication ended at time      : 1.3101714 Hours 
+Base Time Units: Hours
+
+                                           TALLY VARIABLES
+
+Identifier                                  Average   Half Width  Minimum    Maximum   Observations
+___________________________________________________________________________________________________
+
+Entity 1.VATime                             .35387     (Insuf)    .27024     .44522          3    
+Entity 1.NVATime                            .00000     (Insuf)    .00000     .00000          3    
+Entity 1.WaitTime                           .00000     (Insuf)    .00000     .00000          3    
+Entity 1.TranTime                           .00000     (Insuf)    .00000     .00000          3    
+Entity 1.OtherTime                          .00000     (Insuf)    .00000     .00000          3    
+Entity 1.TotalTime                          .35387     (Insuf)    .27024     .44522          3    
+
+                                     DISCRETE-CHANGE VARIABLES
+
+Identifier                                  Average   Half Width  Minimum    Maximum   Final Value
+___________________________________________________________________________________________________
+
+Entity 1.WIP                                2.0929     (Insuf)    .00000     4.0000     3.0000    
+
+                                             OUTPUTS
+
+Identifier                                   Value
+_____________________________________________________________
+
+Entity 1.NumberIn                           6.0000    
+Entity 1.NumberOut                          3.0000    
+System.NumberOut                            3.0000    
+
+
+Simulation run time: 0.15 minutes.
+Simulation run complete.

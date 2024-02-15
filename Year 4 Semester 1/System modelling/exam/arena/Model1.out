@@ -1,0 +1,43 @@
+
+                                      ARENA Simulation Results
+                                              Boryaxta
+
+                                  Summary for Replication 1 of 1
+
+Project: Unnamed Project                                             Run execution date : 1/13/2024
+Analyst: Boryaxta                                                    Model revision date: 1/13/2024
+
+Replication ended at time      : 100000.0 Hours 
+Base Time Units: Hours
+
+                                           TALLY VARIABLES
+
+Identifier                                  Average   Half Width  Minimum    Maximum   Observations
+___________________________________________________________________________________________________
+
+Entity 1.VATime                             15.564     .07478     9.0006     23.950      19967    
+Entity 1.NVATime                            .00000     .00000     .00000     .00000      19967    
+Entity 1.WaitTime                           .00000     .00000     .00000     .00000      19967    
+Entity 1.TranTime                           .00000     .00000     .00000     .00000      19967    
+Entity 1.OtherTime                          .00000     .00000     .00000     .00000      19967    
+Entity 1.TotalTime                          15.564     .07478     9.0006     23.950      19967    
+
+                                     DISCRETE-CHANGE VARIABLES
+
+Identifier                                  Average   Half Width  Minimum    Maximum   Final Value
+___________________________________________________________________________________________________
+
+Entity 1.WIP                                3.1080     .01875     .00000     8.0000     3.0000    
+
+                                             OUTPUTS
+
+Identifier                                   Value
+_____________________________________________________________
+
+Entity 1.NumberIn                           19970.    
+Entity 1.NumberOut                          19967.    
+System.NumberOut                            19967.    
+
+
+Simulation run time: 0.27 minutes.
+Simulation run complete.

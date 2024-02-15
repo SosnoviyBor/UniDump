@@ -4,7 +4,7 @@ import test_data as td
 import data_managers as dm
 
 app = Flask(__name__)
-DEBUG = True
+DEBUG = False
 
 @app.route("/")
 def indexRoute():
@@ -58,7 +58,8 @@ def transferRoute():
 def transferChangeGroup():
     data = request.json
     if not DEBUG:
-        return dm.changeGroup(data["studentId"], data["newGroup"])
+        dm.changeGroup(data["studentId"], data["newGroup"])
+        return jsonify(success=True)
     else:
         students = td.students
         for student in students:
@@ -80,11 +81,12 @@ def addStudentRoute():
 def addStudentCommitRoute():
     data = request.json
     if not DEBUG:
-        return dm.addStudent(
+        dm.addStudent(
             data["group"][:6],
             data["name"],
             data["surname"]
         )
+        return jsonify(success=True)
     else:
         students = td.students
         students.append({
@@ -99,7 +101,8 @@ def addStudentCommitRoute():
 def deleteStudentCommitRoute():
     data = request.json
     if not DEBUG:
-        return dm.deleteStudent(data["id"])
+        dm.deleteStudent(data["id"])
+        return jsonify(success=True)
     else:
         students = td.students
         for i in range(len(students)):
@@ -110,4 +113,4 @@ def deleteStudentCommitRoute():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5002) 

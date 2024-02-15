@@ -1,0 +1,37 @@
+[
+    {
+        "groupId": 1,
+        "day": 1,
+        "pair": 1,
+        "name": "IPZ",
+        "description": "epic"
+    },
+    {
+        "groupId": 1,
+        "day": 1,
+        "pair": 2,
+        "name": "IPZ",
+        "description": "more epic"
+    },
+    {
+        "groupId": 2,
+        "day": 2,
+        "pair": 1,
+        "name": "not IPZ",
+        "description": "not epic"
+    },
+    {
+        "groupId": 2,
+        "day": 2,
+        "pair": 2,
+        "name": "English",
+        "description": "bri'ish"
+    },
+    {
+        "groupId": 2,
+        "day": 2,
+        "pair": 3,
+        "name": "don't know",
+        "description": "really"
+    }
+]

@@ -1,0 +1,15 @@
+[RESOURCES]
+[VARIABLES]
+is buffer not full?.NumberOut True
+is buffer not full?.NumberOut False
+res2.NumberOut
+res1.NumberOut
+res2.NumberIn
+res1.NumberIn
+is response1 successful?.NumberOut True
+is response1 successful?.NumberOut False
+init1.NumberIn
+fails.NumberOut
+Create 1.NumberOut
+init1.NumberOut
+Success.NumberOut

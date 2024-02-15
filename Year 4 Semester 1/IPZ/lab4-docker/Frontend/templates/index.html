@@ -6,12 +6,12 @@
   <div class="centered">
     <select name="groups" id="groups">
       {% for group in groups %}
-        <option value="group-{{group.id}}">{{group.name}}</option>
+        <option value="group-{{group[0]}}">{{group[1]}}</option>
       {% endfor %}
     </select>
   </div>
   <div class="centered">
-    <table class="table table-striped table-bordered border-primary">
+    <table class="table table-bordered border-primary">
       <thead>
         <tr>
           <th scope="col">Прізвище</th>
@@ -21,17 +21,17 @@
       </thead>
       <tbody id="content-list">
         {% for student in students %}
-          <tr class="group-{{ student.groupId }}">
-          {% if student.id in leaders %}
-            <td class="student-leader">{{ student.surname }}</td>
-            <td class="student-leader">{{ student.name }}</td>
+          <tr class="group-{{ student[3] }}">
+          {% if student[0] in leaders %}
+            <td class="student-leader">{{ student[2] }}</td>
+            <td class="student-leader">{{ student[1] }}</td>
             <td><button type="button" class="btn btn-secondary" disabled>Староста</button></td>
           {% else %}
-            <td>{{ student.surname }}</td>
-            <td>{{ student.name }}</td>
+            <td>{{ student[2] }}</td>
+            <td>{{ student[1] }}</td>
             <td>
-              <button type="button" class="btn btn-primary" onclick="location.href='/transfer?studentId='+{{student.id}}">Перевести</button>
-              <button type="button" class="btn btn-outline-danger deleteStudent" id="{{student.id}}">❌</button>
+              <button type="button" class="btn btn-primary" onclick="location.href='/transfer?studentId='+{{student[0]}}">Перевести</button>
+              <button type="button" class="btn btn-outline-danger deleteStudent" id="{{student[0]}}">❌</button>
             </td>
           {% endif %}
           </tr>

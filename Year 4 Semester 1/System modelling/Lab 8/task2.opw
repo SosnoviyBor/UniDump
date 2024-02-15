@@ -1,0 +1,48 @@
+[RESOURCES]
+[VARIABLES]
+papa process4.NumberOut
+papa process4.NumberIn
+to c2.NumberOut
+papa process2.NumberIn
+papa process3.NumberIn
+papa process2.NumberOut
+papa process3.NumberOut
+to c4.NumberOut
+to c4.NumberIn
+Dispose 2.NumberOut
+to c3.NumberOut
+to c2.NumberIn
+papa process5.NumberOut
+papa process5.NumberIn
+Create 1.NumberOut
+papa process1.NumberOut
+papa process1.NumberIn
+Dispose 1.NumberOut
+Dispose 4.NumberOut
+to c5.NumberIn
+Dispose 5.NumberOut
+Descide 1.NumberOut True
+Descide 2.NumberOut True
+Descide 3.NumberOut True
+Descide 4.NumberOut True
+Descide 5.NumberOut True
+to c1.NumberIn
+to c5.NumberOut
+to c1.NumberOut
+Dispose 3.NumberOut
+Descide 1.NumberOut False
+Descide 2.NumberOut False
+Descide 3.NumberOut False
+Descide 4.NumberOut False
+Descide 5.NumberOut False
+c1.NumberOut
+c2.NumberOut
+c3.NumberOut
+c4.NumberOut
+c5.NumberOut
+c1.NumberIn
+c2.NumberIn
+c3.NumberIn
+c4.NumberIn
+c5.NumberIn
+to c3.NumberIn

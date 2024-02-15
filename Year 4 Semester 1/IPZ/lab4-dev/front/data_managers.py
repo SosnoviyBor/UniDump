@@ -14,6 +14,12 @@ def get_groups() -> List[Dict]:
 def get_leaders() -> List[Dict]:
     return [group["leaderId"] for group in get_groups()]
 
+# blob image
+def changeImage(groupId, mimetype, imgFile):
+    return requests.post(GROUPS_ADRESS + "change/image/",
+                         files={"image": imgFile},
+                         data={"groupId": groupId, "mimetype": mimetype})
+
 
 """ STUDENTS """
 
