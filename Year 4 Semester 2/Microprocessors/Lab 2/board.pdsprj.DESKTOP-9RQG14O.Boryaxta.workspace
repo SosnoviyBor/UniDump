@@ -8,7 +8,7 @@
   <PWI>
    <POPUP w="1910" x="5" flags="00000002" y="912" h="100" pid="0" iid="-1">
     <PROPERTIES>
-     <ITEM name="Message Column Width">1660</ITEM>
+     <ITEM name="Message Column Width">1781</ITEM>
      <ITEM name="ShowGrid">No</ITEM>
      <ITEM name="Source Column Width">100</ITEM>
      <ITEM name="Time Column Width">120</ITEM>
@@ -38,7 +38,7 @@
      <ITEM name="HexMode">0</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="450" x="285" flags="00000023" y="446" h="250" pid="0" iid="5">
+   <POPUP w="450" x="285" flags="00008023" y="446" h="250" pid="0" iid="5">
     <PROPERTIES>
      <ITEM name="AutoEcho">1</ITEM>
      <ITEM name="HexMode">0</ITEM>
@@ -346,7 +346,7 @@
    </POPUP>
    <POPUP w="1906" x="6" flags="0000002b" y="127" h="733" pid="100" iid="1">
     <PROPERTIES>
-     <ITEM name="Breakpoint 0">"",80009C6,0000,7BFC,A819,925371376
+     <ITEM name="Breakpoint 0">"",80009C8,0000,3364,A819,925371376
 </ITEM>
      <ITEM name="CaseSensitive">No</ITEM>
      <ITEM name="DISPADDRS">Yes</ITEM>
@@ -380,7 +380,7 @@
    <POPUP w="170" x="5" flags="00000008" y="106" h="237" pid="191" iid="1">
     <PROPERTIES/>
    </POPUP>
-   <POPUP w="695" x="1045" flags="00008001" y="231" h="453" pid="0" iid="6">
+   <POPUP w="695" x="1045" flags="00000001" y="231" h="453" pid="0" iid="6">
     <PROPERTIES/>
    </POPUP>
   </PWI>
