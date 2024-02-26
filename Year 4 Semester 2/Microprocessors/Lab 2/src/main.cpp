@@ -88,11 +88,13 @@ int main() {
          "Y - Enable PWM\r\n"
          "U - Disable PWM\r\n"
          "==========================\r\n"
-         "1-9 - Set timer's delay to X seconds\r\n"
+         "1-5 - Set timer's delay to X seconds\r\n"
+         "6-9 - Set PWM's pulse length to 1000-250*(X-1) miliseconds. Ugly, but what can you do\r\n"
          "==========================\r\n"
     );
     
     char tmp[200];
+    int val;
     while (true) {
         switch (tolower(USART2->DR)) {
             case 'q': // show ADC
@@ -130,10 +132,18 @@ int main() {
                 TIM1->CCMR1 &= ~(TIM_CCMR1_OC1M_1 | TIM_CCMR1_OC1M_2);
                 break;
             
-            case '1': case '2': case '3': case '4': case '5': case '6': case '7': case '8': case '9':
-                snprintf(tmp, sizeof(tmp), "> Set timer's delay to %dsec!\r\n", int(USART2->DR)-48);
+            case '1': case '2': case '3': case '4': case '5':
+                val = int(USART2->DR)-48; // 1-5
+                snprintf(tmp, sizeof(tmp), "> Set timer's delay to %d sec!\r\n", val);
                 send(tmp);
                 TIM2->ARR = (int(USART2->DR)-48)*1000-1;
+                break;
+            
+            case '6': case '7': case '8': case '9':
+                val = int(USART2->DR)-5-48; // 1-4
+                snprintf(tmp, sizeof(tmp), "> Set PWM's pulse length to %d milisec!\r\n", 1000-250*(val-1));
+                send(tmp);
+                TIM1->CCR1 = (1000-250*(val-1))-1; // pulse length from 1/1 sec to 1/4 sec
                 break;
         }
         for (volatile int i = 0; i < 800000; i++); // improvised delay
