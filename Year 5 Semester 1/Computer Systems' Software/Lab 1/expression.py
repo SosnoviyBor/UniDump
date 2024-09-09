@@ -30,7 +30,7 @@ class Expression:
             "##### Основна перевірка #####"
         )
         
-        # Не дерево розгалуджень, а цілий нафіг ліс
+        # не дерево розгалуджень, а цілий бляха ліс
         self.i = 0
         while self.i < len(self.expression)-1:
             currentSymbol:str = self.expression[self.i]
@@ -40,8 +40,10 @@ class Expression:
             if self.i == 0 and not (currentSymbol.isalnum() or currentSymbol in "-("):
                 self.realIndex -= 1
                 self.mishap(f"Вираз почався з {currentSymbol}, а не числа чи змінної", True)
+                self.mishapIndexes[self.i + self.realIndex - 1] += 1
                 self.realIndex += 1
-                # хз чому, але так треба
+                # цей блок - один суцільний костиль
+                # хоча все інше не сильно краще ;-;
             
             elif currentSymbol.isdigit():
                 if self.currentlyDecimal and nextSymbol == ".":
@@ -51,7 +53,7 @@ class Expression:
                 elif nextSymbol == ".":
                     self.currentlyDecimal = True
                 elif nextSymbol.isalpha() and not self.currentlyFunction:
-                    self.mishap(f"Функція чи змінна не може починатись з числа", True)
+                    self.mishap(f"Константа може складатись лише з цифр", False)
             
             elif currentSymbol.isalpha():
                 self.currentlyFunction = True
@@ -72,9 +74,7 @@ class Expression:
                 self.openBrackets += 1
                 self.currentlyDecimal = False
                 self.currentlyFunction = False
-                if nextSymbol in self.expressionSymbols:
-                    self.mishap("Вираз у дужці повинен починатись із числа чи змінної", False)
-                elif nextSymbol == ".":
+                if not (nextSymbol.isalnum() or nextSymbol == "-"):
                     self.mishap("Вираз у дужці повинен починатись із числа чи змінної", False)
             
             elif currentSymbol == ")":
@@ -87,15 +87,13 @@ class Expression:
                     if nextSymbol.isalnum() or nextSymbol in "(.":
                         self.mishap("Після дужки очікується оператор", False)
                     else:
-                        # інкремент повинен бути доданий до кожного mishap(str, TRUE)
+                        # денкремент повинен бути доданий до кожного mishap(str, TRUE)
                         self.openBrackets -= 1
             
             elif currentSymbol == ".":
                 if nextSymbol.isalpha():
                     self.mishap("Десятковий дріб не може містити змінних", False)
-                elif nextSymbol == ")":
-                    self.mishap("Незавершений десятковий дріб", False)
-                elif nextSymbol in self.expressionSymbols or nextSymbol == "(":
+                elif nextSymbol in self.expressionSymbols + "()":
                     self.currentlyDecimal = False
                     self.mishap("Десятковий дріб не має жодних десяткових розрядів", True)
             
@@ -110,7 +108,7 @@ class Expression:
                 print(f"Позиція {self.i + self.realIndex} | Вираз закінчився '{self.expression[-1]}', а не числом чи змінною")
             elif self.expression[-1].isalnum() and self.expression[-2] == ")":
                 print(f"Позиція {self.i + self.realIndex} | Після дужки очікується оператор")
-            elif self.expression[-1] == ")" and self.openBrackets == 0:
+            elif self.expression[-1] == ")" and self.expression.count(")") > self.expression.count("("):
                 print(f"Позиція {self.i + self.realIndex} | Зайва закриваюча дужка")
             else:
                 break
