@@ -115,7 +115,7 @@ class Expression:
             # black magic index fuckery
             self.mishapIndexes.append(self.i + self.realIndex - 2)
             del self.expression[-1]
-            self.realIndex += 1
+            self.realIndex -= 1
         
         print(
             "##### Результат основної перевірки #####\n" +
