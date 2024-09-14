@@ -74,7 +74,7 @@ class Expression:
                 self.openBrackets += 1
                 self.currentlyDecimal = False
                 self.currentlyFunction = False
-                if not (nextSymbol.isalnum() or nextSymbol == "-"):
+                if not (nextSymbol.isalnum() or nextSymbol in "(-"):
                     self.mishap("Вираз у дужці повинен починатись із числа чи змінної", False)
             
             elif currentSymbol == ")":
@@ -99,6 +99,7 @@ class Expression:
             
             else:
                 self.mishap(f"Невідомий символ {nextSymbol}", True)
+                self.i -= 1
             
             self.i += 1
         
