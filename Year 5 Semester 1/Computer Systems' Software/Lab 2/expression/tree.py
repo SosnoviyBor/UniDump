@@ -9,19 +9,21 @@ def parseExpression(expression: str):
     }
 
     def checkOperator(operators, input):
+        operatorList = []
         bracket_level = 0
         for i, c in enumerate(input):
-
             if c == '(':
                 bracket_level += 1
-
             elif c == ')':
                 bracket_level -= 1
 
             elif c in operators and bracket_level == 0:
                 if i == 0 and c == '-':
                     continue
-                return i
+                operatorList.append(i)
+        
+        if operatorList:
+            return operatorList[len(operatorList) // 2]
         return None
 
     def openBrackets(input):

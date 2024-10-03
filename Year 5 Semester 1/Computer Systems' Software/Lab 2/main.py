@@ -7,16 +7,15 @@ import os
 os.environ["PATH"] += os.pathsep + 'C:\\Program Files\\Graphviz\\bin'
 
 # expression = Corrector(genRandomEquation(100)).correct()
-expression = Corrector("(A+B)+C/D+G*(K/L+M+N)").correct()
-# expression = Corrector("((52345.01+312,2)*b)").correct()
+expression = Corrector("-a+(v+p*(6-h+b*(d+u+5+10)))").correct()
 
 expTree = tree.parseExpression(expression)
-expTree.printPrefix()
+# expTree.printPrefix()
 graph = expTree.generateGraph()
 graph.render(filename='graph.dot', directory='generated_graphs', view=True, format='png') 
 
-# cos(g)*a+5+c*d+e-d*f3/avc_1
-# (a+b)+func((a*baa+1bj_ko*(j-c))
-# -a+b2
-# g1+(a+2.3))+(6-sin(5)
-# ((52345.01+312,2)*b)
+# a*(a+b+c)-a*b+c*d+v*f
+# a*(b+(c+d)/e)+b*0+5+4-1*n
+# 0+b*0+0*a+a*b+1
+# 2+3+4+5+6+7+8*s-p
+# -a+(v+p*(6-h+b*(d+u+5+10)))

@@ -1,5 +1,8 @@
 import utils.coloring as Coloring
 
+import sympy as sym
+
+
 class Corrector:
     expressionSymbols = "+-*/^"
     
@@ -154,6 +157,13 @@ class Corrector:
             )
             self.mishapIndexes.clear()
         
+        currentUnmodifiedExpressionView = list.copy(self.expression)
+        self.expression = [symbol for symbol in str(sym.expand("".join(self.expression))).replace(" ", "").replace("**", "^")]
+        print(
+            "##### Розгорнення виразу #####\n" +
+            f"До:    {''.join(currentUnmodifiedExpressionView)}\n" +
+            f"Після: {''.join(self.expression)}"
+        )
         
         # Виведення та повернення результатів
         if ''.join(self.expression) == self.initExpression:
