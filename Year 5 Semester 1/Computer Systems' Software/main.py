@@ -11,7 +11,6 @@ os.environ["PATH"] += os.pathsep + 'C:\\Program Files\\Graphviz\\bin'
 expression = Corrector("-a+(v+p*(6-h+b*(d+u+5+10)))").correct()
 
 expression = associator.associate(expression)
-print(expression)
 
 # expTree = tree.parseExpression(expression)
 # expTree.printPrefix()

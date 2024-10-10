@@ -1,5 +1,7 @@
 import re
 
+import utils.coloring as coloring
+
 
 def associate(expression:str):
     expression = simplify(splitter(expression))
@@ -11,6 +13,21 @@ def associate(expression:str):
             result += "".join(token)
         else:
             result += token
+    
+    # cosmetic stuff
+    tmp = ""
+    for i in range(len(result)):
+        if result[i] == "(":
+            tmp = tmp[:-2]
+            tmp += coloring.wrap(result[i-2:i+1], coloring.Color.Foreground.GREEN)
+        else:
+            tmp += result[i]
+    tmp = tmp.replace(")", coloring.wrap(")", coloring.Color.Foreground.GREEN))
+    
+    print("\n"+
+          "##### Результат асоціації #####\n"+
+         f"{tmp}"
+    )
     
     return result
 
@@ -28,8 +45,6 @@ def splitter(expression:str) -> list[str|list[str]]:
     # by */
     for i in range(len(newExpression)):
         if "*" in newExpression[i] or "/" in newExpression[i]:
-            # MIGHT BREAK WITH ()
-            # HAVENT TESTED IT YET
             newExpression[i] = re.split(r"([*/()])", newExpression[i])
     
     return newExpression
@@ -57,11 +72,12 @@ def simplify(expression:list[str|list[str]]) -> list[str|list[str]]:
                     
                     for k in range(len(currSubexp)):
                         if currSubexp[k] not in "*/()" and currSubexp[k] in conseqSubex:
-                            token = currSubexp[k]
-                            # are their operators the same
-                            if conseqSubex.index(token) != len(conseqSubex)-1 and k != len(currSubexp)-1:
-                                if currSubexp[k + 1] != conseqSubex[conseqSubex.index(token) + 1]:
-                                    continue
+                            # # maybe it's redundant, idk
+                            # token = currSubexp[k]
+                            # # are their operators the same
+                            # if conseqSubex.index(token) != len(conseqSubex)-1 and k != len(currSubexp)-1:
+                            #     if currSubexp[k + 1] != conseqSubex[conseqSubex.index(token) + 1]:
+                            #         continue
                             sameToken = currSubexp[k]
                             break
                     
