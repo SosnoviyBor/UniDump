@@ -8,11 +8,11 @@ class Int:
     
     def inc(self):
         with self.lock:
-            i += 1
+            self.i += 1
     
     def dec(self):
         with self.lock:
-            i -= 1
+            self.i -= 1
     
     def get(self):
         with self.lock:

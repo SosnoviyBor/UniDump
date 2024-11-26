@@ -37,7 +37,6 @@ if __name__ == "__main__":
         "n": 6,
     }
     result = evaluator.evaluate(expression, params)
-    print(result)
 
     # a*(a+b+c)-a*b+c*d+v*f
     # a*(b+(c+d)/e)+b*0+5+4-1*n
