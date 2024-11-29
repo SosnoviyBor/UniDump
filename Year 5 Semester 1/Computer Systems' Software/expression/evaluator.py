@@ -4,32 +4,48 @@ import re
 import utils.coloring as coloring
 
 
+processes = 6
+operators = ["^", "*", "/", "+", "-"]
+opearationSpeed = {
+    "+": 2,
+    "-": 3,
+    "*": 4,
+    "/": 8,
+    "^": 4
+}
+
+
 def evaluate(expression:str, params:dict):
     print("\n" +
           "##### Обчислення виразу #####")
     
     manager = mp.Manager()
     expression = subtitude(expression, params)
+    subexpressionsLog = []
     
-    for operator in ["^", "*", "/", "+", "-"]:
+    for operator in operators:
         args = []
-        pool = mp.Pool(6)
+        pool = mp.Pool(processes)
         poolResult = manager.dict({})
         subexpressions = prepareSubexpressions(expression, operator)
-        # argument preparation for parallel function
-        for subexp in subexpressions:
-            args.append((subexp, poolResult))
-        # threading itself
-        # kinda slow to boot, tbh
-        pool.map(evaluateSubexpressions, args)
-        pool.close()
-        pool.join()
-        # result parsing
-        for old, new in dict(poolResult).items():
-            expression = expression.replace(old, str(new))
+        # in case current operator is not present in the expression
+        if subexpressions:
+            subexpressionsLog.extend(subexpressions)
+            # argument preparation for parallel function
+            for subexp in subexpressions:
+                args.append((subexp, poolResult))
+            # threading itself
+            # kinda slow to boot, tbh
+            pool.map(evaluateSubexpressions, args)
+            pool.close()
+            pool.join()
+            # result parsing
+            for old, new in dict(poolResult).items():
+                expression = expression.replace(old, str(new))
         # logging
         print(f"Обчислення {operator}   ->   {expression}")
     # more logging
+    printDiagram(subexpressionsLog, processes)
     print("##### Кінцевий результат #####\n" +
          f"{coloring.wrap(expression, coloring.Color.Foreground.GREEN)}")
     return expression
@@ -87,3 +103,33 @@ def evaluateSubexpressions(args):
     # IM GONNA MULTITHREAD THE FUCK OUT OF THIS eval() FUNCTION
     subexpression, poolResult = args
     poolResult[subexpression] = eval(subexpression)
+
+
+def printDiagram(subexpressions, processes):
+    print("##### Діаграма Ганта #####")
+    
+    row = 1
+    
+    for operator in operators:
+        operatorCount = 0
+
+        for subexpression in subexpressions:
+            operatorCount += subexpression.count(operator)
+        
+        while operatorCount > 0:
+            if operatorCount > processes:
+                template = "[{op}] " * processes
+                for _ in range(opearationSpeed[operator]):
+                    rowNumber = str(row).ljust(4)
+                    rowDiagram = template.format(op = operator)
+                    print(rowNumber + rowDiagram)
+                    row += 1
+                operatorCount -= processes
+            else:
+                template = ("[{op}] " * operatorCount) + ("[ ] " * (processes - operatorCount))
+                for _ in range(opearationSpeed[operator]):
+                    rowNumber = str(row).ljust(4)
+                    rowDiagram = template.format(op = operator)
+                    print(rowNumber + rowDiagram)
+                    row += 1
+                break
