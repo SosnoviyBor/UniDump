@@ -3,7 +3,8 @@ import expression.tree as tree
 import expression.associator as associator
 import expression.comutator as comutator
 import expression.evaluator as evaluator
-from utils.generator import genRandomEquation
+import expression.speedtest as speedtest
+import utils.generator as generator
 
 # шось графвіз тупенький якийсь
 import os
@@ -12,8 +13,8 @@ os.environ["PATH"] += os.pathsep + 'C:\\Program Files\\Graphviz\\bin'
 
 if __name__ == "__main__":
     """ Lab 1 (required) """
-    # expression = Corrector(genRandomEquation(100)).correct()
-    expression = Corrector("a*(b+(c+d)/e)+b*0+5+4-1*n").correct()
+    # expression = Corrector(generator.genRandomEquation(100)).correct()
+    # expression = Corrector("a*(b+(c+d)/e)+b*0+5+4-1*n").correct()
 
     """ Lab 3 """
     # expression = associator.associate(expression)
@@ -28,15 +29,21 @@ if __name__ == "__main__":
     # graph.render(filename='graph.dot', directory='generated_graphs', view=True, format='png') 
 
     """ Lab 5 """
-    params = {
-        "a": 1,
-        "b": 2,
-        "c": 3,
-        "d": 4,
-        "e": 5,
-        "n": 6,
-    }
-    result = evaluator.evaluate(expression, params)
+    # params = {
+    #     "a": 1,
+    #     "b": 2,
+    #     "c": 3,
+    #     "d": 4,
+    #     "e": 5,
+    #     "n": 6,
+    # }
+    # result = evaluator.evaluate(expression, params)
+    
+    """ Lab 6 """
+    # speedtest.test(generator.genRandomEqationWithValues(100, 10))
+    # speedtest.test(generator.genRandomEqationWithValues(1000, 10))
+    # speedtest.test(generator.genRandomEqationWithValues(10000, 10))
+    speedtest.test(generator.genRandomEqationWithValues(50000, 10))
 
     # a*(a+b+c)-a*b+c*d+v*f
     # a*(b+(c+d)/e)+b*0+5+4-1*n
