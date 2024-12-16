@@ -1,31 +1,23 @@
 import itertools
 import re
 
-import utils.coloring as coloring
 
-
-def comutate(expression:str):
+def comutate(expression:str, log:bool = True):
     if not expression.startswith("-"):
         expression = "+" + expression
     
-    expressionParts = [part for part in re.split(r"([+-][a-zA-Z0-9*/^]*)", expression) if part != ""]
-    expressionPermutations = list(itertools.permutations(expressionParts))
+    expressionParts = [part for part in re.split(r"([+-][a-zA-Z0-9*/^.]*)", expression) if part != ""]
     
-    expressionVariants = []
-    for perm in expressionPermutations:
+    i = 1
+    if log: print("##### Результат комутації #####")
+    for perm in itertools.permutations(expressionParts):
         variant = "".join(perm)
         
         if variant.startswith("+"):
             variant = variant[1:]
             
-        expressionVariants.append(variant)
+        if log:
+            print(f"№{i} -> {variant}")
+            i += 1
     
-    print("\n" +
-          "##### Комутаційне перетворення #####\n" +
-          "##### Частини виразу #####\n" +
-          f"{coloring.wrap('  '.join(expressionParts), coloring.Color.Foreground.CYAN)}\n" +
-          "##### Результат комутації #####")
-    for variant in expressionVariants:
-        print(variant)
-    
-    return expressionVariants
+        yield variant

@@ -19,6 +19,9 @@ def associate(expression:str):
     for i in range(len(result)):
         if result[i] == "(":
             tmp = tmp[:-2]
+            if result[i-3] == "/":
+                tmp = tmp[:-2]
+                tmp += coloring.wrap(result[i-4:i-2], coloring.Color.Foreground.GREEN)
             tmp += coloring.wrap(result[i-2:i+1], coloring.Color.Foreground.GREEN)
         else:
             tmp += result[i]
@@ -72,12 +75,6 @@ def simplify(expression:list[str|list[str]]) -> list[str|list[str]]:
                     
                     for k in range(len(currSubexp)):
                         if currSubexp[k] not in "*/()" and currSubexp[k] in conseqSubex:
-                            # # maybe it's redundant, idk
-                            # token = currSubexp[k]
-                            # # are their operators the same
-                            # if conseqSubex.index(token) != len(conseqSubex)-1 and k != len(currSubexp)-1:
-                            #     if currSubexp[k + 1] != conseqSubex[conseqSubex.index(token) + 1]:
-                            #         continue
                             sameToken = currSubexp[k]
                             break
                     
@@ -95,6 +92,7 @@ def simplify(expression:list[str|list[str]]) -> list[str|list[str]]:
 def deleteSameTokens(expression:list, token, searchAfter):
     leftmostIndex = None
     rightmostIndex = None
+    symbol = None
     
     for i in range(searchAfter, len(expression)):
         if type(expression[i]) is list:
@@ -108,12 +106,12 @@ def deleteSameTokens(expression:list, token, searchAfter):
                 rightmostIndex = i + 1
                 # remove subexpression values
                 if currSubexp.index(token) == 0:
-                    currSubexp.pop(0)
+                    symbol = currSubexp.pop(0)
                     currSubexp.pop(0)
                 elif currSubexp.index(token) == len(currSubexp):
                     currSubexp.pop()
                 else:
-                    currSubexp.pop(currSubexp.index(token) - 1)
+                    symbol = currSubexp.pop(currSubexp.index(token) - 1)
                     currSubexp.pop(currSubexp.index(token))
     
     if rightmostIndex:
@@ -121,6 +119,9 @@ def deleteSameTokens(expression:list, token, searchAfter):
         expression.insert(leftmostIndex, "(")
         expression.insert(leftmostIndex, "*")
         expression.insert(leftmostIndex, token)
+        if symbol == "/":
+            expression.insert(leftmostIndex, "/")
+            expression.insert(leftmostIndex, "1")
         
         innerExpression = ""
         for i in range(leftmostIndex + 3, rightmostIndex + 3):

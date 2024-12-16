@@ -59,11 +59,11 @@ def parseExpression(expression: str):
 class Node():
 
     def __init__(self, symbol):
-        self.symbol = symbol
-        self.id = None
-        self.level = None
-        self.parent = None
-        self.children = tuple()
+        self.symbol: str = symbol
+        self.id: int = None
+        self.level: int = None
+        self.parent: Node|None = None
+        self.children: tuple[str, str] = tuple()
 
 
     def setChildren(self, left, right):
@@ -110,7 +110,7 @@ class Node():
 class Tree():
 
     def __init__(self, root):
-        self.root = root
+        self.root: Node = root
         self.updateLevel()
         self.updateId()
 
