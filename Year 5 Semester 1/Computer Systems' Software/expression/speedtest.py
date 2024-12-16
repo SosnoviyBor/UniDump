@@ -1,26 +1,25 @@
-import time
-import sys
-import re
-
+import expression.associator as associator
+import expression.comutator as comutator
 import expression.evaluator as evaluator
+import expression.tree as tree
 
 
-sys.setrecursionlimit(100000)
-
-
-def test(expression:str):
-    start1 = time.perf_counter()
-    resultParallel = evaluator.evaluate(expression, {}, False)
-    end1 = time.perf_counter()
+def test(baseExp:str):
+    results = {}
+    processes = 6
     
-    start2 = time.perf_counter()
-    resultNormal = eval(expression)
-    end2 = time.perf_counter()
+    # base single
+    t = tree.parseExpression(baseExp)
+    results["base_1"]["exp"] = baseExp
+    results["base_1"]["speed"] = evaluator.evaluate(t, 1)
     
-    operatorCount = len([op for op in re.findall(r'[\+\-\*\/]', expression)])
+    # base parallel
     
-    print("\n"+
-          "##### Порівняння способів обчислення #####\n"
-          f"Довжина виразу: {operatorCount}\n"+
-          f"Час багатопоточного: {end1 - start1}\n"+
-          f"Час однопоточного:   {end2 - start2}")
+    # associated single
+    
+    # associated parallel
+    
+    # 5 commutated single
+    
+    # 5 commutated single
+    
