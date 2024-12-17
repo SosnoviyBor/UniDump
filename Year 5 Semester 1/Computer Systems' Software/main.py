@@ -15,7 +15,7 @@ if __name__ == "__main__":
     """ Lab 1 (required) """
     # expression = Corrector(generator.genRandomEquation(100)).correct()
     expression = Corrector("a*(b+(c+d)/e)+b*0+5+4-1*n").correct()
-    # expression = generator.genRandomEqationWithValues(10, 9)
+    # expression = generator.genRandomEqationWithValues(100, 100)
 
     """ Lab 3 """
     # expression = associator.associate(expression)

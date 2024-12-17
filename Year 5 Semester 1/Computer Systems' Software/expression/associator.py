@@ -27,10 +27,10 @@ def associate(expression:str):
             tmp += result[i]
     tmp = tmp.replace(")", coloring.wrap(")", coloring.Color.Foreground.GREEN))
     
-    print("\n"+
-          "##### Результат асоціації #####\n"+
-         f"{tmp}"
-    )
+    # print("\n"+
+    #       "##### Результат асоціації #####\n"+
+    #      f"{tmp}"
+    # )
     
     return result
 

@@ -63,11 +63,11 @@ class Node():
         self.id: int = None
         self.level: int = None
         self.parent: Node|None = None
-        self.children: tuple[str, str] = tuple()
+        self.children: list[Node, Node] = []
 
 
     def setChildren(self, left, right):
-        self.children = (left, right)
+        self.children = [left, right]
         left.parent = self
         right.parent = self
     
