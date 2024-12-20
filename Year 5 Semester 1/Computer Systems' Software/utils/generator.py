@@ -11,17 +11,11 @@ def genRandomEquation(len:int) -> str:
     return ''.join(random.choices(string.ascii_lowercase + string.digits + "+-*/^().", k=len))
 
 
-def genRandomEqationWithValues(operatorCount:int, high:float, rounding:int = maxsize) -> str:
-    operators = "+-*/"
+def genRandomEqationWithValues(operatorCount:int, variableCount:int) -> str:
+    operators = "+-*/^"
     
-    expression = str(round(random.uniform(0, high), rounding))
-    
+    expression = random.choice(string.ascii_lowercase[:variableCount])
     for _ in range(operatorCount):
-        expression += str(random.choice(operators))
-        # avoid division by zero
-        if expression[-1] == "/":
-            expression += str(round(random.uniform(1, high), rounding))
-        else:
-            expression += str(round(random.uniform(0, high), rounding))
+        expression += random.choice(operators) + random.choice(string.ascii_lowercase[:variableCount])
     
     return expression

@@ -9,6 +9,7 @@ def evaluate(tree:Tree, processes:int, printDiagram:bool):
         print("\n" + diagram.header())
     
     steps = 0
+    worksteps = 0
     
     # edgecase when there is an leaf next to the root
     for i in range(len(tree.root.children)):
@@ -43,8 +44,10 @@ def evaluate(tree:Tree, processes:int, printDiagram:bool):
         # trim the tree
         for path in activePaths:
             evalNode(tree.root, path)
-        # count the steps
-        steps += OPERATION_SPEED[mostFrequentSymbol[0]] * len(activePaths)
+        
+        # update stats
+        steps += OPERATION_SPEED[mostFrequentSymbol[0]]
+        worksteps += OPERATION_SPEED[mostFrequentSymbol[0]] * len(activePaths)
         
         # print diagram
         if printDiagram:
@@ -58,7 +61,7 @@ def evaluate(tree:Tree, processes:int, printDiagram:bool):
         print(diagram.body(tree.root.symbol, 1))
         print(diagram.bottom())
     
-    return steps
+    return steps, round(worksteps / (steps * processes), 2)
 
 
 def traverse(root:Node):

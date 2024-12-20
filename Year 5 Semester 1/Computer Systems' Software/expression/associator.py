@@ -3,7 +3,7 @@ import re
 import utils.coloring as coloring
 
 
-def associate(expression:str):
+def associate(expression:str, doPrint:bool):
     expression = simplify(splitter(expression))
     
     result = ""
@@ -27,10 +27,11 @@ def associate(expression:str):
             tmp += result[i]
     tmp = tmp.replace(")", coloring.wrap(")", coloring.Color.Foreground.GREEN))
     
-    # print("\n"+
-    #       "##### Результат асоціації #####\n"+
-    #      f"{tmp}"
-    # )
+    if doPrint:
+        print("\n"+
+            "##### Результат асоціації #####\n"+
+            f"{tmp}"
+        )
     
     return result
 

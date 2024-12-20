@@ -3,6 +3,7 @@ import expression.tree as tree
 import expression.associator as associator
 import expression.comutator as comutator
 import expression.evaluator_old as oldEvaluator
+import expression.evaluator as evaluator
 import expression.speedtest as speedtest
 import utils.generator as generator
 
@@ -14,8 +15,8 @@ os.environ["PATH"] += os.pathsep + 'C:\\Program Files\\Graphviz\\bin'
 if __name__ == "__main__":
     """ Lab 1 (required) """
     # expression = Corrector(generator.genRandomEquation(100)).correct()
-    expression = Corrector("a*(b+(c+d)/e)+b*0+5+4-1*n").correct()
-    # expression = generator.genRandomEqationWithValues(100, 100)
+    # expression = Corrector("-a+(v+p*(6-h+b*(d+u+5+10)))").correct()
+    expression = generator.genRandomEqationWithValues(100, 15)
 
     """ Lab 3 """
     # expression = associator.associate(expression)
@@ -39,6 +40,9 @@ if __name__ == "__main__":
     #     "n": 6,
     # }
     # result = oldEvaluator.evaluate(expression, params)
+    # evaluator.evaluate(tree.parseExpression("((a+b-c)*(d/e+f-g)*(h^i+j*k-l/m+n)-(p*q/r+s*t-u+v)*(w-x+y*z^a/b+c)-(a^b/c*d-e+f*g-h+i-j*k+l/m*n))"), 7, True)
+    # evaluator.evaluate(tree.parseExpression(expression), 6, True)
+    
     
     """ Lab 6 """
     speedtest.test(expression)
