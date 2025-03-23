@@ -1,10 +1,12 @@
 import json
 
-import kafka
+from kafka import KafkaConsumer
 
 import utils.consts as consts
 
-consumer = kafka.KafkaConsumer(consts.TOPIC)
+consumer = KafkaConsumer(consts.TOPIC)
 
+i = 1
 for msg in consumer:
-    print(json.loads(msg.value))
+    print(f"{i} | {json.loads(msg.value)}")
+    i += 1

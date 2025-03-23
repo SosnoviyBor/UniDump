@@ -2,16 +2,18 @@ import random
 import json
 import time
 
-import kafka
+from kafka import KafkaProducer
 
 import utils.consts as consts
 from utils.random_date import random_date
 from utils.progress_bar import print_progress_bar
 
-producer = kafka.KafkaProducer(
+
+producer = KafkaProducer(
     bootstrap_servers=consts.BOOTSTRAP_SERVER,
     value_serializer=lambda v: json.dumps(v).encode("utf-8"),
 )
+
 
 data = [
     {
@@ -25,5 +27,9 @@ data = [
 print_progress_bar(0, len(data))
 for i in range(len(data)):
     producer.send(consts.TOPIC, data[i])
+    producer.flush(3)
     print_progress_bar(i + 1, len(data))
-    time.sleep(3)
+    time.sleep(0.1)
+
+producer.flush()
+producer.close()
