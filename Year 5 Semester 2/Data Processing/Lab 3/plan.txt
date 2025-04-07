@@ -1,0 +1,10 @@
+0. Load database into the topic (only once) -> topics: lab3-total
+
+1. Consume stuff to kstream and filter it
+2. Produce stuff to their respective topics - > topics: [
+    lab3-filtered-by-year,
+    lab3-filtered-capacity-less-10,
+    lab3-filtered-capacity-10-100,
+    lab3-filtered-capacity-over-100
+]
+3. Consume stuff to consumer
