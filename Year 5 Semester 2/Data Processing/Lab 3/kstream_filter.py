@@ -12,7 +12,7 @@ stream_engine = create_engine(title="lab3-stream-engine")
 
 @stream_engine.stream(topics="lab3-total", auto_offset_reset="earliest")
 async def consume(cr: ConsumerRecord):
-    payload = json.load(cr.value)
+    payload = json.loads(cr.value.decode("utf-8"))
 
     # filter by date
     if (
