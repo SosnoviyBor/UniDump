@@ -1,0 +1,1 @@
+start "Faust" "e:/Data/Homewerk/Year 5 Semester 2/Data Processing/Lab 4/venv/Scripts/python.exe" "e:/Data/Homewerk/Year 5 Semester 2/Data Processing/Lab 4/t3_brancher.py" worker -l info
