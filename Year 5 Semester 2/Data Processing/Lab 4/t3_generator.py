@@ -12,27 +12,42 @@ from utils.progress_bar import print_progress_bar
 producer = KafkaProducer(
     bootstrap_servers=consts.BOOTSTRAP_SERVER,
     value_serializer=lambda v: json.dumps(v).encode("utf-8"),
-    key_serializer=lambda v: bytes((v)),
+    key_serializer=lambda k: bytes(k)
 )
 
 
-data = [
-    {
-        "date": random_date("2009-02-23", "2021-06-01", "%Y-%m-%d", random.random()),
-        "solar_mwh": random.uniform(323.579662605013, 12.1098796796944),
-        "solar_capacity": round(random.uniform(500, 3.6), 1),
-    }
-    for _ in range(20)
-]
+entries = 100
 
-print_progress_bar(0, len(data))
-for i in range(len(data)):
+print_progress_bar(0, entries)
+for i in range(entries):
     producer.send(
-        topic=consts.TOPICS["random"], key=random.randint(1, 3), value=data[i]
+        topic=consts.topics.B1,
+        key=i,
+        value={
+            "id": i,
+            "date": random_date(
+                "2009-02-23", "2021-06-01", "%Y-%m-%d", random.random()
+            ),
+        },
     )
+    producer.send(
+        topic=consts.topics.B2,
+        key=i,
+        value={
+            "id": i,
+            "solar_mwh": random.uniform(323.579662605013, 12.1098796796944),
+        },
+    )
+    # producer.send(
+    #     topic=consts.topics.B3,
+    #     value={
+    #         "id": i,
+    #         "solar_capacity": round(random.uniform(500, 3.6), 1),
+    #     },
+    # )
     producer.flush(3)
-    print_progress_bar(i + 1, len(data))
-    time.sleep(0.1)
+    print_progress_bar(i + 1, entries)
+    time.sleep(0.001)
 
 producer.flush()
 producer.close()

@@ -35,4 +35,4 @@ secrets.*
 ~*.tmp
 Year 3 Semester 2/Microservices/services/bot_service/config.py
 /Year 4 Semester 1/System modelling/PetriPaint/nbproject/private/
-Year 5 Semester 2/Data Processing/KafkaRoot.lnk
+*.lnk

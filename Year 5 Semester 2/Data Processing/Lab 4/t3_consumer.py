@@ -4,9 +4,7 @@ from kafka import KafkaConsumer
 
 import utils.consts as consts
 
-consumer = KafkaConsumer(consts.TOPICS["total"], auto_offset_reset="earliest")
+consumer = KafkaConsumer(consts.topics.B3, auto_offset_reset="latest")
 
-i = 1
-for msg in consumer:
+for i, msg in enumerate(consumer, start=1):
     print(f"{i} | {json.loads(msg.value)}")
-    i += 1

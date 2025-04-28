@@ -1,59 +1,38 @@
-import json
-import datetime
-
-import aiorun
-from kstreams import create_engine, ConsumerRecord
+import faust
 
 import utils.consts as consts
+from db_model import Solar
 
 
-stream_engine = create_engine(title="lab4-stream-engine")
-
-total_capacity_in_preiod = 0
-count_capacity = 0
-count_capacity_in_period = 0
-count_consumed = 0
+app = faust.App("lab4_t1-2_v12", consumer_auto_offset_reset="latest", store="memory://")
+main_data_topic = app.topic(consts.topics.DB, value_type=Solar)
+capacity_by_year = app.Table("capacity_by_year_v12", default=float, partitions=8)
+low_entries = app.Table("low_entries_v12", default=int, partitions=8)
 
 
-@stream_engine.stream(topics=consts.TOPICS["total"], auto_offset_reset="earliest")
-async def consume(cr: ConsumerRecord):
-    global total_capacity_in_preiod
-    global count_capacity
-    global count_capacity_in_period
-    global count_consumed
-
-    payload = json.loads(cr.value.decode("utf-8"))
-
-    if (
-        datetime.datetime(day=1, month=1, year=2018)
-        <= datetime.datetime.strptime(payload["date"], "%Y-%m-%d")
-        <= datetime.datetime(day=31, month=12, year=2020)
-    ):
-        total_capacity_in_preiod += payload["solar_capacity"]
-
-        if payload["solar_capacity"] < 10:
-            count_capacity_in_period += 1
-
-    if payload["solar_capacity"] < 10:
-        count_capacity += 1
-
-    count_consumed += 1
-    print(f"Оброблено запис №{count_consumed}")
+# sum of solar_capacity by year
+@app.agent(main_data_topic)
+async def sum_by_year(stream: faust.Stream):
+    await main_data_topic.declare()
+    event: Solar
+    # async for event in stream.group_by(Solar.year):
+    async for event in stream.group_by(Solar.year):
+        if 2018 <= int(event.year) <= 2020:
+            capacity_by_year[event.year] += event.solar_capacity
+            print(f"{capacity_by_year[event.year] = }")
 
 
-async def start():
-    await stream_engine.start()
-
-
-async def shutdown(loop):
-    print(
-        f"> Загалом вироблено енергії за 2018-2020 роки: {total_capacity_in_preiod}\n"
-        + f"> Записів де об’єм виробленої сонячної енергії менше 10: {count_capacity}\n"
-        + f"> Записів де об’єм виробленої сонячної енергії менше 10 за період 2018 та 2020 роки: {count_capacity_in_period}\n"
-    )
-
-    await stream_engine.stop()
+# count entries with solar_capacity < 10
+@app.agent(main_data_topic)
+async def count_low_capacity(stream: faust.Stream):
+    await main_data_topic.declare()
+    event: Solar
+    # cant group by floats for some reason
+    async for event in stream:
+        if float(event.solar_capacity) < 10:
+            low_entries[0] += 1
+            print(f"{low_entries[0] = }")
 
 
 if __name__ == "__main__":
-    aiorun.run(start(), stop_on_unhandled_errors=True, shutdown_callback=shutdown)
+    app.main()

@@ -1,5 +1,6 @@
 import time
 
+
 def random_date(start, end, time_format, prop):
 
     stime = time.mktime(time.strptime(start, time_format))
