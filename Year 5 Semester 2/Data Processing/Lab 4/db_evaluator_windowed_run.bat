@@ -1,0 +1,1 @@
+start "DB Evaluator Windowed" "e:/Data/Homewerk/Year 5 Semester 2/Data Processing/Lab 4/venv/Scripts/python.exe" "e:/Data/Homewerk/Year 5 Semester 2/Data Processing/Lab 4/db_evaluator_windowed.py" worker -l info
